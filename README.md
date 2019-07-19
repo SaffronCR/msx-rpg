@@ -13,19 +13,19 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * The fourth page contains the dungeon walls.
 
 **Things done**
-* Dungeon rendering/movement
-* Minimap (for debugging)
+* Dungeon rendering/movement.
+* Minimap (for debugging).
 
 **To-Do List**
-* Menu navigation
-* Character creation
-* HUD
-* Hub Town
-* Enemies/Combat
-* Inventory
-* Save/Load game
-* Sound
-* Dungeon generation/loading
+* Menu navigation.
+* Character creation.
+* HUD.
+* Hub Town.
+* Enemies/Combat.
+* Inventory.
+* Save/Load game.
+* Sound.
+* Dungeon generation/loading.
 
 ## Third party resources:
 **Fusion-C Library 1.1**
