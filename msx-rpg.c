@@ -22,7 +22,7 @@
 #define JOY_LEFT 7
 #define JOY_RIGHT 3
 
-#define DUNGEON_SIZE 8
+#define DUNGEON_SIZE 16
 
 #define BF_PG 1
 #define BG_PG 2
@@ -135,14 +135,22 @@ unsigned char dungeon_palette[] =
 
 unsigned char dungeon_01[DUNGEON_SIZE*DUNGEON_SIZE] =
 {
-  1, 1, 1, 1, 1, 1, 1, 1,
-  1, 0, 0, 0, 1, 0, 1, 1,
-  1, 0, 1, 0, 1, 0, 1, 1,
-  1, 0, 1, 0, 0, 0, 0, 1,
-  1, 0, 1, 0, 1, 0, 1, 1,
-  1, 0, 0, 0, 1, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 0, 1,
-  1, 1, 1, 1, 1, 1, 1, 1
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
+  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
+  1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1,
+  1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1,
+  1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1,
+  1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1,
+  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
+  1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1,
+  1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1,
+  1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1,
+  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1,
+  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
 int dir_translate_x[] = { 0, 1, 0, -1 };
@@ -578,6 +586,24 @@ void sf_update_dungeon_screen ()
   db_state = ReadyToTransfer;
 }
 
+void sf_draw_minimap ()
+{
+  for (int x = 0; x < DUNGEON_SIZE; x++)
+  {
+    for (int y = 0; y < DUNGEON_SIZE; y++)
+    {
+      if (dungeon_01[x+y*DUNGEON_SIZE] == 1)
+      {
+        Pset (x, y, 10, LOGICAL_IMP);
+      }
+      else if (player_pos_x == x && player_pos_y == y)
+      {
+        Pset (x, y, 11, LOGICAL_IMP);
+      }
+    }
+  }
+}
+
 void sf_update_screen ()
 {
   if (db_state == ReadyToTransfer)
@@ -598,6 +624,9 @@ void sf_update_screen ()
     else if (player_dir == South) PutText (100, 20, "South", LOGICAL_IMP);
     else                          PutText (100, 20, "West",  LOGICAL_IMP);
 
+    // Minimap.
+    sf_draw_minimap ();
+
     db_state = Finished;
   }
 }
@@ -606,7 +635,7 @@ void sf_move (int newPosX, int newPosY)
 {
   if (newPosX > 0 && newPosX < DUNGEON_SIZE-1 &&
       newPosY > 0 && newPosY < DUNGEON_SIZE-1 &&
-      dungeon_01[newPosX + newPosY*8] == 0)
+      dungeon_01[newPosX + newPosY*DUNGEON_SIZE] == 0)
   {
     player_pos_x = newPosX;
     player_pos_y = newPosY;
@@ -638,7 +667,7 @@ void sf_rotate_right ()
 // Reads joystick input, from keyboard's arrow keys and joystick port 1.
 void sf_update_joy ()
 {
-  for (int i=0; i<1; i++)
+  for (int i = 0; i < 1; i++)
   {
     joy = JoystickRead (i);
     trig = TriggerRead (i);
