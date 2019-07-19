@@ -2,7 +2,7 @@
 
 The objective of this project is to learn some programming for MSX2 computers while having some fun creating a Dungeon Crawler.
 
-![Ingame Screenshot](https://pbs.twimg.com/media/D-VI9GcWwAANnq4.png)
+![Ingame Screenshot](https://pbs.twimg.com/media/D_25hSiXoAUTuZ3.png)
 
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
@@ -14,6 +14,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 
 **Things done**
 * Dungeon rendering/movement
+* Minimap (for debugging)
 
 **To-Do List**
 * Menu navigation
