@@ -359,15 +359,11 @@ public class EncounterController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    //OppositeDecideToLeave();
-
-                    NextTurn();
+                    AcceptDemand();
                 }
                 else if (Input.GetKeyDown(KeyCode.R))
                 {
-                    //OppositeDecideToFight();
-
-                    NextTurn();
+                    RefuseDemand();
                 }
             }
             else if (opAsked)
@@ -560,5 +556,13 @@ public class EncounterController : MonoBehaviour
                 NextTurn();
             }
         }
+    }
+
+    private void AcceptDemand()
+    {
+    }
+
+    private void RefuseDemand()
+    {
     }
 }
