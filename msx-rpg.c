@@ -28,8 +28,8 @@
 #define BG_PG 2
 #define WL_PG 3
 
-#define DUNGEON_SCREEN_X 48
-#define DUNGEON_SCREEN_Y 36
+#define DUNGEON_SCREEN_X 2 * 8
+#define DUNGEON_SCREEN_Y 4 * 8
 #define DUNGEON_SCREEN_DX 160
 #define DUNGEON_SCREEN_DY 120
 
@@ -115,22 +115,22 @@ unsigned char load_buffer[BUFFER_SIZE];
 
 unsigned char dungeon_palette[] =
 {
-  0,0,0,0,
-  1,0,0,0,
-  2,0,0,0,
-  3,0,0,0,
-  4,0,0,0,
-  5,0,0,0,
-  6,0,0,0,
-  7,0,0,0,
-  8,0,0,0,
-  9,2,1,1,
-  10,1,1,3,
-  11,4,2,1,
-  12,6,2,2,
-  13,6,3,1,
-  14,4,4,5,
-  15,6,6,2
+	0, 0, 0, 0,
+	1, 2, 1, 1,
+	2, 1, 1, 3,
+	3, 2, 2, 2,
+	4, 4, 2, 1,
+	5, 1, 3, 1,
+	6, 6, 2, 2,
+	7, 3, 3, 3,
+	8, 2, 3, 6,
+	9, 6, 3, 1,
+	10, 4, 4, 4,
+	11, 3, 5, 1,
+	12, 6, 5, 4,
+	13, 6, 6, 3,
+	14, 1, 0, 1,
+	15, 6, 7, 6,
 };
 
 unsigned char dungeon_01[DUNGEON_SIZE*DUNGEON_SIZE] =
@@ -172,7 +172,7 @@ void sf_error_handler (char n, char *name)
 {
   InitPSG ();
   Screen (0);
-  SetColors (15,6,6);
+  SetColors (15, 6, 6);
   
   switch (n)
   {
@@ -231,7 +231,7 @@ void sf_sc5_data (char *buffer, int y, int nbl)
 }
 
 // #TODO Check if the values are correct.
-int sf_load_sc5_image (char *file_name, unsigned int start_Y, char *buffer)
+int sf_load_sf5_image (char *file_name, unsigned int start_Y, char *buffer)
 {
   int rd = BUFFER_SIZE;
   int nbl = 0;
@@ -246,11 +246,11 @@ int sf_load_sc5_image (char *file_name, unsigned int start_Y, char *buffer)
   }
 
   // Skip 7 first bytes of the file.
-  fcb_read (&file, buffer, 7);
+  //fcb_read (&file, buffer, 7);
 
   while (rd != 0)
   {
-    SetColors (0, 0, buffer[192]);
+    SetColors (15, 0, buffer[69]);
 
     rd = fcb_read (&file, buffer, BUFFER_SIZE);
     if (rd!=0)
@@ -258,7 +258,7 @@ int sf_load_sc5_image (char *file_name, unsigned int start_Y, char *buffer)
       // screen 5 (4 bits x 256 x 212).
       nbl = rd / 128;
 
-      SetColors (0, 0, 0);
+      SetColors (15, 0, 0);
 
       //sf_sc5_data( buffer, start_Y, nbl);
 
@@ -565,12 +565,77 @@ void sf_update_dungeon ()
   }
 }
 
+void sf_draw_tiles_background ()
+{
+  // TEST: Draw tiles background.
+  for (int x=0; x<32; x++)
+  {
+    for (int y=0; y<26; y++)
+    {
+      sf_screen_copy (160,   0, 
+                        8,   8, 
+                      x*8, y*8, 
+                    BG_PG, BF_PG, opHMMM);
+    }
+  }
+}
+
+void sf_draw_avatars ()
+{
+  sf_screen_copy ( 0, 120,
+                  32,  32,
+                  180, 1*32+4,
+                  BG_PG, BF_PG, opHMMM);
+
+  sf_screen_copy (32, 120,
+                  32,  32,
+                  180, 2*32+4+8,
+                  BG_PG, BF_PG, opHMMM);
+
+  sf_screen_copy (64, 120,
+                  32,  32,
+                  180, 3*32+4+8+8,
+                  BG_PG, BF_PG, opHMMM);
+}
+
+void sf_draw_combat_menu ()
+{
+  Rect ( 16, 159,
+        224, 167,
+          2, FILL_ALL);
+
+  SetColors (15, 0, 0);
+  PutText (20, 160, "ATTACK", LOGICAL_TIMP);
+
+  SetColors (8, 0, 0);
+  PutText (20, 160+9,        "MAGIC", LOGICAL_IMP);
+  PutText (20, 160+9+9,     "DEFEND", LOGICAL_IMP);
+  PutText (20, 160+9+9+9,  "ITEMS", LOGICAL_IMP);
+
+  // HP bars
+  Rect (180+32+2, 1*32+4,
+        180+32+2+4, 1*32+4+32-1,
+          11, FILL_ALL);
+
+  Rect (180+32+2, 2*32+4+8,
+        180+32+2+4, 2*32+4+32+8-1,
+          11, FILL_ALL);
+
+  Rect (180+32+2, 3*32+4+8+8,
+        180+32+2+4, 3*32+4+32+8+8-1,
+          11, FILL_ALL);                    
+}
+
 // Draw the current dungeon room.
 void sf_update_dungeon_screen ()
 {
   db_state = Updating;
 
-  // Background.
+  // #SAFFRON test.
+  sf_draw_avatars ();
+  
+
+  // Dungeon background.
   sf_screen_copy (0,0, 
                   DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY, 
                   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y, 
@@ -586,6 +651,18 @@ void sf_update_dungeon_screen ()
   db_state = ReadyToTransfer;
 }
 
+void sf_draw_palette ()
+{
+  int x = 0;
+  int y = 0;
+
+  for (int i = 0; i < 16; i++)
+  {
+    Rect (x, y, x+7, y+7, i, FILL_ALL);
+    y+=9;
+  }
+}
+
 void sf_draw_minimap ()
 {
   for (int x = 0; x < DUNGEON_SIZE; x++)
@@ -594,11 +671,11 @@ void sf_draw_minimap ()
     {
       if (dungeon_01[x+y*DUNGEON_SIZE] == 1)
       {
-        Pset (x, y, 10, LOGICAL_IMP);
+        Pset (x+32, y, 10, 0);
       }
       else if (player_pos_x == x && player_pos_y == y)
       {
-        Pset (x, y, 11, LOGICAL_IMP);
+        Pset (x+32, y, 13, 0);
       }
     }
   }
@@ -617,15 +694,21 @@ void sf_update_screen ()
                     BF_PG, 0, opYMMM);
 
     // Using this to check screen redrawing. Actual game text will be handled differently.
-    SetColors (15, 0, 0);
+    SetColors (9, 0, 0);
 
-    if      (player_dir == North) PutText (100, 20, "North", LOGICAL_IMP);
-    else if (player_dir == East)  PutText (100, 20, "East",  LOGICAL_IMP);
-    else if (player_dir == South) PutText (100, 20, "South", LOGICAL_IMP);
-    else                          PutText (100, 20, "West",  LOGICAL_IMP);
+    if      (player_dir == North) PutText (80, 20, "North", LOGICAL_IMP);
+    else if (player_dir == East)  PutText (80, 20, "East",  LOGICAL_IMP);
+    else if (player_dir == South) PutText (80, 20, "South", LOGICAL_IMP);
+    else                          PutText (80, 20, "West",  LOGICAL_IMP);
 
-    // Minimap.
-    sf_draw_minimap ();
+    // #SAFFRON test.
+    sf_draw_combat_menu ();
+
+    // Debug: draw minimap.
+    //sf_draw_minimap ();
+
+    // Debug: draw palette.
+    //sf_draw_palette ();
 
     db_state = Finished;
   }
@@ -718,11 +801,11 @@ void main (void)
 	// Enables Sprites.
 	SpriteOn ();
 
-	// Sets display to specified screen mode (from 0 to 8).
-	Screen (5);
-
 	// Clears console or any screen mode
 	Cls ();
+
+	// Sets display to specified screen mode (from 0 to 8).
+	Screen (5);
 
 	// Disable key sound.
 	KeySound (0);
@@ -733,21 +816,25 @@ void main (void)
 	// Clears the key buffer.
 	KillKeyBuffer ();
 
+  // Set loading text.
+  SetColors (15, 0, 0);
 	PutText (5, 5, "LOADING...", LOGICAL_TIMP);
 
 	// Load screens.
   SetSC5Palette ((Palette *)dungeon_palette);
 
-  sf_load_sc5_image ("BG.SC5",     256 * BG_PG, load_buffer);
-  sf_load_sc5_image ("WALLS.SC5",  256 * WL_PG, load_buffer);
+  sf_load_sf5_image ("BG.SF5",     256 * BG_PG, load_buffer);
+  sf_load_sf5_image ("WALLS.SF5",  256 * WL_PG, load_buffer);
 
 	// Clears console or any screen mode.
 	Cls ();
-  SetColors (0, 0, 0);
 
   // Set interrupt.
   InitInterruptHandler ();
   SetInterruptHandler (sf_video_interrupt);
+
+  // Draw tiles from background.
+  //sf_draw_tiles_background ();
 
   // Initial screen update.
 	sf_update_dungeon_screen ();

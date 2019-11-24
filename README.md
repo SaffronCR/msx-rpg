@@ -34,6 +34,12 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 
 http://www.repro-factory.com/
 
+**Palette based on DB16 - DawnBringer's 16 Col Palette v1.0**
+
+*Author: DawnBringer*
+
+http://pixeljoint.com/forum/forum_posts.asp?TID=12795
+
 **First Person Dungeon Crawl Art Pack**
 
 *Author: Clint Bellanger*
