@@ -1,2 +1,9 @@
 {
+    "files.associations": {
+        "defines.h": "c",
+        "msx_fusion.h": "c",
+        "stdlib.h": "c",
+        "dungeon.h": "c",
+        "vdp_sprites.h": "c"
+    }
 }
