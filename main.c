@@ -1,5 +1,5 @@
 //------------------------------------------------------------------
-// Dungeon Crawler for MSX2 using Fusion-C
+// Dungeon Crawler for MSX2 using Fusion-C.
 //------------------------------------------------------------------
 
 #include <stdio.h>
