@@ -2,12 +2,13 @@
 #include "fusion-c/header/vdp_graph2.h"
 #include <string.h>
  
-static FCB file;
+static FCB file;                            // Initialisatio de la structure pour le systeme de fichiers
  
  
-unsigned char LDbuffer[2200];
+unsigned char LDbuffer[2560];               // Création d'un buffer de 2560 octets (20 lignes en Sc5)
+
  
- void FT_SetName( FCB *p_fcb, const char *p_name ) 
+ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifier le format du nom de fichier
 {
   char i, j;
   memset( p_fcb, 0, sizeof(FCB) );
@@ -25,9 +26,8 @@ unsigned char LDbuffer[2200];
   }
 }
  
-void FT_errorHandler(char n, char *name)
+void FT_errorHandler(char n, char *name)            // Gère les erreurs
 {
-  InitPSG();
   Screen(0);
   SetColors(15,6,6);
   switch (n)
@@ -49,59 +49,34 @@ void FT_errorHandler(char n, char *name)
 Exit(0);
 }
  
-void FT_SC5Data( char *buffer, int y, int nbl)
-{
-    int i,s;
- 
-        s=0;
-        for ( i = 0; i < nbl*128; ++i)
-        {
-            Vpoke(y*128+s,buffer[i]);
-            s=s+1;
- 
-        }
-}
- 
-int FT_LoadSc5Image(char *file_name, unsigned int start_Y, char *buffer)
+int FT_LoadSc5Image(char *file_name, unsigned int start_Y, char *buffer)        // Charge les données d'un fichiers
     {
-        int rd=2304;
-        int nbl=0;
-        InitPSG();
+
+        int rd=2560;
+
         FT_SetName( &file, file_name );
         if(fcb_open( &file ) != FCB_SUCCESS) 
         {
-          FT_errorHandler(1, file_name);
-          return (0);
+              FT_errorHandler(1, file_name);
+              return (0);
         }
-        fcb_read( &file, buffer, 7 );  // Skip 7 first bytes of the file
-        while(rd!=0)
+
+        fcb_read( &file, buffer, 7 );  // Skip 7 first bytes of the file  
+        while (rd!=0)
         {
- 
-            rd = fcb_read( &file, buffer, 2176 );
-                if (rd!=0)
-                {
- 
-                  nbl=rd/128;
-                  //HMMC(buffer, 0,start_Y,256,nbl ); // Move the buffer to VRAM. 17 lines x 256 pixels  from memory
-                  FT_SC5Data( buffer, start_Y, nbl);
-                  start_Y=start_Y+nbl; 
-              }
-        }
-      if( fcb_close( &file ) != FCB_SUCCESS ) 
-      {
-         FT_errorHandler(2, file_name);
-          return (0);
-      }
- 
+             rd = fcb_read( &file, buffer, 2560 );  // Read 20 lines of image data (128bytes per line in screen5)
+             HMMC(buffer, 0,start_Y,256,20 ); // Move the buffer to VRAM. 
+             start_Y=start_Y+20;
+         }
+
 return(1);
 }
  
  
 void main(void)
 { 
-    char a,l,r;
-    int i;
-    char mypalette[] = {
+
+    char mypalette[] = {                // Palette SC5
     0, 0,0,0,
     1, 2,1,1,
     2, 6,5,4,
@@ -122,8 +97,18 @@ void main(void)
  
     Screen(5);
     SetColors(15,0,0);    
- 
-    FT_LoadSc5Image("mona.sc5",0,LDbuffer);
+    Cls();
+    PutText(0,0,"Page 0-(Push a key to continue)",0);        // Page 0
+    WaitForKey();                   // Attend une touche
+  
+    SetDisplayPage (2);             // Page 2
+    SetActivePage(2);
+    Cls();
+    PutText(0,10,"Page 2-(Push a key to continue)",0);
+    WaitForKey();                   // Attend une touche
+
+     SetActivePage(0);
+    FT_LoadSc5Image("mona.sc5",512,LDbuffer);       // On charge l'umage
  
     SetSC5Palette((Palette *)mypalette);
  

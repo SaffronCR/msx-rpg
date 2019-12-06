@@ -19,6 +19,8 @@ _Screen::
 	add		hl, sp
 
 	ld		a, (hl)			;;	mode
+	ld 		hl,#0xFCAF		;; Save current mode to FCAF 
+	ld 		(hl),a
 	push	ix
 	ld		ix, #0x005f		;;	chgmod on bios
 	ld		iy, (0xfcc0)	;;	iyh <= (0xfcc1) : EXPTBL(MAIN-ROM SLOT)

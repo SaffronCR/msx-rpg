@@ -587,7 +587,7 @@ void main(void)
 
     RleWBToVram (&cat2[0],50*128);
 
-    RleToVram (&cat3[0],50*128);
+    RleWBToVram (&cat3[0],50*128);
 
     RleWBToVram (&cat4[0],50*128);
 

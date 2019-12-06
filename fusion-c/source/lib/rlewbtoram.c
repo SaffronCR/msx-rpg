@@ -25,7 +25,7 @@
 */
 
 
-void RleToRam (unsigned int *RamSource, unsigned int *RamDest) __naked
+void RleWBToRam (unsigned int *RamSource, unsigned int *RamDest) __naked
 {
 RamSource;
 RamDest;

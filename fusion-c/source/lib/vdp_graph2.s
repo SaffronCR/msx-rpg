@@ -7,7 +7,8 @@
 ;|             |_|  \__,_|___/_|\___/|_| |_| *               |
 ;|                                                           |
 ;|               The MSX C Library for SDCC                  |
-;|                   V1.0 - 09-10-11 2018                    |
+;|                     V1.1b - July 2019                     |
+;|                       V1 by sylvain                       |
 ;|                                                           |
 ;|                Eric Boez &  Fernando Garcia               |
 ;|                                                           |
@@ -48,7 +49,7 @@ _pos_byXY:		; Procedure calculates hl offset and sets VDP for writing
 	ld	a,e	; e=y[0..211]
 	ld	de,#0
 	bit	#0,a
-	jr	z,lb_l2b
+	jp	z,lb_l2b
 	ld	e,#0x80
 lb_l2b:
 	rra
@@ -97,13 +98,13 @@ EXBRSA	.equ	0xFAF8			; the slot of SUB-ROM (0 for MSX1)
 _vMSX::
 	ld	a, (EXBRSA)	; do not touch TMS9918A of MSX1, just obtain technical slot presence
 	or	a
-	jr	nz, lb_vrYm
+	jp	nz, lb_vrYm
 				; MSX1
 	ld	de, #_MSX1_err_
 	ld	c, #9
 	call	#5	; display "MSX1 not supported"
 	ld	a,#1
-	jr	lb_vrEx
+	jp	lb_vrEx
 
 lb_vrYm:
 	ld	a,#2		; MSX2 and above
@@ -113,15 +114,9 @@ lb_vrEx:
 	ret
 
 
-						; .area	_XDATA
-
-
-
 _MSX1_err_:	.ascii "MSX1 not supported by VDPgraph2$\n"
 _curHL:		.dw #0
 	
-
-	.area	_CODE
 
 ;
 ; Coordinate system of VRAM
@@ -146,9 +141,6 @@ _curHL:		.dw #0
 ; ------------------------------	  1FFFFH
 
 
-
-
-
 ;
 ; AHL is 17 bit value of
 ; Left upper corner of each pages:
@@ -162,11 +154,10 @@ _curHL:		.dw #0
 _getAHL:
 	ld	hl,#0
 	and	#1
-	jr	z, lb_ahl_0
+	jp	z,lb_ahl_0
 	ld	h,#0x80
 lb_ahl_0:
 	ret
-
 
 ;-----------------------------------------------
 ; Set VDP port $98 to start writing at address AHL (17-bit)
@@ -179,28 +170,28 @@ _SetVDPWrite::           ; A(1bit),HL(16bits) input
 	ld a,(hl)
 
 _isetvdpwrite:
-	push	hl
-	call	_getAHL
+	push hl
+	call _getAHL
 
-        rlc	h
-        rla
-        rlc	h
-        rla
-        srl	h
-        srl	h
-        di
-	out     (#0x99),a
-        ld	a,#14+#128
-	out     (#0x99),a
-        ld	a,l
-        nop
-	out     (#0x99),a
-        ld	a,h
-        or	#64
-        ei
-	out     (#0x99),a
-	pop	hl
-        ret
+	rlc h
+	rla
+	rlc h
+	rla
+	srl h
+	srl h
+	di
+	out (#0x99),a
+	ld  a,#14+#128
+	out (#0x99),a
+	ld  a,l
+	nop
+	out (#0x99),a
+	ld  a,h
+	or  #64
+	ei
+	out (#0x99),a
+	pop hl
+	    ret
 
 ;-----------------------------------------------
 ; A dumb memory to screen write
@@ -218,26 +209,15 @@ _WriteScr::
 ;
 ;  It's better to use BIOS #005C Block transfer to VRAM from memory
 ;
-	push	hl
-	ld	bc,#0x6A00	;256/2 * 212 lines
-	ld	hl,#0
-	call	_VDPwrite
-	pop	hl
-	ld	de,#0
+	push hl
+	ld   bc,#0x6A00	;256/2 * 212 lines
+	ld   hl,#0
+	call _VDPwrite
+	pop  hl
+	ld   de,#0
 	.db	#0xF7	; RST 30h
 	.db	#0x80
 	.dw	#0x005C	; LDIRVM 	Block transfer to VRAM from memory
-
-;
-;	ld	bc,#0x6A00	;256/2 * 212 lines heavy direct VDP access loop
-;lb_wr0:
-;	ld	a,(hl)
-;	inc	hl
-;	out	(#0x98),a
-;	dec	bc
-;	ld	a,b
-;	or	c
-;	jr	nz, lb_wr0
 
 	pop ix
 	ret
@@ -253,23 +233,23 @@ _SetVDPRead::
 	ld a,(hl)
 	call	_getAHL
 
-        rlc	h
-        rla
-        rlc	h
-        rla
-        srl	h
-        srl	h
-        di
+	rlc	h
+	rla
+	rlc	h
+	rla
+	srl	h
+	srl	h
+	di
 	out     (#0x99),a       ;set bits 15-17
 	ld	a,#128+#14
 	out     (#0x99),a
-        ld      a,l		;set bits 0-7
-        nop
+	ld      a,l		;set bits 0-7
+	nop
 	out     (#0x99),a
-        ld	a,h		;set bits 8-14
-        ei			; + read access
+	ld	a,h		;set bits 8-14
+	ei			; + read access
 	out     (#0x99),a
-        ret
+	ret
 
 ;-----------------------------------------------
 ; A dumb screen to memory read
@@ -347,7 +327,7 @@ VDPready:
 
 ;	bit	#0,a
 	and #1
-	jr	nz, VDPready	; wait
+	jp	nz, VDPready	; wait
 
 ;	rra ; sct: instruction inutile
 	xor	a
@@ -358,59 +338,6 @@ VDPready:
 ;	jr	c,VDPready    ;wait till previous VDP execution is over (CE)
 	ret
 
-
-;****************************************************************
-;	PSET puts pixel
-;		 to use, set H, L, E, D as follows
-;		 pset (x: H, y: L), color: E, logi-OP: D
-;****************************************************************
-;
-
-_Pset::
-	push ix
-	ld ix,#0
-	add ix,sp
-	ld h,4(ix)
-	ld l,6(ix)
-	ld e,8(ix)
-	ld d,10(ix)
-	pop ix
-_ipset:
-	di
-	call	VDPready
-;	call	WAITVDP
-
-	ld	a,#36
-	out	(#0x99),a ; sct: attention le port VDP peut ne pas etre 0x99!
-	ld	a,#128+#17
-	out	(#0x99),a
-
-	xor	a
-	ld	c,#0x9b
-	out	(c),h ; x
-	out	(c),a
-	out	(c),l ; y
-	out	(c),a
-
-	ld	a,#44
-	out	(#0x99),a
-	ld	a,#128+#17
-	out	(#0x99),a
-
-	out	(c),e ; couleurs
-	xor	a
-	out	(c),a
-
-	ld	e,#0b01010000 ; sct: instruction Pset
-	ld	a,d	; sct: prise en compte de l operation logique
-	and #0x0f ; sct: pour eviter d'ecraser le quartet fort Pset
-	or	e
-	out	(c),a
-
-;	call	VDPready ; sct: inutile d attendre encore la fin de la commande video si on la prend en compte au debut de chaque commande vdp
-
-	ei
-	ret
 
 ;****************************************************************
 ; METHOD 2   Locate AHL, then set writing, then
@@ -440,7 +367,7 @@ _ipsetXY:
 	call	_VDPget2pixels
 	pop	de
 	bit	#0,d
-	jr	nz,lb_pst2
+	jp	nz,lb_pst2
 	and	#0x0F
 	ld	c,a
 	ld	a,b
@@ -449,7 +376,7 @@ _ipsetXY:
 	rla
 	rla
 	or	c
-	jr lb_pstS
+	jp lb_pstS
 lb_pst2:
 	and	#0xF0
 	or	a,b
@@ -486,7 +413,7 @@ _ipgetXY:
 	pop	de
 
 	bit	#0,d
-	jr	nz,lb_psg2
+	jp	nz,lb_psg2
 	and	#0xF0
 	rra
 	rra
@@ -501,34 +428,41 @@ lb_psg2:
 ;		 to use, set H, L as follows
 ;		 POINT ( x:H, y:L )
 ;		 returns:   A := COLOR CODE
+; 			Screen 7 fixed : Eric
 ;****************************************************************
 
 _Point::
 	push ix
 	ld ix,#0
 	add ix,sp
-	ld h,4(ix)
-	ld l,6(ix)
-	pop ix
+	
 _ipoint:
 	di
-	call	VDPready
+	call    VDPready
+	ld    a,#32
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 32
 
-	ld	a,#32
-	out	(#0x99),a
-	ld	a,#128+#17
-	out	(#0x99),a
+	ld    c,#0x9b
 
-	xor	a
-	ld	c,#0x9b
-	out	(c),h
-	out	(c),a
-	out	(c),l
-	out	(c),a
+	ld  a,4(ix)  ;
+	out    (c),a    ; R32 DX low byte
+
+	ld  a,5(ix)  ;
+	out    (c),a    ; R33 DX high byte
+
+	ld  a,6(ix)  ;
+	out    (c),a    ; R34 DY low byte
+
+	ld  a,7(ix)  ;
+	out    (c),a    ; R35 DY high byte
+
 
 	out	(#0x99),a
 	ld	a,#128+#45
 	out	(#0x99),a
+	
 	ld	a,#0b01000000
 	out	(#0x99),a
 	ld	a,#128+#46
@@ -537,25 +471,135 @@ _ipoint:
 	call	VDPready
 
 	ld	a,#7
-	call	hmmc_Status
+	call	mmc_Status
 	push	af
 	xor	a
-	call	hmmc_Status
+	call	mmc_Status
 	pop	af
 
 	ld	l,a
 	ld	h,#0
 	ei
+	pop ix
 	ret
 
+
+
 ;****************************************************************
-; draws LINE
+; New LINE     !!! NOT WORKING !!!
+;        
+;        draw LINE 
+; 
+;****************************************************************
+
+;; Nouveau LINE par ERIC , mais ca ne marche pas !! :-(
+; Utilisation de valeurs 16bits pour pouvoir utiliser en screen 7 . Largeur de 512 pixels
+
+_NewLine::
+push ix
+  ld ix,#0
+  add ix,sp
+
+  di
+  call    VDPready
+  ld    a,#36
+  out    (#0x99),a
+  ld    a,#128+#17
+  out    (#0x99),a    ;R#17 := 36
+
+  ld    c,#0x9b
+
+nline:
+  
+  ld a,4(ix)
+  out (c),a     ; R36 DX Origin low byte
+  ld a,5(ix)    ;
+  out (c),a     ; R37 DX Origin high byte
+
+  ld a,6(ix)
+  out (c),a     ; R38 DY Origin low byte
+  ld a,7(ix)    
+  out (c),a     ; R39 DY Origin high byte
+
+
+;-----------------
+  ld h,9(ix)    ; On place x2 dans HL
+  ld l,8(ix)
+  ld b,5(ix)    ; on place X1 dans DE
+  ld c,4(ix)
+  or a          ; reset C Flag 
+  sbc hl,bc     ; hl=hl-BC.  ->  hl=x2-x1.    SI HL > BC c flag = 0. Dans ce cas DIX doit etre = à 0 (vers la droite)
+  push hl
+  pop iy
+  ld  d,#0b00000000
+  jp  nc,nLINE1
+  ld  d,#0b00000100
+
+nLINE1:
+  
+  ld h,11(ix)   ; On place Y2 dans HL
+  ld l,10(ix)
+  ld b,7(ix)    ; on place Y1 dans DE
+  ld c,6(ix)
+  or a
+  sbc hl,bc     ; Si HL > BC alors c Flag = 0. Dans ce cas DIY doit etre égal à 0 (vers le bas )
+  ld e,#0b00000000
+  jr nc,nLINE2
+  ld e,#0b00001000
+
+nLINE2:
+   
+  push iy
+  pop bc
+  or a
+  sbc hl,bc     ; Si HL > BC alors c Flag = 0. Dans ce cas NY > NX .  MAJ doit être = à 1 
+
+  ld a,#0b00000001
+
+  jr nc,nLINE3      ; si hl est plus petit (nx)
+  ld a,#0b00000000
+
+  ld    c,#0x9b
+  out (c),c     ;R40  long side  low byte
+  out (c),b     ;R41  long side  high byte
+  out (c),l     ;R42  short side low byte
+  out (c),h     ;R43  Short side High byte
+ 
+  JP nLINE4
+  
+nLINE3:
+
+  ld   c,#0x9b
+  out (c),c     ;R40  long side  low byte
+  out (c),b     ;R41  long side  high byte
+  out (c),l     ;R42  short side low byte
+  out (c),h     ;R43  Short side High byte
+
+nLINE4:  
+  ld l,12(ix)     ; Couleur
+  out (c),l       ;R44 Couleur 
+  or d
+  or e
+  out(c),a      ;R45 Parameters
+
+  ld a,13(ix)  ; OP
+
+  ld a,#0b01110000
+  out (c),a
+  
+  ei
+  pop ix
+  ret
+
+
+;****************************************************************
+; draws LINE. (OLD FUNCTION no more used. Keep for comptability reasons)
 ;        to use, set H, L, D, E, B, A and go
 ;        draw LINE (H,L)-(D,E) with color B, log-op A
 ; H,L,D,E absolute values
 ;****************************************************************
 
-_Line::
+_OLD_Line::
 	push ix
 	ld ix,#0
 	add ix,sp
@@ -631,11 +675,13 @@ gLINE4:
 	ei
 	ret
 
+
+
 ;-----------------------------------------------
 ;
 ;	Draws rectangle (H,L)-(D,E) with color B, log-op A
-;
-_Rect::
+;  (OLD FUNCTION no more used. Keep for comptability reasons)
+_OLD_Rect::
 	push ix
 	ld ix,#0
 	add ix,sp
@@ -647,7 +693,7 @@ _Rect::
 	ld b,12(ix)
 	ld c,14(ix)
 	pop ix
-
+	di
 	call	VDPready
 
 	xor	a
@@ -655,11 +701,11 @@ lb_svfl:
 	ld	(#_rect_fill),a
 	ld	a,c
 	cp	#0xff		; if fill case
-	jr	nz, lb_rNfl
+	jp	nz, lb_rNfl
 	xor	a
 	ld	c,a
 	inc	a
-	jr	lb_svfl
+	jp	lb_svfl
 lb_rNfl:
 	push	de
 	push	hl
@@ -676,7 +722,7 @@ lb_rNfl:
 	call	lb_rctl
 	pop	de
 
-	call	VDPready
+;	call	VDPready
 	ld	a,(#_rect_fill)
 	or	a
 	ret	z
@@ -684,8 +730,8 @@ lb_rNfl:
 lb_rcLp:
 	ld	a,h
 	sub	d
-	jr	z, lb_rcOK
-	jr	nc,lb_rcm
+	jp	z, lb_rcOK
+	jp	nc,lb_rcm
 	inc	h
 	inc	h
 lb_rcm:
@@ -694,9 +740,9 @@ lb_rcm:
 	ld	d,h
 	call	lb_rctl
 	pop	de
-	jr	lb_rcLp
+	jp	lb_rcLp
 lb_rcOK:
-	call	VDPready
+;	call	VDPready
 	ret
 
 lb_rctl:
@@ -708,12 +754,13 @@ lb_rctl:
 	pop	bc
 	pop	de
 	pop	hl
+	ei
 	ret
 
-								;.area	_XDATA
 
 _rect_fill:	.db #0
 _lpaintHL:	.dw #0
+
 
 	.area	_CODE
 ;---------------------------
@@ -733,7 +780,7 @@ _Paint::
 	ld e,8(ix)
 	ld d,10(ix)
 	pop ix
-
+	di
 	call	VDPready
 
 		; this is way to limit stack depth, it is better then dumb crash
@@ -744,8 +791,9 @@ _ptAgain:
 	ld	hl,(#_lpaintHL)
 	ld	a,b
 	or	c
-	jr	z,_ptAgain	; if bc==0 then try paint at last position
+	jp	z,_ptAgain	; if bc==0 then try paint at last position
 	call	VDPready
+	ei
 	ret
 
 _paintRR:
@@ -762,28 +810,28 @@ _paintRR:
 lb_ptY0:
 	ld	a,l
 	or	a
-	jr	z,lb_ptX0
+	jp	z,lb_ptX0
 	dec	l
 	call	recIfPaint
 	inc	l
 lb_ptX0:
 	ld	a,h
 	or	a
-	jr	z,lb_ptY2
+	jp	z,lb_ptY2
 	dec	h
 	call	recIfPaint
 	inc	h
 lb_ptY2:
 	ld	a,l
 	cp	#211
-	jr	z,lb_ptX2
+	jp	z,lb_ptX2
 	inc	l
 	call	recIfPaint
 	dec	l
 lb_ptX2:
 	ld	a,h
 	cp	#255
-	jr	z,lb_ptOk
+	jp	z,lb_ptOk
 	inc	h
 	call	recIfPaint
 	dec	h
@@ -791,7 +839,7 @@ lb_ptOk:
 	ld	a,b
 	or	c
 	ret	z	; if bc==0 then just return
-	jr	lb_rbc
+	jp	lb_rbc
 
 recIfPaint:
 	ld	a,b
@@ -808,13 +856,16 @@ recIfPaint:
 	pop	de
 	pop	hl
 	cp	d
-	jr	z,lb_rbc
+	jp	z,lb_rbc
 	cp	e
-	jr	z,lb_rbc
+	jp	z,lb_rbc
 	jp	_paintRR
 lb_rbc:
 	inc	bc
 	ret
+
+
+
 
 ;****************************************************************
 ; HMMC (High speed move CPU to VRAM)
@@ -855,14 +906,12 @@ _HMMC::
 	pop ix
 
 	di
-	;xor	a
-	call	hmmc_wait_VDP
+	call	mmc_wait_VDP
 
 	ld	a,#36	;command register R#36
 	out	(#0x99),a
 	ld	a,#128+#17	;VDP(17)<=36
 	out	(#0x99),a
-	;xor	a
 	ld	c,#0x9b
 	out	(c),l		;X
 	out	(c),h
@@ -873,11 +922,12 @@ _HMMC::
 	out	(c),h		;
 	out	(c),e		;DY in dots
 	out	(c),d		;
-    exx
+	exx
 
 	ld	h,(ix)		;first byte of data
 	out	(c),h
 
+	xor	a
 	out	(c),a		;DIX and DIY = 0
 	ld	a,#0b11110000
 	out	(c),a		; command to do it
@@ -885,7 +935,7 @@ _HMMC::
 	out	(#0x99),a
 	ld	a,#128+#17
 	out	(#0x99),a	; VDP(17)<=44
-hmmc_Loop:
+mmc_Loop:
 	ld	a,#2
 	out	(#0x99),a
 	ld	a,#0x8f
@@ -898,21 +948,21 @@ hmmc_Loop:
 	out	(#0x99),a
 	ld	a,b
 	bit	#7,a		; TR? transferring?
-	jr	z, hmmc_Loop
+	jp	z, mmc_Loop
 	bit	#0,a		; CE? is over?
-	jr	z, hmmc_exit
+	jp	z, mmc_exit
 	inc	ix
 	ld	a,(ix)
 	out	(#0x9b),a
-	jr	hmmc_Loop
-hmmc_exit:
+	jp	mmc_Loop
+mmc_exit:
 	xor	a
-	call	hmmc_Status
+	call	mmc_Status
 	ei
 	pop	ix
 	ret
 
-hmmc_Status:
+mmc_Status:
 	out	(#0x99),a
 	ld	a,#0x8f
 	out	(#0x99),a
@@ -925,15 +975,85 @@ hmmc_Status:
 	pop	af
 	ret
 
-hmmc_wait_VDP:
+mmc_wait_VDP:
 	ld	a,#2
-	call	hmmc_Status
+	call	mmc_Status
 	and	#1
-	jr	nz,hmmc_wait_VDP
+	jp	nz,mmc_wait_VDP
 	xor	a
-	call	hmmc_Status
+	call	mmc_Status
 	ret
 
+;****************************************************************
+; LMMC (Logical move CPU to VRAM)
+;
+; Copies data from memory to block in VRAM with logical operation OP
+;
+; RAM [IX] (OP) => VRAM (H,L)-(D,E)
+;
+; set ix = memory address of data to write to VRAM
+; set h,l,d,e for rectangle to put in
+;****************************************************************
+
+_LMMC::
+	push ix
+	ld ix,#0
+	add ix,sp
+	ld l,4(ix)
+	ld h,5(ix)
+	push hl
+	ld l,6(ix)
+	ld h,7(ix)		;hl=X dst
+	ld e,8(ix)
+	ld d,9(ix)		;de=Y dst
+
+	exx
+	ld c,#0x9b
+	ld l,10(ix)
+	ld h,11(ix)		;hl'=width
+	ld e,12(ix)
+	ld d,13(ix)		;de'=height
+	exx
+
+	ld a,14(ix)  ; OP
+	and #0x0f
+	or  #0b10110000    ;LMMC command with LOGICAL
+	ld b,a
+
+	pop ix
+
+	di
+	call	mmc_wait_VDP
+
+	ld	a,#36	;command register R#36
+	out	(#0x99),a
+	ld	a,#128+#17	;VDP(17)<=36
+	out	(#0x99),a
+	ld	c,#0x9b
+	out	(c),l		;X
+	out	(c),h
+	out	(c),e		;Y
+	out	(c),d
+	exx
+	out	(c),l		;DX in dots
+	out	(c),h		;
+	out	(c),e		;DY in dots
+	out	(c),d		;
+	exx
+
+	ld	h,(ix)		;first byte of data
+	out	(c),h
+
+	xor	a
+	out	(c),a		;DIX and DIY = 0
+
+	out	(c),b		; command to do it
+
+	ld	a,#128+#44
+	out	(#0x99),a
+	ld	a,#128+#17
+	out	(#0x99),a	; VDP(17)<=44
+	jp	mmc_Loop
 
 
 ;****************************************************************
@@ -962,6 +1082,12 @@ _HMCM::
 	ld l,6(ix)
 	ld d,8(ix)
 	ld e,10(ix)
+
+	ld a,14(ix)  ; OP
+	and #0x0f
+	or  #0b10100000	;LMCM command with logical
+	ld b,a
+
 	pop ix
 
 	di
@@ -1000,8 +1126,7 @@ _HMCM::
 	ld	a,#7		;clear TR status
 	call	hmcm_Status
 
-	ld	a,#0b10100000	;LMCM command
-	out	(c),a
+	out	(c),b ; do it
 
 hmcm_Loop:
 	ld	a,#2
@@ -1010,9 +1135,9 @@ hmcm_Loop:
 	out	(#0x99),a
 	in	a,(#0x99)
 	bit	#0,a		; CE? is over?
-	jr	z, hmcm_exit
+	jp	z, hmcm_exit
 	bit	#7,a		; TR? transferring?
-	jr	z, hmcm_Loop
+	jp	z, hmcm_Loop
 
 	; read 2 pixels
 	ld	a,#7		; 1px
@@ -1036,7 +1161,7 @@ hmcm_Loop:
 	ld	(ix),a
 	inc	ix
 
-	jr	hmcm_Loop
+	jp	hmcm_Loop
 hmcm_exit:
 	xor	a
 	call	hmcm_Status
@@ -1055,7 +1180,7 @@ hmcm_wait_VDP:
 	ld	a,#2
 	call	hmcm_Status
 	and	#1
-	jr	nz,hmcm_wait_VDP
+	jp	nz,hmcm_wait_VDP
 	xor	a
 	call	hmcm_Status
 	ret
@@ -1067,7 +1192,7 @@ DIX_DIY:
 	ld	a,h		;make NX and DIX
 	sub	d
 	ld	d,#0b00000100
-	jr	nc,lb_dxy1
+	jp	nc,lb_dxy1
 	ld	d,#0b00000000
 	neg
 lb_dxy1:
@@ -1075,7 +1200,7 @@ lb_dxy1:
  	ld	a,l
 	sub	e
 	ld	e,#0b00001000
-	jr	nc,lb_dxy2
+	jp	nc,lb_dxy2
 	ld	e,#0b00000000
 	neg
 lb_dxy2:
@@ -1084,14 +1209,11 @@ lb_dxy2:
 	ret
 
 
-
-
-
 ;****************************************************************
 ; HMCM_SC8 (High speed move VRAM to CPU)
 
 ;****************************************************************
-;	.area	_XDATA
+	
 _DIX:	.db	0
 _DIY:	.db	0
 _NX:	.dw	0
@@ -1119,7 +1241,12 @@ _HMCM_SC8::
 	ld d,11(ix)			;de' = Y2
 	exx
 
+	ld a,14(ix)  ; OP
+	and #0x0f
+	or  #0b10100000	;LMCM command with logical
+
 	pop ix
+	push af
 
 	di
 	xor	a
@@ -1163,7 +1290,7 @@ _HMCM_SC8::
 	ld	a,#7		;clear TR status
 	call	hmcm_Status
 
-	ld	a,#0b10100000	;LMCM command
+	pop  af
 	out	(c),a
 
 hmcm_Loop_SC8:
@@ -1173,9 +1300,9 @@ hmcm_Loop_SC8:
 	out	(#0x99),a
 	in	a,(#0x99)
 	bit	#0,a		; CE? is over?
-	jr	z, hmcm_exit_SC8
+	jp	z, hmcm_exit_SC8
 	bit	#7,a		; TR? transferring?
-	jr	z, hmcm_Loop_SC8
+	jp	z, hmcm_Loop_SC8
 
 	; read 1 pixel !!!
 	ld	a,#7		; 1px
@@ -1185,7 +1312,7 @@ hmcm_Loop_SC8:
 	in	a,(#0x99)
 	ld	(ix),a
 	inc	ix
-	jr	hmcm_Loop_SC8
+	jp	hmcm_Loop_SC8
 
 hmcm_exit_SC8:
 	;Jeez ... you need to read one last time! :-( ... WTF!
@@ -1219,7 +1346,7 @@ DIX_DIY_SC8:
 	sbc		hl,bc	;X1-X2
 	ld		a,#0b00000100
 	ld		(#_DIX),a
-	jr		nc,lb_dxy1_SC8     ;if X1>=X2 then goto lb_dxy1
+	jp		nc,lb_dxy1_SC8     ;if X1>=X2 then goto lb_dxy1
 	ld		a,#0b00000000  ;X1<X2
 	ld		(#_DIX),a
 	;neg				   	   ;X1-X2 is negative .. now it's making that positive
@@ -1242,7 +1369,7 @@ lb_dxy1_SC8:
 
 	ld	a,#0b00001000
 	ld	(#_DIY),a
-	jr	nc,lb_dxy2_SC8		;if Y1>=Y2 then goto lb_dxy2
+	jp	nc,lb_dxy2_SC8		;if Y1>=Y2 then goto lb_dxy2
 	ld	a,#0b00000000
 	ld	(#_DIY),a
 ;	neg
@@ -1257,20 +1384,57 @@ lb_dxy2_SC8:
 					;right here [NY], [DIY] ok
 	ret
 
-
-
-
-
-
-
-
-
-
 ;****************************************************************
-;  LMMM (High speed Logical move VRAM to VRAM)
-;        to use, set H, L, D, E, B, C, A-logical operation and go
-;        VRAM (H,L)-(D,E) ---> VRAM (B,C)
-;        VRAM (D,E)-(H,L) ---> VRAM (B,C)	;backwards scanned
+;  HMMM (High speed move VRAM to VRAM)
+;  copy a rectangle from 'source' VRAM to 'destination' VRAM
+;  XS X coordinate of pixel source (left side)
+;  YS Y coordinate of pixel source (upper side)
+;  XD X coordinate of pixel destination (left side)
+;  YD Y coordinate of pixel destination (upper side)
+;  DX number of pixels to the right
+;  DY number of pixels to the bottom
+;****************************************************************
+
+_HMMM::
+	push ix
+	ld ix,#0
+	add ix,sp
+
+	di
+	call    VDPready
+	ld    a,#32
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 32
+
+	ld    c,#0x9b
+	ld  a,4(ix)  ;
+	out    (c),a    ; R32 X1 low byte
+	ld  a,5(ix)  ;
+	out    (c),a    ; R33 X1 high byte
+	ld  a,6(ix)  ;
+	out    (c),a    ; R34 Y1 low byte
+	ld  a,7(ix)  ;
+	out    (c),a    ; R35 Y1 high byte
+	ld  a,8(ix)  ;
+	out (c),a    ; R36 X2 low byte
+	ld  a,9(ix)  ;
+	out    (c),a    ; R37 X2 high byte
+	ld  a,10(ix) ;
+	out    (c),a    ; R38 Y2 low byte
+	ld  a,11(ix) ;
+	out    (c),a    ; R39 Y2 high byte
+	ld  a,12(ix) ;
+	out    (c),a     ; R40 DX low byte
+	ld  a,13(ix) ;
+	out    (c),a    ; R41 DX high byte
+	ld  a,14(ix) ;
+	out    (c),a     ; R42 DY low byte
+	ld  a,15(ix) ;
+	out    (c),a    ; R43 DY high byte
+	xor a        ;
+	out    (c),a     ; R44 dummy (color not used by LMMM)
+	out    (c),a     ; R45 DIX and DIY ! DX and DY express in incremental direction ! internal VRAM
 ; byte DIX,DIY=0, explained:
 ; The 0 copies the block starting from the upper left, the 1 from right/bottom.
 ; what's the difference? when copying overlapping source/destination
@@ -1278,6 +1442,263 @@ lb_dxy2_SC8:
 ; when scrolling from right to left DIX/DIY can both be 0
 ;  but copying from left to right DIX must be 1. just figure it out...
 ; Then give coord.positive from right upper corner to left.
+
+	or    #0b11010000    ;HMMM command
+
+	out    (c),a    ;do it
+	ei
+	pop    ix
+	ret
+
+
+;****************************************************************
+; YMMM (high-speed transfer between VRAM in Y direction)
+;
+; Eric
+;****************************************************************
+
+_YMMM::
+	push ix
+	ld ix,#0
+	add ix,sp
+
+	di
+	call    VDPready
+	ld    a,#34
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 34
+
+	ld    c,#0x9b
+	
+	ld  a,6(ix)  ;
+	out    (c),a    ; R34 SY low byte
+
+	ld  a,7(ix)  ;
+	out    (c),a    ; R35 SY high byte
+
+	ld  a,4(ix)  ;
+	out    (c),a    ; R36 XS low byte
+
+	ld  a,5(ix)  ;
+	out    (c),a    ; R37 XS high byte
+
+	ld  a,8(ix)  ;
+	out (c),a    	; R38 DY low byte
+
+	ld  a,9(ix)  ;
+	out    (c),a    ; R39 DY high byte
+
+	ld  a,4(ix) ;
+	out    (c),a    ; R40 -- low byte
+
+	ld  a,5(ix) ;
+	out    (c),a    ; R41 -- high byte
+
+	ld  a,10(ix) ;
+	out    (c),a     ; R42 NY low byte
+
+	ld  a,11(ix) ;
+	out    (c),a    ; R43 NY high byte
+
+	out    (c),a     ; R44 dummy 
+
+	ld  	a,12(ix) ;
+	rla
+	rla
+	out    (c),a     ; R45 DIX and DIY ! 
+
+	;or    #0b11100000   ;YMMM command
+	ld 		a,#0b11100000
+	out    (c),a     ;do it
+	ei
+	pop    ix
+	ret
+
+
+;****************************************************************
+; HMMV painting the rectangle in high speed
+;
+; Eric
+;****************************************************************
+_HMMV::
+	push ix
+	ld ix,#0
+	add ix,sp
+
+	di
+	call    VDPready
+	ld    a,#36
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 36
+
+	ld    c,#0x9b
+	ld  a,4(ix)  ;
+	out    (c),a    ; R36 DX low byte
+
+	ld  a,5(ix)  ;
+	out    (c),a    ; R37 DX high byte
+
+	ld  a,6(ix)  ;
+	out    (c),a    ; R38 DY low byte
+
+	ld  a,7(ix)  ;
+	out    (c),a    ; R39 DY high byte
+
+	ld  a,8(ix)  ;
+	out (c),a    	; R40 NX low byte
+
+	ld  a,9(ix)  ;
+	out    (c),a    ; R41 NX high byte
+
+	ld  a,10(ix) ;
+	out    (c),a    ; R42 NY low byte
+
+	ld  a,11(ix) ;
+	out    (c),a    ; R43 NY high byte
+
+	ld  a,12(ix) ;
+
+	out    (c),a     ; R44 COL low byte
+
+	xor a        ;
+
+	out    (c),a     ; R45 DIX and DIY ! DX and DY express in incremental direction ! internal VRAM
+
+	or    #0b11000000   ;HMMV command
+
+	out    (c),a    ;do it
+	ei
+	pop    ix
+	ret
+
+;****************************************************************
+; LMMV painting the rectangle in high speed with logical operation
+;
+; Eric
+;****************************************************************
+_LMMV::
+
+	push ix
+	ld ix,#0
+	add ix,sp
+
+	di
+	call    VDPready
+	ld    a,#36
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 36
+
+	ld    c,#0x9b
+	ld  a,4(ix)  ;
+	out    (c),a    ; R36 DX low byte
+
+	ld  a,5(ix)  ;
+	out    (c),a    ; R37 DX high byte
+
+	ld  a,6(ix)  ;
+	out    (c),a    ; R38 DY low byte
+
+	ld  a,7(ix)  ;
+	out    (c),a    ; R39 DY high byte
+
+	ld  a,8(ix)  ;
+	out (c),a    	; R40 NX low byte
+
+	ld  a,9(ix)  ;
+	out    (c),a    ; R41 NX high byte
+
+	ld  a,10(ix) ;
+	out    (c),a    ; R42 NY low byte
+
+	ld  a,11(ix) ;
+	out    (c),a    ; R43 NY high byte
+
+	ld  a,12(ix) ;
+	out    (c),a     ; R44 COL low byte
+
+	
+	xor a        ;
+	out    (c),a     ; R45 DIX and DIY ! DX and DY express in incremental direction ! internal VRAM
+
+	ld a,13(ix)  ; OP
+	and #0x0f
+	or    #0b10000000    ;LMMV command 
+
+	out    (c),a    ;do it
+;    call    VDPready
+	ei
+	pop    ix
+	ret
+
+
+
+;****************************************************************
+; PSET VDP COMMAND
+;
+; Eric
+;****************************************************************
+_Pset::
+
+	push ix
+	ld ix,#0
+	add ix,sp
+
+	di
+	call    VDPready
+	ld    a,#36
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 36
+
+	ld    c,#0x9b
+
+	ld  a,4(ix)  ;
+	out    (c),a    ; R36 DX low byte
+
+	ld  a,5(ix)  ;
+	out    (c),a    ; R37 DX high byte
+
+	ld  a,6(ix)  ;
+	out    (c),a    ; R38 DY low byte
+
+	ld  a,7(ix)  ;
+	out    (c),a    ; R39 DY high byte
+
+ 	ld	a,#44
+	out	(#0x99),a
+	ld	a,#128+#17
+	out	(#0x99),a ; R#44
+
+	ld  a,8(ix)  ;
+	out (c),a    	; R44 Col low byte
+
+	ld  a,#0b00000000
+	out    (c),a    ; R45 ARG high byte
+
+
+	ld a,9(ix)  ; OP
+	or    #0b01010000    ;PSET command 
+
+	out    (c),a    ;do it
+
+	ei
+	pop    ix
+	ret
+
+
+;****************************************************************
+;  LMMM (High speed Logical move VRAM to VRAM)
+;  copy a rectangle from 'source' VRAM to 'destination' VRAM
+;  XS X coordinate of pixel source (left side)
+;  YS Y coordinate of pixel source (upper side)
+;  XD X coordinate of pixel destination (left side)
+;  YD Y coordinate of pixel destination (upper side)
+;  DX number of pixels to the right
+;  DY number of pixels to the bottom
+;  OP logical operation to apply if supported
 ;****************************************************************
 
 _LMMM::
@@ -1285,57 +1706,93 @@ _LMMM::
 	ld ix,#0
 	add ix,sp
 
-	ld h,4(ix)
-	ld l,6(ix)
-	ld d,8(ix)
-	ld e,10(ix)
-	ld b,12(ix)
-	ld c,14(ix)
-	ld a,16(ix)
-
 	di
-	push	af
-	call	VDPready
-	ld	a,#32
-	out	(#0x99),a
-	ld	a,#128+#17
-	out	(#0x99),a	;R#17 := 32
+	call    VDPready
+	ld    a,#32
+	out    (#0x99),a
+	ld    a,#128+#17
+	out    (#0x99),a    ;R#17 := 32
 
-	push	de
-	push	bc
-	xor	a
-	ld	c,#0x9b
-	out	(c),h		;X from
-	out	(c),a
-	out	(c),l		;Y from
-	out	(c),a
-	pop	de		; de=bc
-	out	(c),d		;X to
-	out	(c),a
-	out	(c),e 		;Y to
-	out	(c),a
-	pop	de		; de=de
+	ld    c,#0x9b
+	ld  a,4(ix)  ;
+	out    (c),a    ; R32 X1 low byte
+	ld  a,5(ix)  ;
+	out    (c),a    ; R33 X1 high byte
+	ld  a,6(ix)  ;
+	out    (c),a    ; R34 Y1 low byte
+	ld  a,7(ix)  ;
+	out    (c),a    ; R35 Y1 high byte
+	ld  a,8(ix)  ;
+	out (c),a    ; R36 X2 low byte
+	ld  a,9(ix)  ;
+	out    (c),a    ; R37 X2 high byte
+	ld  a,10(ix) ;
+	out    (c),a    ; R38 Y2 low byte
+	ld  a,11(ix) ;
+	out    (c),a    ; R39 Y2 high byte
+	ld  a,12(ix) ;
+	out    (c),a     ; R40 DX low byte
+	ld  a,13(ix) ;
+	out    (c),a    ; R41 DX high byte
+	ld  a,14(ix) ;
+	out    (c),a     ; R42 DY low byte
+	ld  a,15(ix) ;
+	out    (c),a    ; R43 DY high byte
+	xor a        ;
+	out    (c),a     ; R44 dummy (color not used by LMMM)
+	out    (c),a     ; R45 DIX and DIY ! DX and DY express in incremental direction ! internal VRAM
+; byte DIX,DIY=0, explained:
+; The 0 copies the block starting from the upper left, the 1 from right/bottom.
+; what's the difference? when copying overlapping source/destination
+; (a scroller for example)
+; when scrolling from right to left DIX/DIY can both be 0
+;  but copying from left to right DIX must be 1. just figure it out...
+; Then give coord.positive from right upper corner to left.
 
-	call	DIX_DIY
+	ld a,16(ix)  ; OP
+	and #0x0f
+	or    #0b10010000    ;LMMM command or with LOGICAL
 
-	out	(c),h		;DX in dots
-	out	(c),a
-	out	(c),l		;DY in dots
-	out	(c),a
-	out	(c),a		;dummy
-
-	ld	a,d
-	or	e
-	out	(c),a		;DIX and DIY
-
-	pop	af
-	or	#0b10010000	;LMMM command or with LOGICAL
-
-	out	(c),a		;do it
-	call	VDPready
+	out    (c),a    ;do it
+;    call    VDPready
 	ei
-	pop	ix
+	pop    ix
 	ret
+
+;----------------------------------------------------------------------------;
+; Compare function                                                           ;
+;----------------------------------------------------------------------------;
+
+; test if HL>=DE
+; Input      HL, DE
+; Output     A=0 -> true (HL>=DE)
+;            A=4 -> false (HL<DE)
+; modify     A, HL, DE
+cmpgte:
+	and a    ; RESET CARRY FLAG
+	ld a,h
+	xor d
+	jp m,cmpgte2
+	sbc hl,de
+	jp nc,cmpgte3
+cmpgte1:
+
+	xor a
+	sub l
+	ld l,a
+    sbc a,a
+    sub h
+    ld h,a
+
+	ld a,#4 ; move to the left
+	ret
+cmpgte2: ; if here, one is negative, the other one is positive
+	bit #7,d
+	jp z,cmpgte1
+cmpgte3:
+	xor a  ; move to the right
+	ret
+
 
 ;****************************************************************
 ;  fLMMM (Far high speed Logical move VRAM to VRAM)
@@ -1363,11 +1820,11 @@ _fLMMM::
 
 	ld	a,(hl)		; Logical, operation
 	bit	#7,a
-	jr	nz, lb_flq
+	jp	nz, lb_flq
 	or	#0b10010000	;LMMM command
 lb_flq:
 	out	(c),a		; do it, VDP!
-	call	VDPready
+;	call	VDPready
 
 	ei
 	ret
@@ -1389,7 +1846,7 @@ _Draw::
 lb_drwLp:
 	ld	a,(_drw_m)
 	or	a
-	jr	nz,lb_drwMmv
+	jp	nz,lb_drwMmv
 
 	ld	de,(_drw_YX)
 lb_drwMmv:
@@ -1397,53 +1854,53 @@ lb_drwMmv:
 	or	a
 	jp	z, lb_drwEx
 	cp	#97
-	jr	c,lb_drwUpc
+	jp	c,lb_drwUpc
 	sub	#32
 lb_drwUpc:
 lb_drw0:
 	cp	#'U'
-	jr	nz, lb_drw1
+	jp	nz, lb_drw1
 	call	_drw_dcY
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw1:
 	cp	#'D'
-	jr	nz, lb_drw2
+	jp	nz, lb_drw2
 	call	_drw_icY
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw2:
 	cp	#'L'
-	jr	nz, lb_drw3
+	jp	nz, lb_drw3
 	call	_drw_dcX
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw3:
 	cp	#'R'
-	jr	nz, lb_drw4
+	jp	nz, lb_drw4
 	call	_drw_icX
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw4:
 	cp	#'E'
-	jr	nz, lb_drw5
+	jp	nz, lb_drw5
 	call	_drw_icX
 	call	_drw_dcY
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw5:
 	cp	#'F'
-	jr	nz, lb_drw6
+	jp	nz, lb_drw6
 	call	_drw_icX
 	call	_drw_icY
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw6:
 	cp	#'G'
-	jr	nz, lb_drw7
+	jp	nz, lb_drw7
 	call	_drw_dcX
 	call	_drw_icY
-	jr	flb_drwQ
+	jp	flb_drwQ
 lb_drw7:
 	cp	#'H'
-	jr	nz, lb_drw8
+	jp	nz, lb_drw8
 	call	_drw_dcX
 	call	_drw_dcY
-	jr	flb_drwQ
+	jp	flb_drwQ
 
 flb_drwQ:	jp	lb_drwQ
 flb_drwQp:	jp	lb_drwQp
@@ -1451,86 +1908,84 @@ flb_drwScnOp:	jp	lb_drwScnOp
 
 lb_drw8:
 	cp	#'B'
-	jr	nz, lb_drw9
+	jp	nz, lb_drw9
 	ld	a,#1
 	ld	(_drw_B),a
-	jr	flb_drwQp
+	jp	flb_drwQp
 lb_drw9:
 	cp	#'N'
-	jr	nz, lb_drw10
+	jp	nz, lb_drw10
 	ld	a,#1
 	ld	(_drw_N),a
-	jr	flb_drwQp
+	jp	flb_drwQp
 
 lb_drw10:
 	cp	#'S'
-	jr	nz, lb_drw11
+	jp	nz, lb_drw11
 	call	_drw_gLnQ		; c=scale count
 	ld	a,c
 	and	#252
 	rrca
 	rrca				; scale/4 = pixels
 	or	a
-	jr	nz,lb_drwScs
+	jp	nz,lb_drwScs
 	inc	a
 lb_drwScs:
 	ld	(_drw_Scale),a
-	jr	flb_drwScnOp
+	jp	flb_drwScnOp
 lb_drw11:
 	cp	#'C'
-	jr	nz, lb_drw12
+	jp	nz, lb_drw12
 	call	_drw_gLn		; read colour number
 	ld	a,(_drw_Ln)
 	ld	(#FORCLR),a
-	jr	flb_drwScnOp
+	jp	flb_drwScnOp
 
 lb_drw12:
 	cp	#'M'
-	jr	nz, lb_drw13
+	jp	nz, lb_drw13
 	ld	a,#1
 	ld	(_drw_m),a
 	call	_drw_gLn		; read X
 	ld	a,(_drw_sg)
 	or	a
-	jr	nz,_drw_relX
+	jp	nz,_drw_relX
 	ld	d,#0			; absolute X, not +cnt
 _drw_relX:
 	cp	#2
-	jr	z,_drw_relmX
+	jp	z,_drw_relmX
 	call	_drw_icX
-	jr	_drw_releX
+	jp	_drw_releX
 _drw_relmX:
 	call	_drw_dcX
 _drw_releX:
-	jr	lb_drwScnOp
+	jp	lb_drwScnOp
 lb_drw13:
 	cp	#','
-	jr	nz, lb_drw14
+	jp	nz, lb_drw14
 	call	_drw_gLn		; read Y
 	ld	a,(_drw_sg)
 	or	a
-	jr	nz,_drw_relY
+	jp	nz,_drw_relY
 	ld	e,#0			; absolute Y, not +cnt
 _drw_relY:
 	cp	#2
-	jr	z,_drw_relmY
+	jp	z,_drw_relmY
 	call	_drw_icY
-	jr	_drw_releY
+	jp	_drw_releY
 _drw_relmY:
 	call	_drw_dcY
 _drw_releY:
 	xor	a
 	ld	(_drw_m),a
-	jr	lb_drwQ
+	jp	lb_drwQ
 lb_drw14:
-
-	jr	lb_drwScnOp
-
+	jp	lb_drwScnOp
 
 lb_drwQ:
 	ld	a,(_drw_m)	; if M command, save till ','
 	or	a
-	jr	nz,lb_drwQp
+	jp	nz,lb_drwQp
 	ld	a,#1
 	ld	(_drw_f),a
 lb_drwQp:
@@ -1538,7 +1993,7 @@ lb_drwQp:
 	ld	hl,(_drw_YX)
 	ld	a,(_drw_B)
 	or	a
-	jr	nz,lb_drwSkB
+	jp	nz,lb_drwSkB
 	ld	a,(#FORCLR)
 	ld	b,a			; set colour
 	ld	c,#0			; logical = 0
@@ -1546,7 +2001,7 @@ lb_drwQp:
 lb_drwSkB:
 	ld	a,(_drw_N)
 	or	a
-	jr	nz,lb_drwSkN
+	jp	nz,lb_drwSkN
 	ld	(_drw_YX),de		; save new position
 lb_drwSkN:
 	pop	hl
@@ -1554,18 +2009,16 @@ lb_drwSkN:
 lb_drwScnOp:
 	ld	a,(_drw_f)
 	or	a
-	jr	z,lb_drwcl
+	jp	z,lb_drwcl
 	xor	a
 	ld	(_drw_f),a
 	ld	(_drw_B),a
 	ld	(_drw_N),a
 lb_drwcl:
-
 	inc	hl
 	jp	lb_drwLp		; loop
 
 lb_drwEx:
-
 	ret
 
 		; new position of point inc,dec
@@ -1606,7 +2059,7 @@ _drw_dcylp:
 	dec	c
 	jp	m,_drw_dcyEx
 	inc	c
-	jr	_drw_dcylpc
+	jp	_drw_dcylpc
 _drw_dcyEx:
 	ret
 
@@ -1623,13 +2076,13 @@ _drw_icylpc:
 _drw_icylp:
 	inc	a
 	cp	e
-	jr	z,_drw_icyEx
+	jp	z,_drw_icyEx
 	djnz	_drw_icylp
 	dec	c
 	dec	c
 	jp	m,_drw_icyEx
 	inc	c
-	jr	_drw_icylpc
+	jp	_drw_icylpc
 _drw_icyEx:
 	pop	de
 	ret
@@ -1638,13 +2091,13 @@ _drw_ldb:
 	push	af
 	ld	a,(_drw_m)
 	or	a
-	jr	z,_drw_ldb2
+	jp	z,_drw_ldb2
 
 	ld	a,(_drw_sg)
 	or	a
-	jr	nz,_drw_ldb2
+	jp	nz,_drw_ldb2
 	ld	a,#1
-	jr	_drw_ldbE
+	jp	_drw_ldbE
 _drw_ldb2:
 	ld	a,(_drw_Scale)
 _drw_ldbE:
@@ -1657,7 +2110,7 @@ _drw_gLnQ:			; number is 1 or more
 	call	_drw_gLn
 	ld	a,(_drw_Ln)
 	or	a
-	jr	nz,_drw_glnq
+	jp	nz,_drw_glnq
 	inc	a
 	ld	(_drw_Ln),a
 _drw_glnq:
@@ -1673,15 +2126,15 @@ _drw_gLn:			; get number if is
 	inc	hl
 	ld	a,(hl)
 	cp	#'+'
-	jr	z,lb_drwLnP
+	jp	z,lb_drwLnP
 	cp	#'-'
-	jr	z,lb_drwLnM
+	jp	z,lb_drwLnM
 	xor	a
 	dec	hl
-	jr	_drw_Lnc
+	jp	_drw_Lnc
 lb_drwLnP:
 	ld	a,#1
-	jr	_drw_Lnc
+	jp	_drw_Lnc
 lb_drwLnM:
 	ld	a,#2
 _drw_Lnc:
@@ -1692,11 +2145,11 @@ _drw_gllp:
 	inc	hl
 	ld	a,(hl)
 	or	a
-	jr	z,lb_rex
+	jp	z,lb_rex
 	sub	#'0'
-	jr	c,lb_rex
+	jp	c,lb_rex
 	cp	#10
-	jr	nc,lb_rex
+	jp	nc,lb_rex
 
 	ld	c,a
 	ld	a,(_drw_Ln)
@@ -1710,14 +2163,14 @@ _drw_gllp:
 	adc	b
 	adc	c
 	ld	(_drw_Ln),a
-	jr	_drw_gllp
+	jp	_drw_gllp
 lb_rex:
 	pop	bc
 	pop	af
 	pop	hl
 	ret
 
-								; .area	_XDATA
+	
 
 _drw_f:		.db #0
 _drw_B:		.db #0

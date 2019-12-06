@@ -53,8 +53,6 @@ init:
 	ld	hl, #s__INITIALIZER
 	ldir
 
-	ld		
-
 	jp    _main
 
 	;; Ordering of segments for the linker.

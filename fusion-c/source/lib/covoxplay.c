@@ -8,7 +8,7 @@
 |             |_|  \__,_|___/_|\___/|_| |_| *               |
 |                                                           |
 |               The MSX C Library for SDCC                  |
-|                   V1.0 - 02-04 - 2019                     |
+|                   V1.2 08 2019                            |
 |                                                           |
 |                Eric Boez &  Fernando Garcia               |
 |                                                           |
@@ -63,7 +63,7 @@ void CovoxPlay(char page, unsigned int start_adress, unsigned int length, char s
 {
    
     // Prepare VDP for reading data from Start_adress, in current screen mode and  defined vram page
-    DisableInterupt();
+    DisableInterrupt();
     if( Peek( 0xFCAF ) >= 7 ) {
         VDPwriteNi( 14, (start_adress >> 14) | (page << 2) );
     }
@@ -76,5 +76,5 @@ void CovoxPlay(char page, unsigned int start_adress, unsigned int length, char s
     // Send data to covox port #91 (Printer port)
     Covox(length, speed);
              
-    EnableInterupt();
+    EnableInterrupt();
 }

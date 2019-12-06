@@ -8,7 +8,7 @@
 |             |_|  \__,_|___/_|\___/|_| |_| *               |
 |                                                           |
 |               The MSX C Library for SDCC                  |
-|                   V1.02 - 01-02-2019                      |
+|                   V1.2 - August -2019                     |
 |                                                           |
 |                Eric Boez &  Fernando Garcia               |
 |                                                           |
@@ -25,16 +25,30 @@
 #define	NULL	(void *)0
 #endif
 
+//Logical operators
+//
+// |    or
+// &    and
+// ^    xor
+// >>   Right Shifting
+// << Left shifting
+//
+// Logical operators not implemented in C but must be programmed
+// nor = ~(a|b);
+// nand = ~(a&b);
+
 
 #ifndef __MSX_FUSION__
 #define __MSX_FUSION__
 
-// Alias for deleted or renamed functions from V1.0 to 1.1, Trying to keep compatibility between versions 1.0 and 1.1
+// Alias for deleted or renamed functions from V1.0 to 1.2, Trying to keep compatibility between versions 1.0 and 1.1 's source codes
 #define WaitForKey WaitKey
 #define KeyboardHit Inkey
 #define Getcon Getche
 #define EnableInterupt EnableInterrupt
 #define DisableInterupt DisableInterrupt
+#define HMCM_SC5 HMCM
+#define Rect BoxLine
 
 /// Fusion C ...
 #define FCB_SUCCESS	0x00				/* return code */
@@ -84,8 +98,17 @@
 #define UNPRESSED   		0
 #define PRESSED    			255
 
-#define MousePort1 			0x9310
-#define MousePort2 			0xEC20
+#define MousePort1 			0x1310
+#define MousePort2 			0x6C20
+
+
+// Structure for ReadMouseTo output data
+typedef struct {
+    signed char dx;
+    signed char dy;
+    unsigned char lbutton;
+    unsigned char rbutton;
+} MOUSE_DATA;
 
 //Logical operations (OP) for Graphic Function
 
@@ -122,6 +145,11 @@ char				Getche (void);													// read and display char from console
 void				PrintChar (char c);												// display char 
 void				Locate (char x, char y); 										// set cursor to x,y 
 void				PrintDec (int num);												// displays signed integer value  -32768 to 32767  (larges code) 
+void 				PrintHex (unsigned int num);									// Print Hexadecimal representation of the Int variable passed
+void				PrintString(char* str);											// Same as Print
+void 				PutCharHex(char c);												// Print Hexadecimal representation of the char variable passed								
+int					CheckBreak(void);												// Check CTRL-STOP. returns 0 if CTRL-STOP was not pressed, -1 otherwise
+
 
 /* --------------------------------------------------------- */
 /* miscellaneous functions									 */
@@ -142,7 +170,9 @@ void 				RleWBToRam (unsigned int *RamSource, unsigned int *RamDest); 	// RLE De
 /* Joystick functions										 */
 unsigned char 		JoystickRead(char joyNumber);								// Read Joystick Port (joynumber)
 unsigned char 		TriggerRead(char TriggerNumber);							// Read Button state (Joynnmber)
-unsigned int 		MouseRead(char  MousePort);									// Read Mouse Offset x and y
+unsigned int 		MouseRead(int  MousePort);									// Read Mouse Offset x and y
+void		 		MouseReadTo(unsigned char MousePort, MOUSE_DATA *md); 		// Read Mouse Offset x and y, mouse button and return to the MOUSE_DATA Structure
+
 
 /* --------------------------------------------------------- */
 /* I/O port functions										 */
@@ -212,6 +242,8 @@ int					StrPosChr( char *adr, char c ); 							// returns the last i, for which 
 void				StrLeftTrim( char *adr ); 									// removes left spaces
 void				StrRightTrim( char *adr ); 									// removes right spaces
 void				StrReplaceChar( char *adr, char c, char nc );				// replaces all chars c to nc in string adr
+char*				StrReverse(char *str);
+char* 				Itoa(int num, char* str, int base);
 
 
 /* --------------------------------------------------------- */
@@ -424,5 +456,5 @@ JoystickRead
 
 /* --------------------------------------------------------- */
 /* FUSION-C Version tag									 	 */
-static const unsigned char Done_Version[]="Made with FUSION-C 1.1 eb";
+static const unsigned char Done_Version[]="Made with FUSION-C 1.2 (ebsoft)";
 #endif
