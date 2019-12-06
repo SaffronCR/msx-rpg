@@ -28,11 +28,12 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Dungeon generation/loading.
 
 ## Third party resources:
-**Fusion-C Library 1.1**
+**Fusion-C Library 1.2**
 
 *Author: Eric Boez & Fernando Garcia*
 
 http://www.repro-factory.com/
+https://github.com/ericb59/Fusion-C-v1.2
 
 **Palette based on DB16 - DawnBringer's 16 Col Palette v1.0**
 
