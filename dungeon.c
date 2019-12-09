@@ -63,7 +63,7 @@ void sf_draw_third_wall_far_left(int x, int y)
 		sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -76,7 +76,7 @@ void sf_draw_third_wall_far_right(int x, int y)
 		sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -89,7 +89,7 @@ void sf_draw_third_wall_left(int x, int y)
 		sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
 					   DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -102,7 +102,7 @@ void sf_draw_third_wall_right(int x, int y)
 		sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -115,7 +115,7 @@ void sf_draw_second_wall_far_left(int x, int y)
 		sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -128,7 +128,7 @@ void sf_draw_second_wall_far_right(int x, int y)
 		sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -141,7 +141,7 @@ void sf_draw_second_wall_left(int x, int y)
 		sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -154,7 +154,7 @@ void sf_draw_second_wall_right(int x, int y)
 		sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -167,7 +167,7 @@ void sf_draw_first_wall_left(int x, int y)
 		sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -180,7 +180,7 @@ void sf_draw_first_wall_right(int x, int y)
 		sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -193,7 +193,7 @@ void sf_draw_third_wall_front(int x, int y)
 		sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 					   THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
 					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -206,7 +206,7 @@ void sf_draw_second_wall_front(int x, int y)
 		sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 					   SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
 					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
-					   WL_PG, BF_PG, LOGICAL_TIMP);
+					   WALLS_PAGE, back_page, LOGICAL_TIMP);
 	}
 }
 
@@ -280,6 +280,7 @@ void sf_draw_dungeon_walls(void)
 	}
 }
 
+// Currently not being used.
 void sf_draw_tiles_background(void)
 {
 	// TEST: Draw tiles background.
@@ -290,27 +291,54 @@ void sf_draw_tiles_background(void)
 			sf_screen_copy(160, 0,
 						   8, 8,
 						   x * 8, y * 8,
-						   BG_PG, BF_PG, opHMMM);
+						   SPRITES_PAGE, back_page, opHMMM);
 		}
 	}
 }
 
 void sf_draw_avatars(void)
 {
+	// Avatar images.
 	sf_screen_copy(0, 120,
 				   32, 32,
 				   180, 1 * 32 + 4,
-				   BG_PG, BF_PG, opHMMM);
+				   SPRITES_PAGE, back_page, opHMMM);
 
 	sf_screen_copy(32, 120,
 				   32, 32,
 				   180, 2 * 32 + 4 + 8,
-				   BG_PG, BF_PG, opHMMM);
+				   SPRITES_PAGE, back_page, opHMMM);
 
 	sf_screen_copy(64, 120,
 				   32, 32,
 				   180, 3 * 32 + 4 + 8 + 8,
-				   BG_PG, BF_PG, opHMMM);
+				   SPRITES_PAGE, back_page, opHMMM);
+
+	// HP bars.
+	Rect(180 + 32 + 2, 1 * 32 + 4 + back_page * 256,
+		 180 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
+		 11, FILL_ALL);
+
+	Rect(180 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
+		 180 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
+		 11, FILL_ALL);
+
+	Rect(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
+		 180 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
+		 11, FILL_ALL);
+
+	// TP bars.
+	Rect(186 + 32 + 2, 1 * 32 + 4 + back_page * 256,
+		 186 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
+		 8, FILL_ALL);
+
+	Rect(186 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
+		 186 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
+		 8, FILL_ALL);
+
+	Rect(186 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
+		 186 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
+		 8, FILL_ALL);
 }
 
 void sf_draw_combat_menu(void)
@@ -326,19 +354,6 @@ void sf_draw_combat_menu(void)
 	PutText(20, 160 + 9, "MAGIC", LOGICAL_IMP);
 	PutText(20, 160 + 9 + 9, "DEFEND", LOGICAL_IMP);
 	PutText(20, 160 + 9 + 9 + 9, "ITEMS", LOGICAL_IMP);
-
-	// HP bars
-	Rect(180 + 32 + 2, 1 * 32 + 4,
-		 180 + 32 + 2 + 4, 1 * 32 + 4 + 32 - 1,
-		 11, FILL_ALL);
-
-	Rect(180 + 32 + 2, 2 * 32 + 4 + 8,
-		 180 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 - 1,
-		 11, FILL_ALL);
-
-	Rect(180 + 32 + 2, 3 * 32 + 4 + 8 + 8,
-		 180 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 - 1,
-		 11, FILL_ALL);
 }
 
 // Draw the current dungeon room.
@@ -349,20 +364,20 @@ void sf_draw_dungeon_view(void)
 	// #SAFFRON test.
 	sf_draw_avatars();
 
-	// Dungeon background.
+	// // Dungeon background.
 	sf_screen_copy(0, 0,
-				   DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
-				   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-				   BG_PG, BF_PG, opHMMM);
+		DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
+		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+		SPRITES_PAGE, back_page, opHMMM);
 
 	// Dungeon walls.
 	sf_draw_dungeon_walls();
 
 	// Enemies.
 	// #TODO
-	// sf_screen_copy (215,0, 41,64, 100,90, 3, 0, LOGICAL_TIMP);
+	//sf_screen_copy (215,0, 41,64, 100,90, 3, 0, LOGICAL_TIMP);
 
-	db_state = ReadyToTransfer;
+	db_state = ReadyToSwitch;
 }
 
 void sf_draw_minimap(void)
@@ -382,6 +397,7 @@ void sf_draw_minimap(void)
 		}
 	}
 }
+
 void sf_move(int newPosX, int newPosY)
 {
 	if (newPosX > 0 && newPosX < DUNGEON_SIZE - 1 &&
@@ -418,7 +434,7 @@ void sf_rotate_right(void)
 // Reads joystick input, from keyboard's arrow keys and joystick port 1.
 void sf_update_joy_dungeon_mode(void)
 {
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		joy = JoystickRead(i);
 		trig = TriggerRead(i);
@@ -444,20 +460,36 @@ void sf_update_joy_dungeon_mode(void)
 			sf_rotate_right();
 			break;
 		}
+
+		// switch (trig)
+		// {	
+		// 	//...
+		// }
 	}
 }
 
-void sf_draw_screen_dungeon_mode(void)
+void sf_set_dungeon_mode(void)
 {
-	if (db_state == ReadyToTransfer)
-	{
-		db_state = Transfering;
+	player_moves = FALSE;
 
-		// Copy to actual screen.
-		sf_screen_copy(0, 0,
-					   256, 212,
-					   0, 0,
-					   BF_PG, 0, opYMMM);
+	player_pos_x = 1;
+	player_pos_y = 4;
+
+	player_dir = North;	
+
+	sf_draw_dungeon_view();
+}
+
+void sf_update_dungeon_mode(void)
+{
+	sf_update_joy_dungeon_mode();
+
+	// Update screen if needed.
+	if (player_moves)
+	{
+		player_moves = FALSE;
+
+		Cls();
 
 		// Using this to check screen redrawing. Actual game text will be handled differently.
 		SetColors(9, 0, 0);
@@ -471,40 +503,15 @@ void sf_draw_screen_dungeon_mode(void)
 		else
 			PutText(80, 20, "West", LOGICAL_IMP);
 
-		// #SAFFRON test.
-		sf_draw_combat_menu();
-
-		// Debug: draw minimap.
-		//sf_draw_minimap ();
-
-		// Debug: draw palette.
-		//sf_draw_palette ();
-
-		db_state = Finished;
-	}
-}
-
-void sf_set_dungeon_mode(void)
-{
-	player_moves = FALSE;
-
-	player_pos_x = 1;
-	player_pos_y = 4;
-
-	player_dir = North;
-
-	sf_draw_dungeon_view();
-}
-
-void sf_update_dungeon_mode(void)
-{
-	sf_update_joy_dungeon_mode();
-
-	// Update screen if needed.
-	if (player_moves)
-	{
 		sf_draw_dungeon_view();
+		
+		// // #SAFFRON test.
+		// //sf_draw_combat_menu();
 
-		player_moves = FALSE;
+		// // Debug: draw minimap.
+		// sf_draw_minimap ();
+
+		// // Debug: draw palette.
+		// sf_draw_palette ();
 	}
 }

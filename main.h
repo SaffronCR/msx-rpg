@@ -15,6 +15,10 @@
 #define JOY_LEFT 7
 #define JOY_RIGHT 3
 
+#define SPACE_KEY 0
+#define JOY_1 1
+#define JOY_2 3
+
 //------------------------------------------------------------------
 // Enums.
 //------------------------------------------------------------------
@@ -22,14 +26,15 @@
 enum DoubleBufferState
 {
 	Updating,
-	ReadyToTransfer,
-	Transfering,
+	ReadyToSwitch,
 	Finished
 };
 
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
+
+extern int back_page;
 
 extern enum DoubleBufferState db_state;
 

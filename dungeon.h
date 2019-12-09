@@ -5,9 +5,8 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define BF_PG 1
-#define BG_PG 2
-#define WL_PG 3
+#define SPRITES_PAGE 2
+#define WALLS_PAGE 3
 
 #define DUNGEON_SIZE 16
 
@@ -84,6 +83,5 @@ enum Directions
 
 void sf_set_dungeon_mode(void);
 void sf_update_dungeon_mode(void);
-void sf_draw_screen_dungeon_mode(void);
 
 #endif

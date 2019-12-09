@@ -19,6 +19,8 @@
 // Variables.
 //------------------------------------------------------------------
 
+int back_page;
+
 enum DoubleBufferState db_state;
 
 static FCB file;
@@ -137,7 +139,7 @@ int sf_load_sf5_image(char *file_name, unsigned int start_Y, char *buffer)
 			// screen 5 (4 bits x 256 x 212).
 			nbl = rd / 128;
 
-			SetColors(15, 0, 0);
+			SetColors(0, 0, 0);
 
 			//sf_sc5_data( buffer, start_Y, nbl);
 
@@ -241,17 +243,28 @@ void sf_draw_palette(void)
 	}
 }
 
+void sf_blit_screen(void)
+{
+	if (db_state == ReadyToSwitch)
+	{		
+		back_page = !back_page;
+
+		SetDisplayPage(!back_page);
+  		SetActivePage(back_page);
+
+		db_state = Finished;
+	}
+}
+
 static char sf_video_interrupt(void)
 {
-	if (IsVsync() == 0 || db_state != ReadyToTransfer)
+	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
+	if (db_state != ReadyToSwitch || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
 		return (0);
 	}
 
-	//#TODO check_game_mode
-	{
-		sf_draw_screen_dungeon_mode();
-	}
+	sf_blit_screen();
 
 	return (1);
 }
@@ -269,7 +282,10 @@ void main(void)
 	// Enables Sprites.
 	SpriteOn();
 
-	// Clears console or any screen mode
+	// Set page.
+	back_page = 1;
+	SetDisplayPage(!back_page);
+	SetActivePage(back_page);
 	Cls();
 
 	// Sets display to specified screen mode (from 0 to 8).
@@ -291,10 +307,11 @@ void main(void)
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 
-	sf_load_sf5_image("BG.SF5", 256 * BG_PG, load_buffer);
-	sf_load_sf5_image("WALLS.SF5", 256 * WL_PG, load_buffer);
+	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
+	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
 
 	// Clears console or any screen mode.
+	SetColors(0, 0, 0);
 	Cls();
 
 	// Set interrupt.
