@@ -17,25 +17,7 @@
 // Variables.
 //------------------------------------------------------------------
 
-unsigned const char dungeon_01[DUNGEON_SIZE*DUNGEON_SIZE] =
-{
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-    1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
-    1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
-    1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1,
-    1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1,
-    1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1,
-    1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1,
-    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-    1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1,
-    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1,
-    1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1,
-    1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1,
-    1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1,
-    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-};
+char *dungeon_map;
 
 const int dir_translate_x[] = {0, 1, 0, -1};
 const int dir_translate_y[] = {-1, 0, 1, 0};
@@ -56,7 +38,7 @@ char trig;
 
 void sf_draw_third_wall_far_left(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
@@ -67,7 +49,7 @@ void sf_draw_third_wall_far_left(uint x, uint y)
 
 void sf_draw_third_wall_far_right(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
@@ -78,7 +60,7 @@ void sf_draw_third_wall_far_right(uint x, uint y)
 
 void sf_draw_third_wall_left(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
@@ -89,7 +71,7 @@ void sf_draw_third_wall_left(uint x, uint y)
 
 void sf_draw_third_wall_right(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
@@ -100,7 +82,7 @@ void sf_draw_third_wall_right(uint x, uint y)
 
 void sf_draw_second_wall_far_left(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
@@ -111,7 +93,7 @@ void sf_draw_second_wall_far_left(uint x, uint y)
 
 void sf_draw_second_wall_far_right(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
@@ -122,7 +104,7 @@ void sf_draw_second_wall_far_right(uint x, uint y)
 
 void sf_draw_second_wall_left(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
@@ -133,7 +115,7 @@ void sf_draw_second_wall_left(uint x, uint y)
 
 void sf_draw_second_wall_right(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
@@ -144,7 +126,7 @@ void sf_draw_second_wall_right(uint x, uint y)
 
 void sf_draw_first_wall_left(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
@@ -155,7 +137,7 @@ void sf_draw_first_wall_left(uint x, uint y)
 
 void sf_draw_first_wall_right(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
@@ -166,7 +148,7 @@ void sf_draw_first_wall_right(uint x, uint y)
 
 void sf_draw_third_wall_front(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 					   THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
@@ -177,7 +159,7 @@ void sf_draw_third_wall_front(uint x, uint y)
 
 void sf_draw_second_wall_front(uint x, uint y)
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_01[x + y * DUNGEON_SIZE] == 1)
+	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 	{
 		sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 					   SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
@@ -201,6 +183,7 @@ void sf_draw_dungeon_walls(void)
 	uint x, y, xd, yd;
 
 	int mult = 1;
+
 	if (player_dir == North || player_dir == South)
 	{
 		mult = -1;
@@ -354,7 +337,7 @@ void sf_draw_minimap(void)
 	{
 		for (int y = 0; y < DUNGEON_SIZE; y++)
 		{
-			if (dungeon_01[x + y * DUNGEON_SIZE] == 1)
+			if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 			{
 				Pset(x + 32, y, 10, 0);
 			}
@@ -370,7 +353,8 @@ void sf_move(uint newPosX, uint newPosY)
 {
 	if (newPosX > 0 && newPosX < DUNGEON_SIZE - 1 &&
 		newPosY > 0 && newPosY < DUNGEON_SIZE - 1 &&
-		dungeon_01[newPosX + newPosY * DUNGEON_SIZE] == 0)
+		(dungeon_map[newPosX + newPosY * DUNGEON_SIZE] == TILE_ROOM ||
+		dungeon_map[newPosX + newPosY * DUNGEON_SIZE] == TILE_CORRIDOR))
 	{
 		player_pos_x = newPosX;
 		player_pos_y = newPosY;
@@ -430,7 +414,7 @@ void sf_update_joy_dungeon_mode(void)
 		}
 
 		// switch (trig)
-		// {	
+		// {
 		// 	//...
 		// }
 	}
@@ -443,7 +427,7 @@ void sf_set_dungeon_mode(void)
 	player_pos_x = 1;
 	player_pos_y = 4;
 
-	player_dir = North;	
+	player_dir = North;
 
 	sf_draw_dungeon_view();
 }
@@ -468,7 +452,7 @@ void sf_update_dungeon_mode(void)
 		else							PutText(80, 20, "West", LOGICAL_IMP);
 
 		sf_draw_dungeon_view();
-		
+
 		// // #SAFFRON test.
 		// //sf_draw_combat_menu();
 

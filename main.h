@@ -10,7 +10,6 @@
 //------------------------------------------------------------------
 
 typedef unsigned int uint;
-typedef unsigned char uchar;
 
 //------------------------------------------------------------------
 // Defines.
@@ -53,7 +52,7 @@ extern enum DoubleBufferState db_state;
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode);
 
 // Debug.
 

@@ -9,10 +9,10 @@
 // Defines.
 //------------------------------------------------------------------
 
+#define DUNGEON_SIZE 24
+
 #define SPRITES_PAGE 2
 #define WALLS_PAGE 3
-
-#define DUNGEON_SIZE 16
 
 #define DUNGEON_SCREEN_X 2 * 8
 #define DUNGEON_SCREEN_Y 4 * 8
@@ -65,6 +65,13 @@
 #define THIRD_FRONT_WALL_DX 46
 #define THIRD_FRONT_WALL_DY 58
 
+#define TILE_WALL 0
+#define TILE_ROOM 1
+#define TILE_CORRIDOR 2
+#define TILE_CHEST 3
+#define TILE_STAIRS_UP 4
+#define TILE_STAIRS_DOWN 5
+
 //------------------------------------------------------------------
 // Enums.
 //------------------------------------------------------------------
@@ -80,6 +87,8 @@ enum Directions
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
+
+extern char *dungeon_map;
 
 //------------------------------------------------------------------
 // Prototypes.

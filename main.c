@@ -12,8 +12,9 @@
 #include "fusion-c/header/ayfx_player.h"
 #include "fusion-c/header/pt3replayer.h"
 
-#include "main.h"
+#include "procgen.h"
 #include "dungeon.h"
+#include "main.h"
 
 //------------------------------------------------------------------
 // Variables.
@@ -24,6 +25,7 @@ char back_page;
 enum DoubleBufferState db_state;
 
 static FCB file;
+
 MMMtask t;
 
 unsigned char load_buffer[BUFFER_SIZE];
@@ -47,6 +49,9 @@ unsigned const char palette[] =
 	14, 1, 0, 1,
 	15, 6, 7, 6,
 };
+
+// Random seed, for debug purposes.
+uint rand_seed = 666;
 
 //------------------------------------------------------------------
 // Functions.
@@ -115,7 +120,7 @@ void sf_sc5_data(char *buffer, uint y, uint nbl)
 	}
 }
 
-int sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
+char sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 {
 	uint rd = BUFFER_SIZE;
 	uint nbl = 0;
@@ -126,7 +131,7 @@ int sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(1, file_name);
-		return (0);
+		return (FALSE);
 	}
 
 	while (rd != 0)
@@ -134,6 +139,7 @@ int sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 		SetColors(15, 0, buffer[69]);
 
 		rd = fcb_read(&file, buffer, BUFFER_SIZE);
+
 		if (rd != 0)
 		{
 			// screen 5 (4 bits x 256 x 212).
@@ -153,14 +159,14 @@ int sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(2, file_name);
-		return (0);
+		return (FALSE);
 	}
 
-	return (1);
+	return (TRUE);
 }
 
 // Loads a SC8 Picture and put data on screen, begining at start_Y line.
-int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
+char sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 {
 	uint rd = 2304;
 	uint nbl = 0;
@@ -170,7 +176,7 @@ int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(1, file_name);
-		return (0);
+		return (FALSE);
 	}
 
 	fcb_read(&file, buffer, 7); // Skip 7 first bytes of the file.
@@ -179,6 +185,7 @@ int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 	{
 		SetColors(15, 0, buffer[192]);
 		rd = fcb_read(&file, buffer, 2304);
+
 		if (rd != 0)
 		{
 			nbl = rd / 256;
@@ -190,10 +197,10 @@ int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(2, file_name);
-		return (0);
+		return (FALSE);
 	}
 
-	return (1);
+	return (TRUE);
 }
 
 //  Copy a screen zone to another place
@@ -204,7 +211,7 @@ int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode)
 {
 	uint src_y = 0;
 	uint dst_y = 0;
@@ -246,7 +253,7 @@ void sf_draw_palette(void)
 void sf_blit_screen(void)
 {
 	if (db_state == ReadyToSwitch)
-	{		
+	{
 		back_page = !back_page;
 
 		SetDisplayPage(!back_page);
@@ -261,12 +268,12 @@ static char sf_video_interrupt(void)
 	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
 	if (db_state != ReadyToSwitch || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
-		return (0);
+		return (FALSE);
 	}
 
 	sf_blit_screen();
 
-	return (1);
+	return (TRUE);
 }
 
 // Main.
@@ -274,6 +281,9 @@ void main(void)
 {
 	// Init variables
 	db_state = Finished;
+
+	// Init random.
+	srand(rand_seed);
 
 	// Initialization of the PSG (Use this function before sending data to PSG).
 	// All registers will be set to 0, and stops all noises and sounds.
@@ -309,6 +319,12 @@ void main(void)
 
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
 	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
+
+	// Generate dungeon.
+	SetColors(15, 0, 0);
+	Cls();
+	PutText(5, 5, "GENERATING DUNGEON...", LOGICAL_TIMP);
+	sf_generate_dungeon();
 
 	// Clears console or any screen mode.
 	SetColors(0, 0, 0);
