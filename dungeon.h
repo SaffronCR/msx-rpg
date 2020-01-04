@@ -1,3 +1,7 @@
+//------------------------------------------------------------------
+// Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
+//------------------------------------------------------------------
+
 #ifndef DUNGEON_H
 #define DUNGEON_H
 
