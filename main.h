@@ -51,4 +51,8 @@ extern enum DoubleBufferState db_state;
 
 void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
 
+// Debug.
+
+void sf_draw_palette(void);
+
 #endif
