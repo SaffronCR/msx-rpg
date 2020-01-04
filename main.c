@@ -19,7 +19,7 @@
 // Variables.
 //------------------------------------------------------------------
 
-int back_page;
+char back_page;
 
 enum DoubleBufferState db_state;
 
@@ -103,9 +103,9 @@ void sf_set_name(FCB *p_fcb, const char *p_name)
 	}
 }
 
-void sf_sc5_data(char *buffer, int y, int nbl)
+void sf_sc5_data(char *buffer, uint y, uint nbl)
 {
-	int i, s;
+	uint i, s;
 
 	s = 0;
 	for (i = 0; i < nbl * 128; ++i)
@@ -115,10 +115,10 @@ void sf_sc5_data(char *buffer, int y, int nbl)
 	}
 }
 
-int sf_load_sf5_image(char *file_name, unsigned int start_Y, char *buffer)
+int sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 {
-	int rd = BUFFER_SIZE;
-	int nbl = 0;
+	uint rd = BUFFER_SIZE;
+	uint nbl = 0;
 
 	InitPSG();
 	sf_set_name(&file, file_name);
@@ -160,10 +160,10 @@ int sf_load_sf5_image(char *file_name, unsigned int start_Y, char *buffer)
 }
 
 // Loads a SC8 Picture and put data on screen, begining at start_Y line.
-int sf_load_sc8_image(char *file_name, unsigned int start_Y, char *buffer)
+int sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 {
-	int rd = 2304;
-	int nbl = 0;
+	uint rd = 2304;
+	uint nbl = 0;
 	InitPSG();
 	sf_set_name(&file, file_name);
 
@@ -204,10 +204,10 @@ int sf_load_sc8_image(char *file_name, unsigned int start_Y, char *buffer)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sf_screen_copy(int x1, int y1, int dx, int dy, int x2, int y2, int src_pg, int dst_pg, int mode)
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
 {
-	int src_y = 0;
-	int dst_y = 0;
+	uint src_y = 0;
+	uint dst_y = 0;
 
 	// Add page offset.
 	src_y += src_pg * 256;

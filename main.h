@@ -2,6 +2,13 @@
 #define MAIN_H
 
 //------------------------------------------------------------------
+// Typedefs.
+//------------------------------------------------------------------
+
+typedef unsigned int uint;
+typedef unsigned char uchar;
+
+//------------------------------------------------------------------
 // Defines.
 //------------------------------------------------------------------
 
@@ -34,7 +41,7 @@ enum DoubleBufferState
 // Variables.
 //------------------------------------------------------------------
 
-extern int back_page;
+extern char back_page;
 
 extern enum DoubleBufferState db_state;
 
@@ -42,6 +49,6 @@ extern enum DoubleBufferState db_state;
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_screen_copy(int x1, int y1, int dx, int dy, int x2, int y2, int src_pg, int dst_pg, int mode);
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
 
 #endif
