@@ -324,6 +324,7 @@ void main(void)
 	SetColors(15, 0, 0);
 	Cls();
 	PutText(5, 5, "GENERATING DUNGEON...", LOGICAL_TIMP);
+	dungeon_map = NULL;
 	sf_generate_dungeon();
 
 	// Clears console or any screen mode.

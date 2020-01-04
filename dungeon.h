@@ -9,7 +9,7 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define DUNGEON_SIZE 24
+#define DUNGEON_SIZE 22
 
 #define SPRITES_PAGE 2
 #define WALLS_PAGE 3
@@ -87,6 +87,9 @@ enum Directions
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
+
+extern int player_pos_x;
+extern int player_pos_y;
 
 extern char *dungeon_map;
 

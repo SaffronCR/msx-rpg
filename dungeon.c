@@ -11,6 +11,7 @@
 #include "fusion-c/header/vdp_graph2.h"
 
 #include "main.h"
+#include "procgen.h"
 #include "dungeon.h"
 
 //------------------------------------------------------------------
@@ -24,13 +25,12 @@ const int dir_translate_y[] = {-1, 0, 1, 0};
 
 char player_moves;
 
-uint player_pos_x;
-uint player_pos_y;
+int player_pos_x;
+int player_pos_y;
 
 enum Direction player_dir;
 
-char joy;
-char trig;
+unsigned char joy;
 
 //------------------------------------------------------------------
 // Functions.
@@ -349,7 +349,7 @@ void sf_draw_minimap(void)
 	}
 }
 
-void sf_move(uint newPosX, uint newPosY)
+void sf_move(int newPosX, int newPosY)
 {
 	if (newPosX > 0 && newPosX < DUNGEON_SIZE - 1 &&
 		newPosY > 0 && newPosY < DUNGEON_SIZE - 1 &&
@@ -383,40 +383,45 @@ void sf_rotate_right(void)
 	player_moves = TRUE;
 }
 
-// Reads joystick input, from keyboard's arrow keys and joystick port 1.
+// Reads input from keyboard's arrow keys and joystick port 1.
 void sf_update_joy_dungeon_mode(void)
 {
+	// Cursor.
 	for (char i = 0; i < 2; i++)
 	{
 		joy = JoystickRead(i);
-		trig = TriggerRead(i);
 
-		// #TODO
 		switch (joy)
 		{
-		case JOY_UP:
+		case UP:
 			sf_move(player_pos_x + dir_translate_x[player_dir],
 					player_pos_y + dir_translate_y[player_dir]);
 			break;
 
-		case JOY_DOWN:
+		case DOWN:
 			sf_move(player_pos_x - dir_translate_x[player_dir],
 					player_pos_y - dir_translate_y[player_dir]);
 			break;
 
-		case JOY_LEFT:
+		case LEFT:
 			sf_rotate_left();
 			break;
 
-		case JOY_RIGHT:
+		case RIGHT:
 			sf_rotate_right();
 			break;
 		}
+	}
 
-		// switch (trig)
-		// {
-		// 	//...
-		// }
+	// Buttons.
+	if (TriggerRead(JOY1_BUTTONB) == PRESSED )
+	{
+		sf_generate_dungeon();
+	}
+
+	if (TriggerRead(SPACEBAR) == PRESSED )
+	{
+		sf_generate_dungeon();
 	}
 }
 
@@ -424,8 +429,8 @@ void sf_set_dungeon_mode(void)
 {
 	player_moves = FALSE;
 
-	player_pos_x = 1;
-	player_pos_y = 4;
+	// player_pos_x = 1;
+	// player_pos_y = 4;
 
 	player_dir = North;
 

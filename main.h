@@ -20,15 +20,6 @@ typedef unsigned int uint;
 
 #define BUFFER_SIZE 4608
 
-#define JOY_UP 1
-#define JOY_DOWN 5
-#define JOY_LEFT 7
-#define JOY_RIGHT 3
-
-#define SPACE_KEY 0
-#define JOY_1 1
-#define JOY_2 3
-
 //------------------------------------------------------------------
 // Enums.
 //------------------------------------------------------------------
