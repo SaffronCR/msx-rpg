@@ -14,21 +14,15 @@
 
 #include "procgen.h"
 #include "dungeon.h"
+#include "menu.h"
+#include "combat.h"
 #include "main.h"
 
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
 
-char back_page;
-
-enum DoubleBufferState db_state;
-
 static FCB file;
-
-MMMtask t;
-
-char load_buffer[BUFFER_SIZE];
 
 const char palette[] =
 {
@@ -49,6 +43,14 @@ const char palette[] =
 	14, 1, 0, 1,
 	15, 6, 7, 6,
 };
+
+char back_page;
+
+enum DoubleBufferState db_state;
+
+MMMtask t;
+
+char load_buffer[BUFFER_SIZE];
 
 // Random seed, for debug purposes.
 uint rand_seed = 666;
@@ -108,18 +110,6 @@ void sf_set_name(FCB *p_fcb, const char *p_name)
 	}
 }
 
-void sf_sc5_data(char *buffer, uint y, uint nbl)
-{
-	uint i, s;
-
-	s = 0;
-	for (i = 0; i < nbl * 128; ++i)
-	{
-		Vpoke(y * 128 + s, buffer[i]);
-		s = s + 1;
-	}
-}
-
 char sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 {
 	uint rd = BUFFER_SIZE;
@@ -147,8 +137,6 @@ char sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 
 			SetColors(0, 0, 0);
 
-			//sf_sc5_data( buffer, start_Y, nbl);
-
 			// Move the buffer to VRAM.
 			HMMC(buffer, 0, start_Y, 256, nbl);
 
@@ -170,6 +158,7 @@ char sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 {
 	uint rd = 2304;
 	uint nbl = 0;
+
 	InitPSG();
 	sf_set_name(&file, file_name);
 
@@ -179,7 +168,8 @@ char sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 		return (FALSE);
 	}
 
-	fcb_read(&file, buffer, 7); // Skip 7 first bytes of the file.
+	// Skip 7 first bytes of the file.
+	fcb_read(&file, buffer, 7);
 
 	while (rd != 0)
 	{
@@ -189,7 +179,10 @@ char sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 		if (rd != 0)
 		{
 			nbl = rd / 256;
-			HMMC(buffer, 0, start_Y, 256, nbl); // Move the buffer to VRAM. 17 lines x 256 pixels from memory.
+
+			// Move the buffer to VRAM. 17 lines x 256 pixels from memory.
+			HMMC(buffer, 0, start_Y, 256, nbl);
+
 			start_Y = start_Y + nbl;
 		}
 	}
@@ -245,7 +238,7 @@ void sf_draw_palette(void)
 
 	for (int i = 0; i < 16; i++)
 	{
-		Rect(x, y, x + 7, y + 7, i, FILL_ALL);
+		Rect(x, y + back_page * 256, x + 7, y + 7 + back_page * 256, i, FILL_ALL);
 		y += 9;
 	}
 }
@@ -279,9 +272,6 @@ static char sf_video_interrupt(void)
 // Main.
 void main(void)
 {
-	// Init variables
-	db_state = Finished;
-
 	// Init random.
 	srand(rand_seed);
 
@@ -292,10 +282,7 @@ void main(void)
 	// Enables Sprites.
 	SpriteOn();
 
-	// Set page.
-	back_page = 1;
-	SetDisplayPage(!back_page);
-	SetActivePage(back_page);
+	// Clear Screen.
 	Cls();
 
 	// Sets display to specified screen mode (from 0 to 8).
@@ -316,27 +303,25 @@ void main(void)
 
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
-
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
 	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
 
 	// Generate dungeon.
-	SetColors(15, 0, 0);
 	Cls();
-	PutText(5, 5, "GENERATING DUNGEON...", LOGICAL_TIMP);
+	SetColors(15, 0, 0);
+	PutText(5, 5, "Entering the old ruins...", LOGICAL_TIMP);
 	dungeon_map = NULL;
 	sf_generate_dungeon();
-
-	// Clears console or any screen mode.
-	SetColors(0, 0, 0);
-	Cls();
 
 	// Set interrupt.
 	InitInterruptHandler();
 	SetInterruptHandler(sf_video_interrupt);
 
-	// Draw tiles from background.
-	//sf_draw_tiles_background();
+	// Set page configuration.
+	db_state = Finished;
+	back_page = 0;
+	SetDisplayPage(!back_page);
+	SetActivePage(back_page);
 
 	//#TODO check_game_mode
 	sf_set_dungeon_mode();

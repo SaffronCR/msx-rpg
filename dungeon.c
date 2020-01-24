@@ -234,7 +234,7 @@ void sf_draw_dungeon_walls(void)
 // Currently not being used.
 void sf_draw_tiles_background(void)
 {
-	// TEST: Draw tiles background.
+	// #SAFFRON TEST: Draw tiles background.
 	for (int x = 0; x < 32; x++)
 	{
 		for (int y = 0; y < 26; y++)
@@ -294,41 +294,34 @@ void sf_draw_avatars(void)
 
 void sf_draw_combat_menu(void)
 {
-	Rect(16, 159,
-		 224, 167,
+	Rect(16,  159 + back_page * 256,
+		 224, 159 + 10 + back_page * 256,
 		 2, FILL_ALL);
 
 	SetColors(15, 0, 0);
-	PutText(20, 160, "ATTACK", LOGICAL_TIMP);
+	PutText(20, 160, "Fight", LOGICAL_TIMP);
 
 	SetColors(8, 0, 0);
-	PutText(20, 160 + 9, "MAGIC", LOGICAL_IMP);
-	PutText(20, 160 + 9 + 9, "DEFEND", LOGICAL_IMP);
-	PutText(20, 160 + 9 + 9 + 9, "ITEMS", LOGICAL_IMP);
-}
+	PutText(20, 160 + 8+2, "Talk", LOGICAL_IMP);
+	PutText(20, 160 + 8+2 + 8+2, "Escape", LOGICAL_IMP);
 
-// Draw the current dungeon room.
-void sf_draw_dungeon_view(void)
-{
-	db_state = Updating;
+	// SetColors(15, 0, 0);
+	// PutText(20, 160, "FIGHT", LOGICAL_TIMP);
 
-	// #SAFFRON test.
-	sf_draw_avatars();
+	// SetColors(8, 0, 0);
+	// PutText(20, 160 + 8+2, "TALK", LOGICAL_IMP);
+	// PutText(20, 160 + 8+2 + 8+2, "ESCAPE", LOGICAL_IMP);
 
-	// // Dungeon background.
-	sf_screen_copy(0, 0,
-		DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
-		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-		SPRITES_PAGE, back_page, opHMMM);
+	/*
 
-	// Dungeon walls.
-	sf_draw_dungeon_walls();
+	SetColors(15, 0, 0);
+	PutText(20, 160, "Attack", LOGICAL_TIMP);
 
-	// Enemies.
-	// #TODO
-	//sf_screen_copy (215,0, 41,64, 100,90, 3, 0, LOGICAL_TIMP);
+	SetColors(8, 0, 0);
+	PutText(20, 160 + 9, "Tech", LOGICAL_IMP);
+	PutText(20, 160 + 9 + 9, "Defense", LOGICAL_IMP);
 
-	db_state = ReadyToSwitch;
+	*/
 }
 
 void sf_draw_minimap(void)
@@ -339,14 +332,59 @@ void sf_draw_minimap(void)
 		{
 			if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 			{
-				Pset(x + 32, y, 10, 0);
+				Pset(x + 16, y + back_page * 256, 10, 0);
 			}
 			else if (player_pos_x == x && player_pos_y == y)
 			{
-				Pset(x + 32, y, 13, 0);
+				Pset(x + 16, y + back_page * 256, 13, 0);
 			}
 		}
 	}
+}
+
+// Draw the current dungeon room.
+void sf_draw_dungeon_view(void)
+{
+	db_state = Updating;
+
+	Cls();
+
+	// Compass.
+	SetColors(9, 0, 0);
+
+	switch(player_dir)
+	{
+		case North: PutText(80, 20, "North", LOGICAL_IMP);	break;
+		case East:	PutText(80, 20, "East",	 LOGICAL_IMP);	break;
+		case South:	PutText(80, 20, "South", LOGICAL_IMP);	break;
+		case West:	PutText(80, 20, "West",  LOGICAL_IMP);	break;
+	}
+
+	// #SAFFRON test.
+	sf_draw_combat_menu();
+
+	// Debug: draw minimap.
+	sf_draw_minimap();
+
+	// Debug: draw palette.
+	sf_draw_palette();
+
+	// #SAFFRON #TODO test.
+	sf_draw_avatars();
+
+	// Dungeon background.
+	sf_screen_copy(0, 0,
+		DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
+		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+		SPRITES_PAGE, back_page, opHMMM);
+
+	// Dungeon walls.
+	sf_draw_dungeon_walls();
+
+	// #TODO Enemies.
+	sf_screen_copy(215,0, 41,64, 100,90, 2, back_page, LOGICAL_TIMP);
+
+	db_state = ReadyToSwitch;
 }
 
 void sf_move(int newPosX, int newPosY)
@@ -429,9 +467,7 @@ void sf_set_dungeon_mode(void)
 {
 	player_moves = FALSE;
 
-	// player_pos_x = 1;
-	// player_pos_y = 4;
-
+	// This may be set by the random generator in the future?
 	player_dir = North;
 
 	sf_draw_dungeon_view();
@@ -446,25 +482,6 @@ void sf_update_dungeon_mode(void)
 	{
 		player_moves = FALSE;
 
-		Cls();
-
-		// Using this to check screen redrawing. Actual game text will be handled differently.
-		SetColors(9, 0, 0);
-
-		if (player_dir == North)		PutText(80, 20, "North", LOGICAL_IMP);
-		else if (player_dir == East)	PutText(80, 20, "East", LOGICAL_IMP);
-		else if (player_dir == South)	PutText(80, 20, "South", LOGICAL_IMP);
-		else							PutText(80, 20, "West", LOGICAL_IMP);
-
 		sf_draw_dungeon_view();
-
-		// // #SAFFRON test.
-		// //sf_draw_combat_menu();
-
-		// Debug: draw minimap.
-		sf_draw_minimap ();
-
-		// Debug: draw palette.
-		sf_draw_palette ();
 	}
 }
