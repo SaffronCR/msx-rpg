@@ -30,7 +30,7 @@ int player_pos_y;
 
 enum Direction player_dir;
 
-unsigned char joy;
+char joy;
 
 //------------------------------------------------------------------
 // Functions.

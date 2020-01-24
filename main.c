@@ -28,9 +28,9 @@ static FCB file;
 
 MMMtask t;
 
-unsigned char load_buffer[BUFFER_SIZE];
+char load_buffer[BUFFER_SIZE];
 
-unsigned const char palette[] =
+const char palette[] =
 {
 	0, 0, 0, 0,
 	1, 2, 1, 1,
