@@ -298,12 +298,12 @@ void sf_draw_combat_menu(void)
 		 224, 159 + 10 + back_page * 256,
 		 2, FILL_ALL);
 
-	SetColors(15, 0, 0);
-	PutText(20, 160, "Fight", LOGICAL_TIMP);
+	// SetColors(15, 0, 0);
+	// PutText(20, 160, "Fight", LOGICAL_TIMP);
 
-	SetColors(8, 0, 0);
-	PutText(20, 160 + 8+2, "Talk", LOGICAL_IMP);
-	PutText(20, 160 + 8+2 + 8+2, "Escape", LOGICAL_IMP);
+	// SetColors(8, 0, 0);
+	// PutText(20, 160 + 8+2, "Talk", LOGICAL_IMP);
+	// PutText(20, 160 + 8+2 + 8+2, "Escape", LOGICAL_IMP);
 
 	// SetColors(15, 0, 0);
 	// PutText(20, 160, "FIGHT", LOGICAL_TIMP);
@@ -312,16 +312,12 @@ void sf_draw_combat_menu(void)
 	// PutText(20, 160 + 8+2, "TALK", LOGICAL_IMP);
 	// PutText(20, 160 + 8+2 + 8+2, "ESCAPE", LOGICAL_IMP);
 
-	/*
-
 	SetColors(15, 0, 0);
 	PutText(20, 160, "Attack", LOGICAL_TIMP);
 
 	SetColors(8, 0, 0);
-	PutText(20, 160 + 9, "Tech", LOGICAL_IMP);
-	PutText(20, 160 + 9 + 9, "Defense", LOGICAL_IMP);
-
-	*/
+	PutText(20, 160 + 8+2, "Tech", LOGICAL_IMP);
+	PutText(20, 160 + 8+2 + 8+2, "Defense", LOGICAL_IMP);
 }
 
 void sf_draw_minimap(void)
@@ -360,13 +356,13 @@ void sf_draw_dungeon_view(void)
 		case West:	PutText(80, 20, "West",  LOGICAL_IMP);	break;
 	}
 
-	// #SAFFRON test.
+	// #SAFFRON #TODO Menu test.
 	sf_draw_combat_menu();
 
-	// Debug: draw minimap.
+	// Debug: Minimap.
 	sf_draw_minimap();
 
-	// Debug: draw palette.
+	// Debug: Palette.
 	sf_draw_palette();
 
 	// #SAFFRON #TODO test.
@@ -382,7 +378,7 @@ void sf_draw_dungeon_view(void)
 	sf_draw_dungeon_walls();
 
 	// #TODO Enemies.
-	sf_screen_copy(215,0, 41,64, 100,90, 2, back_page, LOGICAL_TIMP);
+	//sf_screen_copy(215,0, 41,64, 100,90, 2, back_page, LOGICAL_TIMP);
 
 	db_state = ReadyToSwitch;
 }
