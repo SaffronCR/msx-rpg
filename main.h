@@ -20,6 +20,8 @@ typedef unsigned int uint;
 
 #define BUFFER_SIZE 4608
 
+#define FONT_BUFFER_SIZE 2048
+
 //------------------------------------------------------------------
 // Enums.
 //------------------------------------------------------------------
@@ -44,6 +46,7 @@ extern enum DoubleBufferState db_state;
 //------------------------------------------------------------------
 
 void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode);
+void sf_wait(int cicles);
 
 // Debug.
 

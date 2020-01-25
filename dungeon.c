@@ -279,17 +279,17 @@ void sf_draw_avatars(void)
 		 11, FILL_ALL);
 
 	// TP bars.
-	Rect(186 + 32 + 2, 1 * 32 + 4 + back_page * 256,
-		 186 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
-		 8, FILL_ALL);
+	// Rect(186 + 32 + 2, 1 * 32 + 4 + back_page * 256,
+	// 	 186 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
+	// 	 8, FILL_ALL);
 
-	Rect(186 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
-		 186 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
-		 8, FILL_ALL);
+	// Rect(186 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
+	// 	 186 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
+	// 	 8, FILL_ALL);
 
-	Rect(186 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
-		 186 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
-		 8, FILL_ALL);
+	// Rect(186 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
+	// 	 186 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
+	// 	 8, FILL_ALL);
 }
 
 void sf_draw_combat_menu(void)
@@ -427,23 +427,23 @@ void sf_update_joy_dungeon_mode(void)
 
 		switch (joy)
 		{
-		case UP:
-			sf_move(player_pos_x + dir_translate_x[player_dir],
-					player_pos_y + dir_translate_y[player_dir]);
-			break;
+			case UP:
+				sf_move(player_pos_x + dir_translate_x[player_dir],
+						player_pos_y + dir_translate_y[player_dir]);
+				break;
 
-		case DOWN:
-			sf_move(player_pos_x - dir_translate_x[player_dir],
-					player_pos_y - dir_translate_y[player_dir]);
-			break;
+			case DOWN:
+				sf_move(player_pos_x - dir_translate_x[player_dir],
+						player_pos_y - dir_translate_y[player_dir]);
+				break;
 
-		case LEFT:
-			sf_rotate_left();
-			break;
+			case LEFT:
+				sf_rotate_left();
+				break;
 
-		case RIGHT:
-			sf_rotate_right();
-			break;
+			case RIGHT:
+				sf_rotate_right();
+				break;
 		}
 	}
 
@@ -461,11 +461,21 @@ void sf_update_joy_dungeon_mode(void)
 
 void sf_set_dungeon_mode(void)
 {
+	// Initialize variables
 	player_moves = FALSE;
 
 	// This may be set by the random generator in the future?
 	player_dir = North;
 
+	// Generate dungeon.
+	Cls();
+	SetColors(15, 0, 0);
+	PutText(5, 5, "Entering the old ruins...", LOGICAL_TIMP);
+	db_state = ReadyToSwitch;
+	dungeon_map = NULL;
+	sf_generate_dungeon();
+
+	// Initial draw call.
 	sf_draw_dungeon_view();
 }
 

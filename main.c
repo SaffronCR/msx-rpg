@@ -12,10 +12,11 @@
 #include "fusion-c/header/ayfx_player.h"
 #include "fusion-c/header/pt3replayer.h"
 
-#include "procgen.h"
+#include "combat.h"
 #include "dungeon.h"
 #include "menu.h"
-#include "combat.h"
+#include "procgen.h"
+#include "startscreen.h"
 #include "main.h"
 
 //------------------------------------------------------------------
@@ -115,7 +116,6 @@ char sf_load_sf5_image(char *file_name, uint start_Y, char *buffer)
 	uint rd = BUFFER_SIZE;
 	uint nbl = 0;
 
-	InitPSG();
 	sf_set_name(&file, file_name);
 
 	if (fcb_open(&file) != FCB_SUCCESS)
@@ -159,7 +159,6 @@ char sf_load_sc8_image(char *file_name, uint start_Y, char *buffer)
 	uint rd = 2304;
 	uint nbl = 0;
 
-	InitPSG();
 	sf_set_name(&file, file_name);
 
 	if (fcb_open(&file) != FCB_SUCCESS)
@@ -243,6 +242,14 @@ void sf_draw_palette(void)
 	}
 }
 
+void sf_wait(int cicles)
+{
+	for (int i=0; i <cicles; i++)
+	{
+		__asm halt; __endasm;
+	}
+}
+
 void sf_blit_screen(void)
 {
 	if (db_state == ReadyToSwitch)
@@ -272,32 +279,38 @@ static char sf_video_interrupt(void)
 // Main.
 void main(void)
 {
+	//unsigned int font_addr;
+
+	// If MSX is Turbo-R Switch CPU to Z80 Mode.
+	if(ReadMSXtype() == 3)
+    {
+		ChangeCPU(0);
+    }
+
 	// Init random.
 	srand(rand_seed);
+
+	// Disable key sound.
+	KeySound(0);
+
+	// Clears the key buffer.
+	KillKeyBuffer();
 
 	// Initialization of the PSG (Use this function before sending data to PSG).
 	// All registers will be set to 0, and stops all noises and sounds.
 	InitPSG();
 
-	// Enables Sprites.
-	SpriteOn();
-
-	// Clear Screen.
-	Cls();
+	// Disable sprites.
+	SpriteOff();
 
 	// Sets display to specified screen mode (from 0 to 8).
 	Screen(5);
 
-	// Disable key sound.
-	KeySound(0);
-
 	// Switches the MSX2 VDP to 50 Hz Pal Mode.
 	VDP50Hz();
 
-	// Clears the key buffer.
-	KillKeyBuffer();
-
 	// Set loading text.
+	Cls();
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
@@ -305,13 +318,6 @@ void main(void)
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
 	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
-
-	// Generate dungeon.
-	Cls();
-	SetColors(15, 0, 0);
-	PutText(5, 5, "Entering the old ruins...", LOGICAL_TIMP);
-	dungeon_map = NULL;
-	sf_generate_dungeon();
 
 	// Set interrupt.
 	InitInterruptHandler();
@@ -324,6 +330,7 @@ void main(void)
 	SetActivePage(back_page);
 
 	//#TODO check_game_mode
+	//sf_set_startscreen_mode();
 	sf_set_dungeon_mode();
 
 	for (;;)
