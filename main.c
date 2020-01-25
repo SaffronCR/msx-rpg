@@ -237,7 +237,7 @@ void sf_draw_palette(void)
 
 	for (int i = 0; i < 16; i++)
 	{
-		Rect(x, y + back_page * 256, x + 7, y + 7 + back_page * 256, i, FILL_ALL);
+		LMMV(x, y + back_page * 256, 8, 8, i, 0);
 		y += 9;
 	}
 }
@@ -330,8 +330,8 @@ void main(void)
 	SetActivePage(back_page);
 
 	//#TODO check_game_mode
-	//sf_set_startscreen_mode();
-	sf_set_dungeon_mode();
+	sf_set_startscreen_mode();
+	//sf_set_dungeon_mode();
 
 	for (;;)
 	{
@@ -342,7 +342,7 @@ void main(void)
 			{
 				// Dungeon mode.
 				{
-					sf_update_dungeon_mode();
+					//sf_update_dungeon_mode();
 				}
 			}
 		}

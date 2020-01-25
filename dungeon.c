@@ -266,17 +266,17 @@ void sf_draw_avatars(void)
 				   SPRITES_PAGE, back_page, opHMMM);
 
 	// HP bars.
-	Rect(180 + 32 + 2, 1 * 32 + 4 + back_page * 256,
-		 180 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
-		 11, FILL_ALL);
+	LMMV(180 + 32 + 2, 1 * 32 + 4 + back_page * 256,
+		 4, 32,
+		 11, 0);
 
-	Rect(180 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
-		 180 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
-		 11, FILL_ALL);
+	LMMV(180 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
+		 4, 32,
+		 11, 0);
 
-	Rect(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
-		 180 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
-		 11, FILL_ALL);
+	LMMV(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
+		 4, 32,
+		 11, 0);
 
 	// TP bars.
 	// Rect(186 + 32 + 2, 1 * 32 + 4 + back_page * 256,
@@ -294,9 +294,9 @@ void sf_draw_avatars(void)
 
 void sf_draw_combat_menu(void)
 {
-	Rect(16,  159 + back_page * 256,
-		 224, 159 + 10 + back_page * 256,
-		 2, FILL_ALL);
+	LMMV(16,  159 + back_page * 256,
+		 200, 10,
+		 2, 0);
 
 	// SetColors(15, 0, 0);
 	// PutText(20, 160, "Fight", LOGICAL_TIMP);
@@ -378,7 +378,7 @@ void sf_draw_dungeon_view(void)
 	sf_draw_dungeon_walls();
 
 	// #TODO Enemies.
-	//sf_screen_copy(215,0, 41,64, 100,90, 2, back_page, LOGICAL_TIMP);
+	//sf_screen_copy(215,0, 41,64, 100,90, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 
 	db_state = ReadyToSwitch;
 }
