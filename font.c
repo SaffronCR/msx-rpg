@@ -255,7 +255,7 @@ void sf_draw_text(char *text, int x, int y, char text_color, char border_color)
         else
         {
             // Transparent border, color text.
-            LMMV(x, y, FONT_SIZE_X, FONT_SIZE_Y, 15-text_color, LOGICAL_IMP);
+            LMMV(x, y + back_page * 256, FONT_SIZE_X, FONT_SIZE_Y, 15-text_color, LOGICAL_IMP);
             sf_draw_char(*text, x, y, LOGICAL_XOR);
             sf_draw_char(*text, x, y, LOGICAL_AND);
         }
