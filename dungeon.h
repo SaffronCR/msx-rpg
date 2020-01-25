@@ -97,7 +97,7 @@ extern char *dungeon_map;
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_set_dungeon_mode(void);
-void sf_update_dungeon_mode(void);
+void sf_set_dungeon_state(void);
+void sf_update_dungeon_state(void);
 
 #endif

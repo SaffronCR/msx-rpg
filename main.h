@@ -33,6 +33,13 @@ enum DoubleBufferState
 	Finished
 };
 
+enum GameState
+{
+	None,
+	StartScreen,
+	Dungeon
+};
+
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
@@ -41,12 +48,15 @@ extern char back_page;
 
 extern enum DoubleBufferState db_state;
 
+extern enum GameState game_state;
+
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
 void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode);
 void sf_wait(int cicles);
+void sf_set_game_state(char new_state);
 
 // Debug.
 

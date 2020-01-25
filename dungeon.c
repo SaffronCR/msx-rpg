@@ -12,6 +12,7 @@
 
 #include "main.h"
 #include "procgen.h"
+#include "font.h"
 #include "dungeon.h"
 
 //------------------------------------------------------------------
@@ -294,10 +295,6 @@ void sf_draw_avatars(void)
 
 void sf_draw_combat_menu(void)
 {
-	LMMV(16,  159 + back_page * 256,
-		 200, 10,
-		 2, 0);
-
 	// SetColors(15, 0, 0);
 	// PutText(20, 160, "Fight", LOGICAL_TIMP);
 
@@ -312,12 +309,9 @@ void sf_draw_combat_menu(void)
 	// PutText(20, 160 + 8+2, "TALK", LOGICAL_IMP);
 	// PutText(20, 160 + 8+2 + 8+2, "ESCAPE", LOGICAL_IMP);
 
-	SetColors(15, 0, 0);
-	PutText(20, 160, "Attack", LOGICAL_TIMP);
-
-	SetColors(8, 0, 0);
-	PutText(20, 160 + 8+2, "Tech", LOGICAL_IMP);
-	PutText(20, 160 + 8+2 + 8+2, "Defense", LOGICAL_IMP);
+	sf_draw_text("Attack              ", 8*2, 160, 0, 8);
+	sf_draw_text("Tech", 8*2, 160 + 8+2, 8, 0);
+	sf_draw_text("Defense", 8*2, 160 + 8+2 + 8+2, 8, 0);
 }
 
 void sf_draw_minimap(void)
@@ -346,14 +340,12 @@ void sf_draw_dungeon_view(void)
 	Cls();
 
 	// Compass.
-	SetColors(9, 0, 0);
-
 	switch(player_dir)
 	{
-		case North: PutText(80, 20, "North", LOGICAL_IMP);	break;
-		case East:	PutText(80, 20, "East",	 LOGICAL_IMP);	break;
-		case South:	PutText(80, 20, "South", LOGICAL_IMP);	break;
-		case West:	PutText(80, 20, "West",  LOGICAL_IMP);	break;
+		case North: sf_draw_text("North",	80, 20, 9, 0);	break;
+		case East:	sf_draw_text("East",	80, 20, 9, 0);	break;
+		case South:	sf_draw_text("South",	80, 20, 9, 0);	break;
+		case West:	sf_draw_text("West",	80, 20, 9, 0);	break;
 	}
 
 	// #SAFFRON #TODO Menu test.
@@ -378,7 +370,8 @@ void sf_draw_dungeon_view(void)
 	sf_draw_dungeon_walls();
 
 	// #TODO Enemies.
-	//sf_screen_copy(215,0, 41,64, 100,90, SPRITES_PAGE, back_page, LOGICAL_TIMP);
+	sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
+	sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 
 	db_state = ReadyToSwitch;
 }
@@ -459,7 +452,7 @@ void sf_update_joy_dungeon_mode(void)
 	}
 }
 
-void sf_set_dungeon_mode(void)
+void sf_set_dungeon_state(void)
 {
 	// Initialize variables
 	player_moves = FALSE;
@@ -469,8 +462,8 @@ void sf_set_dungeon_mode(void)
 
 	// Generate dungeon.
 	Cls();
-	SetColors(15, 0, 0);
-	PutText(5, 5, "Entering the old ruins...", LOGICAL_TIMP);
+	sf_draw_text("Entering the old ruins...", 8, 8, 15, 0);
+
 	db_state = ReadyToSwitch;
 	dungeon_map = NULL;
 	sf_generate_dungeon();
@@ -479,7 +472,7 @@ void sf_set_dungeon_mode(void)
 	sf_draw_dungeon_view();
 }
 
-void sf_update_dungeon_mode(void)
+void sf_update_dungeon_state(void)
 {
 	sf_update_joy_dungeon_mode();
 

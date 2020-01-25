@@ -17,6 +17,7 @@
 #include "menu.h"
 #include "procgen.h"
 #include "startscreen.h"
+#include "font.h"
 #include "main.h"
 
 //------------------------------------------------------------------
@@ -48,6 +49,8 @@ const char palette[] =
 char back_page;
 
 enum DoubleBufferState db_state;
+
+enum GameState game_state;
 
 MMMtask t;
 
@@ -276,11 +279,20 @@ static char sf_video_interrupt(void)
 	return (TRUE);
 }
 
+void sf_set_game_state(char new_state)
+{
+	game_state = new_state;
+
+	switch(game_state)
+	{
+		case StartScreen:	sf_set_startscreen_state();	break;
+		case Dungeon: 		sf_set_dungeon_state();		break;
+	}
+}
+
 // Main.
 void main(void)
 {
-	//unsigned int font_addr;
-
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
 	if(ReadMSXtype() == 3)
     {
@@ -329,21 +341,18 @@ void main(void)
 	SetDisplayPage(!back_page);
 	SetActivePage(back_page);
 
-	//#TODO check_game_mode
-	sf_set_startscreen_mode();
-	//sf_set_dungeon_mode();
+	// Set initial game state.
+	sf_set_game_state(StartScreen);
 
 	for (;;)
 	{
 		// Player input must wait until the next frame is ready.
 		if (db_state == Finished)
 		{
-			//#TODO check_game_mode
+			switch (game_state)
 			{
-				// Dungeon mode.
-				{
-					//sf_update_dungeon_mode();
-				}
+				case StartScreen:	sf_update_startscreen_state();	break;
+				case Dungeon: 		sf_update_dungeon_state(); 		break;
 			}
 		}
 	}
