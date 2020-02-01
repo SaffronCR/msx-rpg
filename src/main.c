@@ -253,7 +253,7 @@ void sf_wait(int cicles)
 	}
 }
 
-void sf_blit_screen(void)
+void sf_switch_screen(void)
 {
 	if (db_state == ReadyToSwitch)
 	{
@@ -278,7 +278,7 @@ static char sf_interrupt(void)
 	}
 
 	// Update video.
-	sf_blit_screen();
+	sf_switch_screen();
 
 	return (TRUE);
 }
