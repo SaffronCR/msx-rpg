@@ -21,13 +21,8 @@ void sf_draw_startscreen_intro_text(void)
 	// Cls();
 	SetColors(0, 0, 14);
 
-	sf_draw_text("Deep in space far away", 8*4, 8*19, 15, 14);
-	sf_draw_text("from the inhabited regions", 8*3, 8*19+9, 15, 14);
-	sf_draw_text("of the galaxy lies a long", 8*3, 8*19+9+9, 15, 14);
-	sf_draw_text("forgotten alien station", 8*3, 8*19+9+9+9, 15, 14);
-
-	// sf_draw_text("PRESS SPACE KEY", 8*8, 8*18, 15, 14);
-	// sf_draw_text("@2020 SAFFRON SOFT", 8*7, 8*24, 15, 14);
+	sf_draw_text("PRESS SPACE KEY", 8*8, 8*18, 15, 14);
+	sf_draw_text("@2020 SAFFRON SOFT", 8*7, 8*24, 15, 14);
 
 	//sf_draw_text("@SAFFRON SOFT 2020", 8*6, 100, 2, 0);
 	// PutText(0, 90, "********************************", LOGICAL_IMP);
@@ -60,7 +55,7 @@ void sf_draw_startscreen_intro_text(void)
 	sf_wait(1000);
 
 	// Go to dungeon state.
-	sf_set_game_state(Dungeon);
+	sf_set_game_state(Intro);
 }
 
 void sf_set_startscreen_state(void)

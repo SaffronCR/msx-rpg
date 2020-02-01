@@ -37,6 +37,7 @@ enum GameState
 {
 	None,
 	StartScreen,
+    Intro,
 	Dungeon
 };
 

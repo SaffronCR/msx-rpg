@@ -17,6 +17,7 @@
 #include "menu.h"
 #include "procgen.h"
 #include "startscreen.h"
+#include "intro.h"
 #include "font.h"
 #include "main.h"
 
@@ -290,6 +291,7 @@ void sf_set_game_state(char new_state)
 	switch(game_state)
 	{
 		case StartScreen:	sf_set_startscreen_state();	break;
+		case Intro:			sf_set_intro_state();		break;
 		case Dungeon:		sf_set_dungeon_state();		break;
 	}
 }
@@ -333,8 +335,8 @@ void main(void)
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
-	sf_load_sf5_image("intro01.SF5", 256 * 0, load_buffer);
-	//sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
+	sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
+	//sf_load_sf5_image("INTRO01.SF5", 256 * 0, load_buffer);
 	//sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
 
 	// Init sound.
@@ -361,6 +363,7 @@ void main(void)
 			switch (game_state)
 			{
 				case StartScreen:	sf_update_startscreen_state();	break;
+				case Intro:			sf_update_intro_state();		break;
 				case Dungeon:		sf_update_dungeon_state();		break;
 			}
 		}
