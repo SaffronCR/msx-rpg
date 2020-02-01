@@ -462,7 +462,7 @@ void sf_set_dungeon_state(void)
 
 	// Generate dungeon.
 	Cls();
-	sf_draw_text("Entering the old ruins...", 8, 8, 15, 0);
+	sf_draw_text("Entering the Underruins...", 8, 8, 15, 0);
 
 	db_state = ReadyToSwitch;
 	dungeon_map = NULL;

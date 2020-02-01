@@ -260,7 +260,7 @@ void sf_blit_screen(void)
 		back_page = !back_page;
 
 		SetDisplayPage(!back_page);
-  		SetActivePage(back_page);
+		SetActivePage(back_page);
 
 		db_state = Finished;
 	}
@@ -286,7 +286,7 @@ void sf_set_game_state(char new_state)
 	switch(game_state)
 	{
 		case StartScreen:	sf_set_startscreen_state();	break;
-		case Dungeon: 		sf_set_dungeon_state();		break;
+		case Dungeon:		sf_set_dungeon_state();		break;
 	}
 }
 
@@ -295,9 +295,9 @@ void main(void)
 {
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
 	if(ReadMSXtype() == 3)
-    {
+	{
 		ChangeCPU(0);
-    }
+	}
 
 	// Init random.
 	srand(rand_seed);
@@ -329,7 +329,9 @@ void main(void)
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
-	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
+	sf_load_sf5_image("intro01.SF5", 256 * 0, load_buffer);
+	//sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
+	//sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
 
 	// Set interrupt.
 	InitInterruptHandler();
@@ -352,7 +354,7 @@ void main(void)
 			switch (game_state)
 			{
 				case StartScreen:	sf_update_startscreen_state();	break;
-				case Dungeon: 		sf_update_dungeon_state(); 		break;
+				case Dungeon:		sf_update_dungeon_state();		break;
 			}
 		}
 	}

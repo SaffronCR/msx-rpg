@@ -11,6 +11,6 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_draw_text(char *text, int x, int y, char border_color, char text_color);
+void sf_draw_text(char *text, int x, int y, char text_color, char border_color);
 
 #endif

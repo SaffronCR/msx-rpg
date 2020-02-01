@@ -17,21 +17,55 @@
 void sf_draw_startscreen_intro_text(void)
 {
 	// Intro text.
-    db_state = Updating;
-    Cls();
-	SetColors(0, 0, 0);
-    sf_draw_text("@SAFFRON SOFT 2020", 8*6, 100, 2, 0);
-    // PutText(0, 90, "********************************", LOGICAL_IMP);
-    db_state = ReadyToSwitch;
-    sf_wait(200);
+	db_state = Updating;
+	// Cls();
+	SetColors(0, 0, 14);
 
-    // Go to dungeon state.
-    sf_set_game_state(Dungeon);
+	sf_draw_text("Deep in space far away", 8*4, 8*19, 15, 14);
+	sf_draw_text("from the inhabited regions", 8*3, 8*19+9, 15, 14);
+	sf_draw_text("of the galaxy lies a long", 8*3, 8*19+9+9, 15, 14);
+	sf_draw_text("forgotten alien station", 8*3, 8*19+9+9+9, 15, 14);
+
+	// sf_draw_text("PRESS SPACE KEY", 8*8, 8*18, 15, 14);
+	// sf_draw_text("@2020 SAFFRON SOFT", 8*7, 8*24, 15, 14);
+
+	//sf_draw_text("@SAFFRON SOFT 2020", 8*6, 100, 2, 0);
+	// PutText(0, 90, "********************************", LOGICAL_IMP);
+/*
+	sf_draw_text("<______________>", 8*6, 70,		8, 0);
+	sf_draw_text("|              |", 8*6, 70+8,	8, 0);
+	sf_draw_text("[______________]", 8*6, 70+8+8,	8, 0);
+	sf_draw_text("SAFFRON SOFT",   8*6+8+8, 70+8,   15, 0);
+*/
+
+/*
+	sf_draw_text("<_____COMMAND_____>", 8*6, 8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8+8,		13, 14);
+	sf_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8+8+8,		13, 14);
+	sf_draw_text("[_________________]", 8*6, 8+8+8+8+8+8+8+8+8+8+8,		13, 14);
+
+	sf_draw_text("^TALK    SPELL", 8*6+8, 8+8+8+8,		15, 14);
+	sf_draw_text("STATUS  ITEM", 8*6+8+8, 8+8+8+8+8+8,		15, 14);
+	sf_draw_text("EQUIP   TACTICS", 8*6+8+8, 8+8+8+8+8+8+8+8,		15, 14);
+	sf_draw_text("DOOR    SEARCH", 8*6+8+8, 8+8+8+8+8+8+8+8+8+8,		15, 14);
+*/
+
+	db_state = ReadyToSwitch;
+	sf_wait(1000);
+
+	// Go to dungeon state.
+	sf_set_game_state(Dungeon);
 }
 
 void sf_set_startscreen_state(void)
 {
-    sf_draw_startscreen_intro_text();
+	sf_draw_startscreen_intro_text();
 }
 
 void sf_update_startscreen_state(void)
