@@ -330,15 +330,15 @@ void main(void)
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
-	// Init sound.
-	sf_init_song();
-
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
 	sf_load_sf5_image("intro01.SF5", 256 * 0, load_buffer);
 	//sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
 	//sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
+
+	// Init sound.
+	sf_init_song();
 
 	// Set interrupt.
 	InitInterruptHandler();
