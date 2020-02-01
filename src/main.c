@@ -247,7 +247,7 @@ void sf_draw_palette(void)
 
 void sf_wait(int cicles)
 {
-	for (int i=0; i <cicles; i++)
+	for (int i = 0; i < cicles; i++)
 	{
 		__asm halt __endasm;
 	}
