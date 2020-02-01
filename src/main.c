@@ -249,7 +249,7 @@ void sf_wait(int cicles)
 {
 	for (int i=0; i <cicles; i++)
 	{
-		__asm halt; __endasm;
+		__asm halt __endasm;
 	}
 }
 
@@ -266,14 +266,18 @@ void sf_blit_screen(void)
 	}
 }
 
-static char sf_video_interrupt(void)
+static char sf_interrupt(void)
 {
+	// Update audio.
+	sf_play_song();
+
 	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
 	if (db_state != ReadyToSwitch || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
 		return (FALSE);
 	}
 
+	// Update video.
 	sf_blit_screen();
 
 	return (TRUE);
@@ -326,6 +330,9 @@ void main(void)
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
+	// Init sound.
+	sf_init_song();
+
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
@@ -335,7 +342,7 @@ void main(void)
 
 	// Set interrupt.
 	InitInterruptHandler();
-	SetInterruptHandler(sf_video_interrupt);
+	SetInterruptHandler(sf_interrupt);
 
 	// Set page configuration.
 	db_state = Finished;

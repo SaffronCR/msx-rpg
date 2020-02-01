@@ -58,6 +58,9 @@ void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint s
 void sf_wait(int cicles);
 void sf_set_game_state(char new_state);
 
+void sf_init_song(void);
+void sf_play_song(void);
+
 // Debug.
 
 void sf_draw_palette(void);
