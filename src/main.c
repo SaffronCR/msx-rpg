@@ -57,6 +57,8 @@ MMMtask t;
 
 char load_buffer[BUFFER_SIZE];
 
+char is_playing_song;
+
 // Random seed, for debug purposes.
 uint rand_seed = 666;
 
@@ -267,10 +269,42 @@ void sf_switch_screen(void)
 	}
 }
 
+void sf_set_game_state(char new_state)
+{
+	game_state = new_state;
+
+	switch(game_state)
+	{
+		case StartScreen:	sf_set_startscreen_state();	break;
+		case Intro:			sf_set_intro_state();		break;
+		case Dungeon:		sf_set_dungeon_state();		break;
+	}
+}
+
+void sf_update_game_state()
+{
+	// Player input must wait until the next frame is ready.
+	if (db_state == Finished)
+	{
+		switch (game_state)
+		{
+			case StartScreen:	sf_update_startscreen_state();	break;
+			case Intro:			sf_update_intro_state();		break;
+			case Dungeon:		sf_update_dungeon_state();		break;
+		}
+	}
+}
+
 static char sf_interrupt(void)
 {
+	// Update game logic.
+	sf_update_game_state();
+
 	// Update audio.
-	sf_play_song();
+	if (is_playing_song == TRUE)
+	{
+		sf_play_song();
+	}
 
 	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
 	if (db_state != ReadyToSwitch || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
@@ -284,19 +318,6 @@ static char sf_interrupt(void)
 	return (TRUE);
 }
 
-void sf_set_game_state(char new_state)
-{
-	game_state = new_state;
-
-	switch(game_state)
-	{
-		case StartScreen:	sf_set_startscreen_state();	break;
-		case Intro:			sf_set_intro_state();		break;
-		case Dungeon:		sf_set_dungeon_state();		break;
-	}
-}
-
-// Main.
 void main(void)
 {
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
@@ -335,12 +356,12 @@ void main(void)
 	// Load screens.
 	SetSC5Palette((Palette *)palette);
 	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE, load_buffer);
-	sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
+	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
+	//sf_load_sf5_image("STRTSCR.SF5", 256 * 0, load_buffer);
 	//sf_load_sf5_image("INTRO01.SF5", 256 * 0, load_buffer);
-	//sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE, load_buffer);
 
 	// Init sound.
-	sf_init_song();
+	//sf_init_song();
 
 	// Set interrupt.
 	InitInterruptHandler();
@@ -353,19 +374,10 @@ void main(void)
 	SetActivePage(back_page);
 
 	// Set initial game state.
-	sf_set_game_state(StartScreen);
+	sf_set_game_state(Dungeon);
 
 	for (;;)
 	{
-		// Player input must wait until the next frame is ready.
-		if (db_state == Finished)
-		{
-			switch (game_state)
-			{
-				case StartScreen:	sf_update_startscreen_state();	break;
-				case Intro:			sf_update_intro_state();		break;
-				case Dungeon:		sf_update_dungeon_state();		break;
-			}
-		}
+		// Do nothing.
 	}
 }

@@ -339,15 +339,6 @@ void sf_draw_dungeon_view(void)
 
 	Cls();
 
-	// Compass.
-	switch(player_dir)
-	{
-		case North: sf_draw_text("North",	80, 20, 9, 0);	break;
-		case East:	sf_draw_text("East",	80, 20, 9, 0);	break;
-		case South:	sf_draw_text("South",	80, 20, 9, 0);	break;
-		case West:	sf_draw_text("West",	80, 20, 9, 0);	break;
-	}
-
 	// #SAFFRON #TODO Menu test.
 	sf_draw_combat_menu();
 
@@ -357,8 +348,17 @@ void sf_draw_dungeon_view(void)
 	// Debug: Palette.
 	sf_draw_palette();
 
-	// #SAFFRON #TODO test.
+	// Party avatars.
 	sf_draw_avatars();
+
+	// Compass.
+	switch(player_dir)
+	{
+		case North:	sf_draw_text("North",	80, 20, 9, 0);	break;
+		case East:	sf_draw_text("East",	80, 20, 9, 0);	break;
+		case South:	sf_draw_text("South",	80, 20, 9, 0);	break;
+		case West:	sf_draw_text("West",	80, 20, 9, 0);	break;
+	}
 
 	// Dungeon background.
 	sf_screen_copy(0, 0,
@@ -370,8 +370,8 @@ void sf_draw_dungeon_view(void)
 	sf_draw_dungeon_walls();
 
 	// #TODO Enemies.
-	sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
-	sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
+	//sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
+	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 
 	db_state = ReadyToSwitch;
 }
@@ -454,21 +454,21 @@ void sf_update_joy_dungeon_mode(void)
 
 void sf_set_dungeon_state(void)
 {
-	// Initialize variables
+	// Initialize variables.
 	player_moves = FALSE;
 
 	// This may be set by the random generator in the future?
 	player_dir = North;
 
 	// Generate dungeon.
+	SetColors(0,0,0);
 	Cls();
-	sf_draw_text("Entering the Underruins...", 8, 8, 15, 0);
-
-	db_state = ReadyToSwitch;
+	sf_draw_text("Entering the Undercity...", 8, 8, 15, 0);
 	dungeon_map = NULL;
 	sf_generate_dungeon();
 
 	// Initial draw call.
+	Cls();
 	sf_draw_dungeon_view();
 }
 
@@ -477,7 +477,7 @@ void sf_update_dungeon_state(void)
 	sf_update_joy_dungeon_mode();
 
 	// Update screen if needed.
-	if (player_moves)
+	if (player_moves == TRUE)
 	{
 		player_moves = FALSE;
 
