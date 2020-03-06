@@ -59,6 +59,8 @@ char load_buffer[BUFFER_SIZE];
 
 char is_playing_song;
 
+char update_frame_count = 0;
+
 // Random seed, for debug purposes.
 uint rand_seed = 666;
 
@@ -297,13 +299,20 @@ void sf_update_game_state()
 
 static char sf_interrupt(void)
 {
-	// Update game logic.
-	sf_update_game_state();
-
-	// Update audio.
-	if (is_playing_song == TRUE)
+	// Update game logic and audio in separate frames to ease the CPU load.
+	update_frame_count = !update_frame_count;
+	if (update_frame_count == 1)
 	{
-		sf_play_song();
+		// Update game logic.
+		sf_update_game_state();
+	}
+	else
+	{
+		// Update audio.
+		if (is_playing_song == TRUE)
+		{
+			sf_play_song();
+		}
 	}
 
 	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
@@ -361,7 +370,8 @@ void main(void)
 	//sf_load_sf5_image("INTRO01.SF5", 256 * 0, load_buffer);
 
 	// Init sound.
-	//sf_init_song();
+	sf_init_song();
+	is_playing_song = TRUE;
 
 	// Set interrupt.
 	InitInterruptHandler();

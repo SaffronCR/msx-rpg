@@ -217,12 +217,12 @@ castle_DisarkByteRegionEnd0
 ; ----------------------
 castle_Subsong0_DisarkByteRegionStart0
 castle_Subsong0_Start
-	db 2	; ReplayFrequency (0=12.5hz, 1=25, 2=50, 3=100, 4=150, 5=300).
+	db 1	; ReplayFrequency (0=12.5hz, 1=25, 2=50, 3=100, 4=150, 5=300).
 	db 0	; Digichannel (0-2).
 	db 1	; PSG count (>0).
 	db 0	; Loop start index (>=0).
 	db 10	; End index (>=0).
-	db 6	; Initial speed (>=0).
+	db 3	; Initial speed (>=0).
 	db 27	; Base note index (>=0).
 
 castle_Subsong0_Linker

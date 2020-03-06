@@ -328,6 +328,10 @@ void sf_draw_minimap(void)
 			{
 				Pset(x + 16, y + back_page * 256, 13, 0);
 			}
+			else
+			{
+				Pset(x + 16, y + back_page * 256, 2, 0);
+			}
 		}
 	}
 }
@@ -336,8 +340,6 @@ void sf_draw_minimap(void)
 void sf_draw_dungeon_view(void)
 {
 	db_state = Updating;
-
-	Cls();
 
 	// #SAFFRON #TODO Menu test.
 	sf_draw_combat_menu();
@@ -411,7 +413,7 @@ void sf_rotate_right(void)
 }
 
 // Reads input from keyboard's arrow keys and joystick port 1.
-void sf_update_joy_dungeon_mode(void)
+void sf_update_input_dungeon_mode(void)
 {
 	// Cursor.
 	for (char i = 0; i < 2; i++)
@@ -474,10 +476,12 @@ void sf_set_dungeon_state(void)
 
 void sf_update_dungeon_state(void)
 {
-	sf_update_joy_dungeon_mode();
-
-	// Update screen if needed.
-	if (player_moves == TRUE)
+	// Update input and dungeon view in different cycles.
+	if (player_moves == FALSE)
+	{
+		sf_update_input_dungeon_mode();
+	}
+	else
 	{
 		player_moves = FALSE;
 
