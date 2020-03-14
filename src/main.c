@@ -370,7 +370,7 @@ void main(void)
 	//sf_load_sf5_image("INTRO01.SF5", 256 * 0, load_buffer);
 
 	// Init sound.
-	sf_init_song();
+	sf_init_battle_song();
 	is_playing_song = TRUE;
 
 	// Set interrupt.

@@ -2,8 +2,10 @@
 ;No ORG needed.
 
     ;Songs.
-    include "song.asm" 
-    include "song_playerconfig.asm" ;Optional.
+	include "song_playerconfig.asm" ;Optional.
+	
+    include "song.asm"
+	include "battle.asm"
  
     ;Sound effects.
     ;include "SoundEffects.asm" 
