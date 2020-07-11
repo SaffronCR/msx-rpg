@@ -17,11 +17,12 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Minimap (for debugging purposes).
 * Bitmap font rendering with color support.
 * Simple music support.
+* Start screen.
 
 **To-Do List**
+* Intro.
 * Menu navigation.
 * Character creation.
-* HUD.
 * Hub Town.
 * Enemies/Combat.
 * Inventory.
