@@ -7,14 +7,16 @@ The objective of this project is to learn some programming for MSX2 computers wh
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
 **How video memory is organized during dungeon gameplay:**
-* The first page is the one rendered to screen.
-* The second page is the back buffer.
+* The first and second page are being used for the front/back buffer. They active page (the one being visible on screen) is constantly swapped between the two.
 * The third page contains the dungeon background and sprites (enemies, doors, etc).
 * The fourth page contains the dungeon walls.
 
 **Things done**
 * Dungeon rendering/movement.
-* Minimap (for debugging).
+* Simple dungeon generation.
+* Minimap (for debugging purposes).
+* Bitmap font rendering with color support.
+* Simple music support.
 
 **To-Do List**
 * Menu navigation.
@@ -23,9 +25,8 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Hub Town.
 * Enemies/Combat.
 * Inventory.
+* FX sound.
 * Save/Load game.
-* Sound.
-* Dungeon generation/loading.
 
 ## Third party resources:
 **Fusion-C Library 1.2**
