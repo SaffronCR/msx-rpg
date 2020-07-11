@@ -14,14 +14,15 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 **Things done**
 * Dungeon rendering/movement.
 * Simple dungeon generation.
-* Minimap (for debugging purposes).
 * Bitmap font rendering with color support.
 * Simple music support.
 * Start screen.
+* Minimap (for debugging purposes).
+* Show current palette (for debugging purposes).
 
 **To-Do List**
 * Intro.
-* Menu navigation.
+* Menus/UI.
 * Character creation.
 * Hub Town.
 * Enemies/Combat.
