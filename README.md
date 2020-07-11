@@ -8,7 +8,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 
 **How video memory is organized during dungeon gameplay:**
 * The first and second page are being used for the front/back buffer. The active page (the one being visible on screen) is constantly swapped between the two.
-* The third page contains the dungeon background and sprites (enemies, doors, etc).
+* The third page contains the bitmap font, dungeon background and sprites (player avatar, enemies, etc).
 * The fourth page contains the dungeon walls.
 
 **Things done**
