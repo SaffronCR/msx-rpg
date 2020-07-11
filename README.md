@@ -7,7 +7,7 @@ The objective of this project is to learn some programming for MSX2 computers wh
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
 **How video memory is organized during dungeon gameplay:**
-* The first and second page are being used for the front/back buffer. They active page (the one being visible on screen) is constantly swapped between the two.
+* The first and second page are being used for the front/back buffer. The active page (the one being visible on screen) is constantly swapped between the two.
 * The third page contains the dungeon background and sprites (enemies, doors, etc).
 * The fourth page contains the dungeon walls.
 
