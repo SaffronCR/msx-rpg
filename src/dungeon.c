@@ -44,7 +44,7 @@ void sf_draw_third_wall_far_left(uint x, uint y)
 		sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -55,7 +55,7 @@ void sf_draw_third_wall_far_right(uint x, uint y)
 		sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
 					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -66,7 +66,7 @@ void sf_draw_third_wall_left(uint x, uint y)
 		sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
 					   DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -77,7 +77,7 @@ void sf_draw_third_wall_right(uint x, uint y)
 		sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
 					   THIRD_WALL_DX, THIRD_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -88,7 +88,7 @@ void sf_draw_second_wall_far_left(uint x, uint y)
 		sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -99,7 +99,7 @@ void sf_draw_second_wall_far_right(uint x, uint y)
 		sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -110,7 +110,7 @@ void sf_draw_second_wall_left(uint x, uint y)
 		sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -121,7 +121,7 @@ void sf_draw_second_wall_right(uint x, uint y)
 		sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
 					   SECOND_WALL_DX, SECOND_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -132,7 +132,7 @@ void sf_draw_first_wall_left(uint x, uint y)
 		sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
 					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -143,7 +143,7 @@ void sf_draw_first_wall_right(uint x, uint y)
 		sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 					   FIRST_WALL_DX, FIRST_WALL_DY,
 					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -154,7 +154,7 @@ void sf_draw_third_wall_front(uint x, uint y)
 		sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 					   THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
 					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -165,7 +165,7 @@ void sf_draw_second_wall_front(uint x, uint y)
 		sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 					   SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
 					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
-					   WALLS_PAGE, back_page, LOGICAL_TIMP);
+					   WALLS_PAGE, active_page, LOGICAL_TIMP);
 	}
 }
 
@@ -243,7 +243,7 @@ void sf_draw_tiles_background(void)
 			sf_screen_copy(160, 0,
 						   8, 8,
 						   x * 8, y * 8,
-						   SPRITES_PAGE, back_page, opHMMM);
+						   SPRITES_PAGE, active_page, opHMMM);
 		}
 	}
 }
@@ -254,28 +254,28 @@ void sf_draw_avatars(void)
 	sf_screen_copy(0, 120,
 				   32, 32,
 				   180, 1 * 32 + 4,
-				   SPRITES_PAGE, back_page, opHMMM);
+				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(32, 120,
 				   32, 32,
 				   180, 2 * 32 + 4 + 8,
-				   SPRITES_PAGE, back_page, opHMMM);
+				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(64, 120,
 				   32, 32,
 				   180, 3 * 32 + 4 + 8 + 8,
-				   SPRITES_PAGE, back_page, opHMMM);
+				   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(180 + 32 + 2, 1 * 32 + 4 + back_page * 256,
+	LMMV(180 + 32 + 2, 1 * 32 + 4 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
+	LMMV(180 + 32 + 2, 2 * 32 + 4 + 8 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
+	LMMV(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
@@ -322,15 +322,15 @@ void sf_draw_minimap(void)
 		{
 			if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 			{
-				Pset(x + 16, y + back_page * 256, 10, 0);
+				Pset(x + 16, y + active_page * 256, 10, 0);
 			}
 			else if (player_pos_x == x && player_pos_y == y)
 			{
-				Pset(x + 16, y + back_page * 256, 13, 0);
+				Pset(x + 16, y + active_page * 256, 13, 0);
 			}
 			else
 			{
-				Pset(x + 16, y + back_page * 256, 2, 0);
+				Pset(x + 16, y + active_page * 256, 2, 0);
 			}
 		}
 	}
@@ -339,7 +339,7 @@ void sf_draw_minimap(void)
 // Draw the current dungeon room.
 void sf_draw_dungeon_view(void)
 {
-	db_state = Updating;
+	sf_set_drawing_state(Begin);
 
 	// #SAFFRON #TODO Menu test.
 	sf_draw_combat_menu();
@@ -366,7 +366,7 @@ void sf_draw_dungeon_view(void)
 	sf_screen_copy(0, 0,
 		DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
 		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-		SPRITES_PAGE, back_page, opHMMM);
+		SPRITES_PAGE, active_page, opHMMM);
 
 	// Dungeon walls.
 	sf_draw_dungeon_walls();
@@ -375,7 +375,7 @@ void sf_draw_dungeon_view(void)
 	//sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 
-	db_state = ReadyToSwitch;
+	sf_set_drawing_state(WaitingForVDP);
 }
 
 void sf_move(int newPosX, int newPosY)

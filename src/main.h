@@ -26,10 +26,10 @@ typedef unsigned int uint;
 // Enums.
 //------------------------------------------------------------------
 
-enum DoubleBufferState
+enum DrawingState
 {
-	Updating,
-	ReadyToSwitch,
+	Begin,
+	WaitingForVDP,
 	Finished
 };
 
@@ -45,11 +45,7 @@ enum GameState
 // Variables.
 //------------------------------------------------------------------
 
-extern char back_page;
-
-extern enum DoubleBufferState db_state;
-
-extern enum GameState game_state;
+extern char active_page;
 
 //------------------------------------------------------------------
 // Prototypes.
@@ -57,10 +53,16 @@ extern enum GameState game_state;
 
 void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode);
 void sf_wait(int cicles);
+void sf_set_drawing_state(char new_state);
+char sf_get_drawing_state();
 void sf_set_game_state(char new_state);
 
 void sf_init_song(void);
 void sf_play_song(void);
+void sf_init_menu_song(void);
+void sf_init_intro_song(void);
+void sf_init_dungeon_song(void);
+void sf_init_battle_song(void);
 
 // Debug.
 

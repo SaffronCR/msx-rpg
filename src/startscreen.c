@@ -17,7 +17,7 @@
 void sf_draw_startscreen_intro_text(void)
 {
 	// Intro text.
-	db_state = Updating;
+	sf_set_drawing_state(Begin);
 	// Cls();
 	SetColors(0, 0, 14);
 
@@ -51,7 +51,7 @@ void sf_draw_startscreen_intro_text(void)
 	sf_draw_text("DOOR    SEARCH", 8*6+8+8, 8+8+8+8+8+8+8+8+8+8,		15, 14);
 */
 
-	db_state = ReadyToSwitch;
+	sf_set_drawing_state(WaitingForVDP);
 	sf_wait(1000);
 
 	// Go to dungeon state.

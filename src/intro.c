@@ -17,7 +17,7 @@
 void sf_draw_intro_text(void)
 {
 	// Intro text.
-	db_state = Updating;
+	sf_set_drawing_state(Begin);
 	// Cls();
 	SetColors(0, 0, 14);
 
@@ -26,7 +26,7 @@ void sf_draw_intro_text(void)
 	sf_draw_text("of the galaxy lies a long", 8*3, 8*19+9+9, 15, 14);
 	sf_draw_text("forgotten alien station", 8*3, 8*19+9+9+9, 15, 14);
 
-	db_state = ReadyToSwitch;
+	sf_set_drawing_state(WaitingForVDP);
 	sf_wait(1000);
 
 	// Go to dungeon state.

@@ -47,9 +47,9 @@ const char palette[] =
 	15, 6, 7, 6,
 };
 
-char back_page;
+char active_page;
 
-enum DoubleBufferState db_state;
+enum DrawingState drawing_state;
 
 enum GameState game_state;
 
@@ -245,7 +245,7 @@ void sf_draw_palette(void)
 
 	for (int i = 0; i < 16; i++)
 	{
-		LMMV(x, y + back_page * 256, 8, 8, i, 0);
+		LMMV(x, y + active_page * 256, 8, 8, i, 0);
 		y += 9;
 	}
 }
@@ -260,15 +260,25 @@ void sf_wait(int cicles)
 
 void sf_switch_screen(void)
 {
-	if (db_state == ReadyToSwitch)
+	if (sf_get_drawing_state() == WaitingForVDP)
 	{
-		back_page = !back_page;
+		active_page = !active_page;
 
-		SetDisplayPage(!back_page);
-		SetActivePage(back_page);
+		SetDisplayPage(!active_page);
+		SetActivePage(active_page);
 
-		db_state = Finished;
+		sf_set_drawing_state(Finished);
 	}
+}
+
+void sf_set_drawing_state(char new_state)
+{
+	drawing_state = new_state;
+}
+
+char sf_get_drawing_state()
+{
+	return drawing_state;
 }
 
 void sf_set_game_state(char new_state)
@@ -286,7 +296,7 @@ void sf_set_game_state(char new_state)
 void sf_update_game_state()
 {
 	// Player input must wait until the next frame is ready.
-	if (db_state == Finished)
+	if (sf_get_drawing_state() == Finished)
 	{
 		switch (game_state)
 		{
@@ -315,8 +325,8 @@ static char sf_interrupt(void)
 		}
 	}
 
-	// Checking is ready to switch, VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
-	if (db_state != ReadyToSwitch || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
+	// Checking "is ready to switch", VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
+	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
 		return (FALSE);
 	}
@@ -378,10 +388,10 @@ void main(void)
 	SetInterruptHandler(sf_interrupt);
 
 	// Set page configuration.
-	db_state = Finished;
-	back_page = 0;
-	SetDisplayPage(!back_page);
-	SetActivePage(back_page);
+	sf_set_drawing_state(Finished);
+	active_page = 0;
+	SetDisplayPage(!active_page);
+	SetActivePage(active_page);
 
 	// Set initial game state.
 	sf_set_game_state(Dungeon);
