@@ -21,6 +21,7 @@ void sf_init_menu_song(void);
 void sf_init_intro_song(void);
 void sf_init_dungeon_song(void);
 void sf_init_battle_song(void);
-void sf_update_audio(void);
+void sf_init_snd(void);
+void sf_update_snd(void);
 
 #endif

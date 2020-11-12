@@ -36,7 +36,7 @@ void sf_wait(int cicles);
 void sf_set_drawing_state(char new_state);
 char sf_get_drawing_state(void);
 void sf_init_gfx(void);
-void sf_switch_screen(void);
+char sf_update_gfx(void);
 
 // Debug.
 

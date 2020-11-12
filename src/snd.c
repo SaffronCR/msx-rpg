@@ -23,7 +23,13 @@ char is_playing_song = FALSE;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_update_audio(void)
+void sf_init_snd(void)
+{
+	//sf_init_battle_song();
+	//is_playing_song = TRUE;
+}
+
+void sf_update_snd(void)
 {
 	// Update audio.
 	if (is_playing_song == TRUE)

@@ -213,12 +213,12 @@ void sf_set_drawing_state(char new_state)
 	drawing_state = new_state;
 }
 
-char sf_get_drawing_state()
+char sf_get_drawing_state(void)
 {
 	return drawing_state;
 }
 
-void sf_init_gfx()
+void sf_init_gfx(void)
 {
 	// Disable sprites.
 	SpriteOff();
@@ -246,4 +246,17 @@ void sf_init_gfx()
 	active_page = 0;
 	SetDisplayPage(!active_page);
 	SetActivePage(active_page);
+}
+
+char sf_update_gfx(void)
+{
+	// Checking "is ready to switch", VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
+	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
+	{
+		return (FALSE);
+	}
+
+	sf_switch_screen();
+
+	return (TRUE);
 }

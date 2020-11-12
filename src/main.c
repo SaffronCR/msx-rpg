@@ -48,7 +48,7 @@ void sf_set_game_state(char new_state)
 	}
 }
 
-void sf_update_game_state()
+void sf_update_game_state(void)
 {
 	// Player input must wait until the next frame is ready.
 	if (sf_get_drawing_state() == Finished)
@@ -74,25 +74,17 @@ static char sf_interrupt(void)
 	else
 	{
 		// Update audio.
-		sf_update_audio();
-	}
-
-	// Checking "is ready to switch", VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
-	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
-	{
-		return (FALSE);
+		sf_update_snd();
 	}
 
 	// Update video.
-	sf_switch_screen();
-
-	return (TRUE);
+	return sf_update_gfx();
 }
 
 void main(void)
 {
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
-	if(ReadMSXtype() == 3)
+	if (ReadMSXtype() == 3)
 	{
 		ChangeCPU(0);
 	}
@@ -111,8 +103,7 @@ void main(void)
 	InitPSG();
 
 	// Init sound.
-	//sf_init_battle_song();
-	//is_playing_song = TRUE;
+	sf_init_snd();
 
 	// Set gfx configuration.
 	sf_init_gfx();
