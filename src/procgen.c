@@ -10,6 +10,7 @@
 #include "fusion-c/header/vdp_sprites.h"
 #include "fusion-c/header/vdp_graph2.h"
 
+#include "types.h"
 #include "main.h"
 #include "dungeon.h"
 #include "procgen.h"

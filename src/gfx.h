@@ -2,19 +2,20 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef GFX_H
+#define GFX_H
+
+#include "types.h"
 
 //------------------------------------------------------------------
 // Enums.
 //------------------------------------------------------------------
 
-enum GameState
+enum DrawingState
 {
-	None,
-	StartScreen,
-    Intro,
-	Dungeon
+	Begin,
+	WaitingForVDP,
+	Finished
 };
 
 //------------------------------------------------------------------
@@ -27,6 +28,18 @@ extern char active_page;
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_set_game_state(char new_state);
+void sf_init_palette(void);
+char sf_load_sf5_image(char *file_name, uint start_Y);
+char sf_load_sc8_image(char *file_name, uint start_Y);
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode);
+void sf_wait(int cicles);
+void sf_set_drawing_state(char new_state);
+char sf_get_drawing_state(void);
+void sf_init_gfx(void);
+void sf_switch_screen(void);
+
+// Debug.
+
+void sf_draw_palette(void);
 
 #endif

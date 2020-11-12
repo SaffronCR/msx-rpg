@@ -2,31 +2,32 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef MAIN_H
-#define MAIN_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-//------------------------------------------------------------------
-// Enums.
-//------------------------------------------------------------------
+#include "fusion-c/header/msx_fusion.h"
+#include "fusion-c/header/ayfx_player.h"
+#include "fusion-c/header/pt3replayer.h"
 
-enum GameState
-{
-	None,
-	StartScreen,
-    Intro,
-	Dungeon
-};
+#include "main.h"
+#include "snd.h"
 
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
 
-extern char active_page;
+char is_playing_song = FALSE;
 
 //------------------------------------------------------------------
-// Prototypes.
+// Functions.
 //------------------------------------------------------------------
 
-void sf_set_game_state(char new_state);
-
-#endif
+void sf_update_audio(void)
+{
+	// Update audio.
+	if (is_playing_song == TRUE)
+	{
+		sf_play_song();
+	}
+}

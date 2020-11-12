@@ -12,6 +12,7 @@
 
 #include "main.h"
 #include "font.h"
+#include "gfx.h"
 #include "intro.h"
 
 void sf_draw_intro_text(void)

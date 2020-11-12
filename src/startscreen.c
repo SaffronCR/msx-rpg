@@ -12,6 +12,7 @@
 
 #include "main.h"
 #include "font.h"
+#include "gfx.h"
 #include "startscreen.h"
 
 void sf_draw_startscreen_intro_text(void)

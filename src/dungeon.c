@@ -13,6 +13,7 @@
 #include "main.h"
 #include "procgen.h"
 #include "font.h"
+#include "gfx.h"
 #include "dungeon.h"
 
 //------------------------------------------------------------------

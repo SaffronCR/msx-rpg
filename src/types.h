@@ -2,16 +2,20 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef STARTSCREEN_H
-#define STARTSCREEN_H
-
-//...
+#ifndef TYPES_H
+#define TYPES_H
 
 //------------------------------------------------------------------
-// Prototypes.
+// Typedefs.
 //------------------------------------------------------------------
 
-void sf_set_startscreen_state(void);
-void sf_update_startscreen_state(void);
+typedef unsigned int uint;
+
+//------------------------------------------------------------------
+// Defines.
+//------------------------------------------------------------------
+
+#define FALSE 0
+#define TRUE 1
 
 #endif

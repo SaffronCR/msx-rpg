@@ -11,6 +11,7 @@
 #include "fusion-c/header/vdp_graph2.h"
 
 #include "main.h"
+#include "gfx.h"
 #include "font.h"
 
 // Font.

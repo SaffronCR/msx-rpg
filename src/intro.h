@@ -12,7 +12,6 @@
 //------------------------------------------------------------------
 
 void sf_set_intro_state(void);
-
 void sf_update_intro_state(void);
 
 #endif
