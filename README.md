@@ -1,6 +1,8 @@
 # Star Rangers: A Dungeon Crawler for the MSX2
 
-The objective of this project is to learn some programming for MSX2 computers while having some fun creating an old school Dungeon Crawler. My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
+The objective of this project is to learn some programming for MSX2 computers while having some fun creating an old school Dungeon Crawler.
+
+My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
 
 ![Ingame Screenshot](https://pbs.twimg.com/media/EcrHezDWsAA2i_R?format=png&name=large)
 
