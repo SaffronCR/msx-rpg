@@ -18,7 +18,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Dungeon generation.
 * Bitmap font rendering with color support.
 * Music support.
-* Intro.
+* Intro screen.
 * Start screen.
 * Minimap (Debug mode).
 * Show current palette (Debug mode).
@@ -33,6 +33,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Gadgets/Streams.
 * Sound effects.
 * Save/Load game.
+* Game Over screen.
 
 ## Third party resources:
 **Fusion-C Library 1.2**
