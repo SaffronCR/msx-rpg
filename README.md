@@ -1,6 +1,6 @@
-# Dungeon Crawler for MSX2
+# Star Rangers: A Dungeon Crawler for the MSX2
 
-The objective of this project is to learn some programming for MSX2 computers while having some fun creating a Dungeon Crawler.
+The objective of this project is to learn some programming for MSX2 computers while having some fun creating an old school Dungeon Crawler. My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
 
 ![Ingame Screenshot](https://pbs.twimg.com/media/EcrHezDWsAA2i_R?format=png&name=large)
 
@@ -13,21 +13,23 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 
 **Things done**
 * Dungeon rendering/movement.
-* Simple dungeon generation.
+* Dungeon generation.
 * Bitmap font rendering with color support.
-* Simple music support.
+* Music support.
+* Intro.
 * Start screen.
-* Minimap (for debugging purposes).
-* Show current palette (for debugging purposes).
+* Minimap (Debug mode).
+* Show current palette (Debug mode).
 
 **To-Do List**
-* Intro.
-* Menus/UI.
+* Menu navegation.
 * Character creation.
-* Hub Town.
+* Hub City.
+* Dungeon progression.
 * Enemies/Combat.
-* Inventory.
-* FX sound.
+* Treasure generation.
+* Gadgets/Streams.
+* Sound effects.
 * Save/Load game.
 
 ## Third party resources:
