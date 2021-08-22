@@ -4,7 +4,7 @@ The objective of this project is to learn some programming for MSX2 computers wh
 
 My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
 
-![Ingame Screenshot](https://pbs.twimg.com/media/EcrHezDWsAA2i_R?format=png&name=large)
+![Ingame Screenshot](https://pbs.twimg.com/media/E9aofavWYAAAiMv?format=jpg&name=small)
 
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
@@ -34,6 +34,28 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Sound effects.
 * Save/Load game.
 * Game Over screen.
+
+## How To Compile
+
+* Download the repository with your git client of your choice.
+* The project is configured for Visual Code, but any other editor will do.
+* Download and install SDCC 4.1.0 (http://sdcc.sourceforge.net/). Make sure it's added to your PATH. 
+* You need to modify SDCC included libraries to make them compatible with Fusion-C. Open a terminal window and browse to the Z80 library folder (SDCC\lib\z80), then type these commands:
+> copy z80.lib z80.save
+> 
+> sdar -d z80.lib printf.rel
+> 
+> sdar -d z80.lib sprintf.rel
+> 
+> sdar -d z80.lib vprintf.rel
+> 
+> sdar -d z80.lib putchar.rel
+> 
+> sdar -d z80.lib getchar.rel
+* Download and install OpenMSX (https://openmsx.org/). Create a folder inside the project called "openmsx" and extract the emulator to it. You will also need to find and install the system roms in the "share/systemroms" folder.
+* In Visual Code you can select "Terminal/Run Build Task" to build and run the game.
+* The game should run.
+* Enjoy!
 
 ## Third party resources:
 **Fusion-C Library 1.2**
