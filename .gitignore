@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 openMSX/
 Tools/
+/src/audio/At2Files.asm
+/src/audio/audio.rel
