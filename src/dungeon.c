@@ -249,34 +249,34 @@ void sf_draw_tiles_background(void)
 	}
 }
 
-void sf_draw_avatars(void)
+void sf_draw_portraits(void)
 {
-	// Avatar images.
+	// Portraits.
 	sf_screen_copy(0, 120,
-				   32, 32,
-				   180, 1 * 32 + 4,
+				   31, 32,
+				   180, 1 * 31 + 4,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(32, 120,
-				   32, 32,
-				   180, 2 * 32 + 4 + 8,
+				   31, 32,
+				   180, 2 * 31 + 4 + 8,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sf_screen_copy(64, 120,
-				   32, 32,
-				   180, 3 * 32 + 4 + 8 + 8,
+	sf_screen_copy(63, 120,
+				   31, 32,
+				   180, 3 * 31 + 4 + 8 + 8,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(180 + 32 + 2, 1 * 32 + 4 + active_page * 256,
+	LMMV(180 + 31 + 2, 1 * 31 + 4 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 32 + 2, 2 * 32 + 4 + 8 + active_page * 256,
+	LMMV(180 + 31 + 2, 2 * 31 + 4 + 8 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 32 + 2, 3 * 32 + 4 + 8 + 8 + active_page * 256,
+	LMMV(180 + 31 + 2, 3 * 31 + 4 + 8 + 8 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
@@ -351,8 +351,8 @@ void sf_draw_dungeon_view(void)
 	// Debug: Palette.
 	sf_draw_palette();
 
-	// Party avatars.
-	sf_draw_avatars();
+	// Party portraits.
+	sf_draw_portraits();
 
 	// Compass.
 	switch(player_dir)
