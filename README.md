@@ -4,7 +4,7 @@ The objective of this project is to learn some programming for MSX2 computers wh
 
 My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
 
-![Ingame Screenshot](https://pbs.twimg.com/media/E9aofavWYAAAiMv?format=jpg&name=small)
+![Ingame Screenshot](https://pbs.twimg.com/media/E9gUsnaXoAAozWR?format=jpg&name=small)
 
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
