@@ -340,6 +340,18 @@ void sf_draw_minimap(void)
 	}
 }
 
+void sf_draw_vertical_test(void)
+{
+	for (int y = 0; y < 192; y++)
+	{
+		Pset(8, y + active_page * 256, 13, 0);
+	}
+	for (int y = 192; y < 212; y++)
+	{
+		Pset(8, y + active_page * 256, 6, 0);
+	}
+}
+
 // Draw the current dungeon room.
 void sf_draw_dungeon_view(void)
 {
@@ -353,6 +365,9 @@ void sf_draw_dungeon_view(void)
 
 	// Debug: Palette.
 	sf_draw_palette();
+
+	// Debug: check 192/212 vertical pixels.
+	sf_draw_vertical_test();
 
 	// Party portraits.
 	sf_draw_portraits();

@@ -220,14 +220,17 @@ char sf_get_drawing_state(void)
 
 void sf_init_gfx(void)
 {
-	// Disable sprites.
+	// Disable sprites (speed gain).
 	SpriteOff();
 
-	// Sets display to specified screen mode (from 0 to 8).
+	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
 
-	// Switches the MSX2 VDP to 50 Hz Pal Mode.
-	VDP50Hz();
+	// Switch from 212 to 192 vertical lines (speed gain).
+	VDPLinesSwitch();
+
+	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
+	VDP60Hz();
 
 	// Set loading text.
 	Cls();
