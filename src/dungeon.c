@@ -236,17 +236,16 @@ void sf_draw_dungeon_walls(void)
 	}
 }
 
-// Currently not being used.
-void sf_draw_tiles_background(void)
+// #WIP #TEST Currently not being used.
+void sf_draw_tiles_screen_background(void)
 {
-	// #SAFFRON TEST: Draw tiles background.
-	for (int x = 0; x < 32; x++)
+	for (int x = 0; x < 10; x++)
 	{
-		for (int y = 0; y < 26; y++)
+		for (int y = 0; y < 8; y++)
 		{
-			sf_screen_copy(160, 0,
-						   8, 8,
-						   x * 8, y * 8,
+			sf_screen_copy(232, 188,
+						   24, 24,
+						   x * 24, y * 24,
 						   SPRITES_PAGE, active_page, opHMMM);
 		}
 	}
@@ -254,68 +253,47 @@ void sf_draw_tiles_background(void)
 
 void sf_draw_portraits(void)
 {
+	// Names.
+	sf_draw_text("I.Elba",	8*22, 8*1,	15, 0);
+	sf_draw_text("Echo",	8*22, 8*7,	15, 0);
+	sf_draw_text("Lisbeth",	8*22, 8*13,	15, 0);
+
 	// Portraits.
 	sf_screen_copy(160, 0,
 				   31, 32,
-				   180, 1 * 31 + 4,
+				   8*22, 8*1+8+1,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(160 + 32, 0,
 				   31, 32,
-				   180, 2 * 31 + 4 + 8,
+				   8*22, 8*7+8+1,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(160 + 63, 0,
-				   31, 32,
-				   180, 3 * 31 + 4 + 8 + 8,
-				   SPRITES_PAGE, active_page, opHMMM);
+	 			   31, 32,
+	 			   8*22, 8*13+8+1,
+	 			   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(180 + 31 + 2, 1 * 31 + 4 + active_page * 256,
+	LMMV(8*22 + 31 + 2, 8*1+8+1 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 31 + 2, 2 * 31 + 4 + 8 + active_page * 256,
+	LMMV(8*22 + 31 + 2, 8*7+8+1 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(180 + 31 + 2, 3 * 31 + 4 + 8 + 8 + active_page * 256,
+	LMMV(8*22 + 31 + 2, 8*13+8+1 + active_page * 256,
 		 4, 32,
 		 11, 0);
-
-	// TP bars.
-	// Rect(186 + 32 + 2, 1 * 32 + 4 + back_page * 256,
-	// 	 186 + 32 + 2 + 4, 1 * 32 + 4 + 32 + back_page * 256,
-	// 	 8, FILL_ALL);
-
-	// Rect(186 + 32 + 2, 2 * 32 + 4 + 8 + back_page * 256,
-	// 	 186 + 32 + 2 + 4, 2 * 32 + 4 + 32 + 8 + back_page * 256,
-	// 	 8, FILL_ALL);
-
-	// Rect(186 + 32 + 2, 3 * 32 + 4 + 8 + 8 + back_page * 256,
-	// 	 186 + 32 + 2 + 4, 3 * 32 + 4 + 32 + 8 + 8 + back_page * 256,
-	// 	 8, FILL_ALL);
 }
 
 void sf_draw_combat_menu(void)
 {
-	// SetColors(15, 0, 0);
-	// PutText(20, 160, "Fight", LOGICAL_TIMP);
-
-	// SetColors(8, 0, 0);
-	// PutText(20, 160 + 8+2, "Talk", LOGICAL_IMP);
-	// PutText(20, 160 + 8+2 + 8+2, "Escape", LOGICAL_IMP);
-
-	// SetColors(15, 0, 0);
-	// PutText(20, 160, "FIGHT", LOGICAL_TIMP);
-
-	// SetColors(8, 0, 0);
-	// PutText(20, 160 + 8+2, "TALK", LOGICAL_IMP);
-	// PutText(20, 160 + 8+2 + 8+2, "ESCAPE", LOGICAL_IMP);
-
-	sf_draw_text("Attack              ", 8*2, 160, 0, 8);
-	sf_draw_text("Tech", 8*2, 160 + 8+2, 8, 0);
-	sf_draw_text("Defense", 8*2, 160 + 8+2 + 8+2, 8, 0);
+	// #WIP
+	sf_draw_text("Attack              ",	8*1, 140, 				0, 8);
+	sf_draw_text("Gadgets", 				8*1, 140 + 8+2, 		8, 0);
+	sf_draw_text("Flee",		 			8*1, 140 + 8+2 + 8+2,	8, 0);
 }
 
 void sf_draw_minimap(void)
@@ -357,17 +335,20 @@ void sf_draw_dungeon_view(void)
 {
 	sf_set_drawing_state(Begin);
 
-	// #SAFFRON #TODO Menu test.
+	// Screen background test.
+	//sf_draw_tiles_screen_background();
+
+	// #WIP Menu test.
 	sf_draw_combat_menu();
 
 	// Debug: Minimap.
-	sf_draw_minimap();
+	//sf_draw_minimap();
 
 	// Debug: Palette.
-	sf_draw_palette();
+	//sf_draw_palette();
 
 	// Debug: check 192/212 vertical pixels.
-	sf_draw_vertical_test();
+	//sf_draw_vertical_test();
 
 	// Party portraits.
 	sf_draw_portraits();
@@ -375,17 +356,11 @@ void sf_draw_dungeon_view(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case North:	sf_draw_text("N",	80, 20, 9, 0);	break;
-		case East:	sf_draw_text("E",	80, 20, 9, 0);	break;
-		case South:	sf_draw_text("S",	80, 20, 9, 0);	break;
-		case West:	sf_draw_text("W",	80, 20, 9, 0);	break;
+		case North:	sf_draw_text("N", 8*10 +4, 8*0 +1, 9, 0);	break;
+		case East:	sf_draw_text("E", 8*10 +4, 8*0 +1, 9, 0);	break;
+		case South:	sf_draw_text("S", 8*10 +4, 8*0 +1, 9, 0);	break;
+		case West:	sf_draw_text("W", 8*10 +4, 8*0 +1, 9, 0);	break;
 	}
-
-	// // Dungeon background.
-	// sf_screen_copy(0, 0,
-	// 	DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
-	// 	DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-	// 	SPRITES_PAGE, active_page, opHMMM);
 
 	// #WIP: Draw a different floor in odd tiles to create ilusion of movement.
 	if (player_moves == TRUE)
@@ -420,7 +395,7 @@ void sf_draw_dungeon_view(void)
 	// Dungeon walls.
 	sf_draw_dungeon_walls();
 
-	// #TODO Enemies.
+	// #WIP Enemies.
 	//sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
 

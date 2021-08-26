@@ -14,8 +14,8 @@
 #define SPRITES_PAGE 2
 #define WALLS_PAGE 3
 
-#define DUNGEON_SCREEN_X 2 * 8
-#define DUNGEON_SCREEN_Y 4 * 8
+#define DUNGEON_SCREEN_X 1 * 8
+#define DUNGEON_SCREEN_Y 1 * 8
 #define DUNGEON_SCREEN_DX 160
 #define DUNGEON_SCREEN_DY 120
 
