@@ -26,6 +26,9 @@ const int dir_translate_x[] = {0, 1, 0, -1};
 const int dir_translate_y[] = {-1, 0, 1, 0};
 
 char player_moves;
+char player_turns;
+
+char ceiling_tile = 0;
 
 int player_pos_x;
 int player_pos_y;
@@ -252,17 +255,17 @@ void sf_draw_tiles_background(void)
 void sf_draw_portraits(void)
 {
 	// Portraits.
-	sf_screen_copy(0, 120,
+	sf_screen_copy(160, 0,
 				   31, 32,
 				   180, 1 * 31 + 4,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sf_screen_copy(32, 120,
+	sf_screen_copy(160 + 32, 0,
 				   31, 32,
 				   180, 2 * 31 + 4 + 8,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sf_screen_copy(63, 120,
+	sf_screen_copy(160 + 63, 0,
 				   31, 32,
 				   180, 3 * 31 + 4 + 8 + 8,
 				   SPRITES_PAGE, active_page, opHMMM);
@@ -357,17 +360,47 @@ void sf_draw_dungeon_view(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case North:	sf_draw_text("North",	80, 20, 9, 0);	break;
-		case East:	sf_draw_text("East",	80, 20, 9, 0);	break;
-		case South:	sf_draw_text("South",	80, 20, 9, 0);	break;
-		case West:	sf_draw_text("West",	80, 20, 9, 0);	break;
+		case North:	sf_draw_text("N",	80, 20, 9, 0);	break;
+		case East:	sf_draw_text("E",	80, 20, 9, 0);	break;
+		case South:	sf_draw_text("S",	80, 20, 9, 0);	break;
+		case West:	sf_draw_text("W",	80, 20, 9, 0);	break;
+	}
+
+	// // Dungeon background.
+	// sf_screen_copy(0, 0,
+	// 	DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
+	// 	DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+	// 	SPRITES_PAGE, active_page, opHMMM);
+
+	// #WIP: Draw a different floor in odd tiles to create ilusion of movement.
+	if (player_moves == TRUE)
+	{
+		ceiling_tile = !ceiling_tile;
 	}
 
 	// Dungeon background.
-	sf_screen_copy(0, 0,
-		DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
-		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-		SPRITES_PAGE, active_page, opHMMM);
+	if (ceiling_tile == 1)
+	{
+		// Draw Standard background minus the floor.
+		sf_screen_copy(0, 0,
+			DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY - 22,
+			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+			SPRITES_PAGE, active_page, opHMMM);
+
+		// Draw alternate floor.
+		sf_screen_copy(0, 120,
+			DUNGEON_SCREEN_DX, 22,
+			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + 98,
+			SPRITES_PAGE, active_page, opHMMM);
+	}
+	else
+	{
+		// Draw standard background in full.
+		sf_screen_copy(0, 0,
+			DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
+			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+			SPRITES_PAGE, active_page, opHMMM);
+	}
 
 	// Dungeon walls.
 	sf_draw_dungeon_walls();
@@ -400,7 +433,7 @@ void sf_rotate_left(void)
 		player_dir = West;
 	}
 
-	player_moves = TRUE;
+	player_turns = TRUE;
 }
 
 void sf_rotate_right(void)
@@ -410,7 +443,7 @@ void sf_rotate_right(void)
 		player_dir = North;
 	}
 
-	player_moves = TRUE;
+	player_turns = TRUE;
 }
 
 // Reads input from keyboard's arrow keys and joystick port 1.
@@ -459,6 +492,7 @@ void sf_set_dungeon_state(void)
 {
 	// Initialize variables.
 	player_moves = FALSE;
+	player_turns = FALSE;
 
 	// This may be set by the random generator in the future?
 	player_dir = North;
@@ -478,14 +512,16 @@ void sf_set_dungeon_state(void)
 void sf_update_dungeon_state(void)
 {
 	// Update input and dungeon view in different cycles.
-	if (player_moves == FALSE)
+	if (player_moves == FALSE && player_turns == FALSE)
 	{
 		sf_update_input_dungeon_mode();
 	}
 	else
 	{
-		player_moves = FALSE;
-
 		sf_draw_dungeon_view();
+
+		// Reset variables.
+		player_moves = FALSE;
+		player_turns = FALSE;
 	}
 }
