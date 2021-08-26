@@ -57,6 +57,12 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * The game should run.
 * Enjoy!
 
+## License
+
+Star Raiders is being created by Cristina Ramos.
+The game code is licensed under a BSD-3-Clause License.
+The game art (graphics, music and sound) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+
 ## Third party resources:
 **Fusion-C Library 1.2**
 *- Author: Eric Boez & Fernando Garcia*
