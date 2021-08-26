@@ -4,7 +4,7 @@ The objective of this project is to learn some programming for MSX2 computers wh
 
 My primary references are games like The Eye of the Beholder, Shining in the Darkness, and Digital Devil Story: Megami Tensei.
 
-![Ingame Screenshot](https://pbs.twimg.com/media/E9aofavWYAAAiMv?format=jpg&name=small)
+![Ingame Screenshot](https://pbs.twimg.com/media/E9gUsnaXoAAozWR?format=jpg&name=small)
 
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
@@ -56,6 +56,12 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * In Visual Code you can select "Terminal/Run Build Task" to build and run the game.
 * The game should run.
 * Enjoy!
+
+## License
+
+Star Raiders is being created by Cristina Ramos.
+The game code is licensed under a BSD-3-Clause License.
+The game art (graphics, music and sound) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
 ## Third party resources:
 **Fusion-C Library 1.2**
