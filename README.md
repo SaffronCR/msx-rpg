@@ -63,7 +63,7 @@ Star Raiders is being created by Cristina Ramos.
 
 The game code is licensed under a BSD-3-Clause License.
 
-The game art (graphics, music and sound) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+The game art (graphics, fonts, music and sound) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
 ## Third party resources:
 **Fusion-C Library 1.2**
