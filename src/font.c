@@ -151,6 +151,10 @@
 #define niney   164
 
 // Symbols.
+#define dotx	16+8+8+8+8+8+8+8+8
+#define doty   	164
+#define commax	16+8+8+8+8+8+8+8+8+8
+#define commay  164
 #define spacex  16+8+8+8+8+8+8+8+8+8+8+8+8+8
 #define spacey  204
 #define heartx	0
@@ -244,6 +248,9 @@ void sf_draw_char(char character, int x, int y, char log_op)
 		case '7': sf_screen_copy(sevenx,seveny,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
 		case '8': sf_screen_copy(eightx,eighty,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
 		case '9': sf_screen_copy(ninex,niney,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
+
+		case '.': sf_screen_copy(dotx,doty,		FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
+		case ',': sf_screen_copy(commax,commay,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
 
 		case ' ': sf_screen_copy(spacex,spacey,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;
 		case '!': sf_screen_copy(exclax,exclay,	FONT_SIZE_X,FONT_SIZE_Y, x,y, FONT_PAGE, active_page, log_op); break;

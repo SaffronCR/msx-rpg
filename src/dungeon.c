@@ -236,10 +236,10 @@ void sf_draw_dungeon_walls(void)
 	}
 }
 
-// #WIP #TEST Currently not being used.
 void sf_draw_tiles_screen_background(void)
 {
-	for (int x = 0; x < 10; x++)
+	// Draw tiled background.
+	for (int x = 0; x < 11; x++)
 	{
 		for (int y = 0; y < 8; y++)
 		{
@@ -249,41 +249,46 @@ void sf_draw_tiles_screen_background(void)
 						   SPRITES_PAGE, active_page, opHMMM);
 		}
 	}
+
+	// Draw menu background in one solid color.
+	LMMV(24, 140 + active_page * 256,
+		 8*20, 8*5+6,
+		 0, 0);
 }
 
 void sf_draw_portraits(void)
 {
 	// Names.
-	sf_draw_text("I.Elba",	8*22, 8*1,	15, 0);
-	sf_draw_text("Echo",	8*22, 8*7,	15, 0);
-	sf_draw_text("Lisbeth",	8*22, 8*13,	15, 0);
+	sf_draw_text("I.Elba",	192,  16, 15, 0);
+	sf_draw_text("Echo",	192,  60, 15, 0);
+	sf_draw_text("Lisbeth",	192, 104, 15, 0);
 
 	// Portraits.
 	sf_screen_copy(160, 0,
 				   31, 32,
-				   8*22, 8*1+8+1,
+				   192, 24,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(160 + 32, 0,
 				   31, 32,
-				   8*22, 8*7+8+1,
+				   192, 68,
 				   SPRITES_PAGE, active_page, opHMMM);
 
 	sf_screen_copy(160 + 63, 0,
 	 			   31, 32,
-	 			   8*22, 8*13+8+1,
+	 			   192, 112,
 	 			   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(8*22 + 31 + 2, 8*1+8+1 + active_page * 256,
+	LMMV(224, 24 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(8*22 + 31 + 2, 8*7+8+1 + active_page * 256,
+	LMMV(224, 68 + active_page * 256,
 		 4, 32,
 		 11, 0);
 
-	LMMV(8*22 + 31 + 2, 8*13+8+1 + active_page * 256,
+	LMMV(224, 112 + active_page * 256,
 		 4, 32,
 		 11, 0);
 }
@@ -291,9 +296,9 @@ void sf_draw_portraits(void)
 void sf_draw_combat_menu(void)
 {
 	// #WIP
-	sf_draw_text("Attack              ",	8*1, 140, 				0, 8);
-	sf_draw_text("Gadgets", 				8*1, 140 + 8+2, 		8, 0);
-	sf_draw_text("Flee",		 			8*1, 140 + 8+2 + 8+2,	8, 0);
+	sf_draw_text("Attack              ",	24, 140, 				0, 8);
+	sf_draw_text("Gadgets", 				24, 140 + 8+2, 			8, 0);
+	sf_draw_text("Flee",		 			24, 140 + 8+2 + 8+2,	8, 0);
 }
 
 void sf_draw_minimap(void)
@@ -336,7 +341,7 @@ void sf_draw_dungeon_view(void)
 	sf_set_drawing_state(Begin);
 
 	// Screen background test.
-	//sf_draw_tiles_screen_background();
+	sf_draw_tiles_screen_background();
 
 	// #WIP Menu test.
 	sf_draw_combat_menu();
@@ -356,10 +361,10 @@ void sf_draw_dungeon_view(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case North:	sf_draw_text("N", 8*10 +4, 8*0 +1, 9, 0);	break;
-		case East:	sf_draw_text("E", 8*10 +4, 8*0 +1, 9, 0);	break;
-		case South:	sf_draw_text("S", 8*10 +4, 8*0 +1, 9, 0);	break;
-		case West:	sf_draw_text("W", 8*10 +4, 8*0 +1, 9, 0);	break;
+		case North:	sf_draw_text(".N.", 101-8, 7, 9, 0);	break;
+		case East:	sf_draw_text(".E.", 101-8, 7, 9, 0);	break;
+		case South:	sf_draw_text(".S.", 101-8, 7, 9, 0);	break;
+		case West:	sf_draw_text(".W.", 101-8, 7, 9, 0);	break;
 	}
 
 	// #WIP: Draw a different floor in odd tiles to create ilusion of movement.
@@ -396,8 +401,8 @@ void sf_draw_dungeon_view(void)
 	sf_draw_dungeon_walls();
 
 	// #WIP Enemies.
-	//sf_screen_copy(169,55, 32,32, 60,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
-	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, back_page, LOGICAL_TIMP);
+	sf_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 
 	sf_set_drawing_state(WaitingForVDP);
 }
