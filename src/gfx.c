@@ -65,10 +65,10 @@ void sf_init_palette(void)
 	SetSC5Palette((Palette *)palette);
 }
 
-char sf_load_sf5_image(char *file_name, uint start_Y)
+char sf_load_sf5_image(char *file_name, uint initial_y_pos)
 {
-	uint rd = BUFFER_SIZE;
-	uint nbl = 0;
+	uint read = BUFFER_SIZE;
+	uint read_y_length = 0;
 
 	sf_set_name(&file, file_name);
 
@@ -78,26 +78,29 @@ char sf_load_sf5_image(char *file_name, uint start_Y)
 		return (FALSE);
 	}
 
-	while (rd != 0)
+	while (read != 0)
 	{
+		// Set border color based on a 'random' position from the load buffer.
 		SetColors(15, 0, load_buffer[69]);
 
-		rd = fcb_read(&file, load_buffer, BUFFER_SIZE);
+		// Read file and write to load buffer.
+		read = fcb_read(&file, load_buffer, BUFFER_SIZE);
 
-		if (rd != 0)
+		if (read != 0)
 		{
-			// screen 5 (4 bits x 256 x 212).
-			nbl = rd / 128;
+			// Why half? Screen 5 uses 4 bits per pixel, so 8 bits can store two pixels.
+			read_y_length = read / SCREEN_WIDTH_HALF;
 
 			SetColors(0, 0, 0);
 
-			// Move the buffer to VRAM.
-			HMMC(load_buffer, 0, start_Y, 256, nbl);
+			// Move buffer to VRAM.
+			HMMC(load_buffer, 0, initial_y_pos, SCREEN_WIDTH, read_y_length);
 
-			start_Y = start_Y + nbl;
+			initial_y_pos = initial_y_pos + read_y_length;
 		}
 	}
 
+	// Check for errors.
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(2, file_name);
@@ -107,10 +110,10 @@ char sf_load_sf5_image(char *file_name, uint start_Y)
 	return (TRUE);
 }
 
-char sf_load_sc8_image(char *file_name, uint start_Y)
+char sf_load_sc8_image(char *file_name, uint initial_y_pos)
 {
-	uint rd = 2304;
-	uint nbl = 0;
+	uint read = BUFFER_SIZE;
+	uint read_y_length = 0;
 
 	sf_set_name(&file, file_name);
 
@@ -123,22 +126,28 @@ char sf_load_sc8_image(char *file_name, uint start_Y)
 	// Skip 7 first bytes of the file.
 	fcb_read(&file, load_buffer, 7);
 
-	while (rd != 0)
+	while (read != 0)
 	{
-		SetColors(15, 0, load_buffer[192]);
-		rd = fcb_read(&file, load_buffer, 2304);
+		// Set border color based on a 'random' position from the load buffer.
+		SetColors(15, 0, load_buffer[69]);
 
-		if (rd != 0)
+		// Read file and write to load buffer.
+		read = fcb_read(&file, load_buffer, BUFFER_SIZE);
+
+		if (read != 0)
 		{
-			nbl = rd / 256;
+			// Get Y length.
+			read_y_length = read / SCREEN_WIDTH;
 
-			// Move the buffer to VRAM. 17 lines x 256 pixels from memory.
-			HMMC(load_buffer, 0, start_Y, 256, nbl);
+			// Move buffer to VRAM.
+			HMMC(load_buffer, 0, initial_y_pos, SCREEN_WIDTH, read_y_length);
 
-			start_Y = start_Y + nbl;
+			// Update initial Y position.
+			initial_y_pos = initial_y_pos + read_y_length;
 		}
 	}
 
+	// Check for errors.
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sf_error_handler(2, file_name);
@@ -162,10 +171,10 @@ void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint s
 	uint dst_y = 0;
 
 	// Add page offset.
-	src_y += src_pg * 256;
+	src_y += src_pg * SCREEN_WIDTH;
 
 	// Add page offset.
-	dst_y += dst_pg * 256;
+	dst_y += dst_pg * SCREEN_WIDTH;
 
 	t.X = x1;
 	t.Y = src_y + y1;
@@ -190,7 +199,7 @@ void sf_draw_palette(void)
 
 	for (int i = 0; i < 16; i++)
 	{
-		LMMV(x, y + active_page * 256, 8, 8, i, 0);
+		LMMV(x, y + active_page * SCREEN_WIDTH, 8, 8, i, 0);
 		y += 9;
 	}
 }
@@ -226,7 +235,7 @@ void sf_init_gfx(void)
 	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
 
-	// Switch from 212 to 192 vertical lines (speed gain).
+	// Switch from 212 to 192 vertical lines (for speed gain).
 	VDPLinesSwitch();
 
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
@@ -239,10 +248,10 @@ void sf_init_gfx(void)
 
 	// Load screens.
 	sf_init_palette();
-	sf_load_sf5_image("BG.SF5", 256 * SPRITES_PAGE);
-	sf_load_sf5_image("WALLS.SF5", 256 * WALLS_PAGE);
-	//sf_load_sf5_image("STRTSCR.SF5", 256 * 0);
-	//sf_load_sf5_image("INTRO01.SF5", 256 * 0);
+	sf_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
+	sf_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
+	//sf_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
+	//sf_load_sf5_image("INTRO01.SF5", SCREEN_WIDTH * 0);
 
 	// Configure pages.
 	sf_set_drawing_state(Finished);

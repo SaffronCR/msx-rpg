@@ -12,7 +12,6 @@
 
 #include "main.h"
 #include "procgen.h"
-#include "font.h"
 #include "gfx.h"
 #include "dungeon.h"
 
@@ -251,54 +250,55 @@ void sf_draw_tiles_screen_background(void)
 	}
 
 	// Draw menu background in one solid color.
-	LMMV(24, 140 + active_page * 256,
-		 8*20, 8*5+6,
+	LMMV(MENU_X, MENU_Y + active_page * SCREEN_WIDTH,
+		 MENU_DX, MENU_DY,
 		 0, 0);
 }
 
 void sf_draw_portraits(void)
 {
 	// Names.
-	sf_draw_text("I.Elba",	192,  16, 15, 0);
-	sf_draw_text("Echo",	192,  60, 15, 0);
-	sf_draw_text("Lisbeth",	192, 104, 15, 0);
+	sf_draw_text("I.Elba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
+	sf_draw_text("Echo",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
+	sf_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y, 15, 0);
 
 	// Portraits.
-	sf_screen_copy(160, 0,
-				   31, 32,
-				   192, 24,
+	sf_screen_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
+				   PORTRAIT_SIZE, PORTRAIT_SIZE,
+				   PORTRAIT_1_X, PORTRAIT_1_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sf_screen_copy(160 + 32, 0,
-				   31, 32,
-				   192, 68,
+	sf_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+				   PORTRAIT_SIZE, PORTRAIT_SIZE,
+				   PORTRAIT_2_X, PORTRAIT_2_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sf_screen_copy(160 + 63, 0,
-	 			   31, 32,
-	 			   192, 112,
+	sf_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
+	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
 	 			   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(224, 24 + active_page * 256,
-		 4, 32,
-		 11, 0);
-
-	LMMV(224, 68 + active_page * 256,
-		 4, 32,
-		 11, 0);
-
-	LMMV(224, 112 + active_page * 256,
-		 4, 32,
-		 11, 0);
+	LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 }
 
 void sf_draw_combat_menu(void)
 {
 	// #WIP
-	sf_draw_text("Attack              ",	24, 140, 				0, 8);
-	sf_draw_text("Gadgets", 				24, 140 + 8+2, 			8, 0);
-	sf_draw_text("Flee",		 			24, 140 + 8+2 + 8+2,	8, 0);
+
+	//"Menu"
+	//"Attack"
+	//"Gadgets"
+	//"Streams"
+	//"Flee"
+
+	sf_draw_text("*Move",		MENU_X, MENU_Y + MENU_Y_SPACE, 																										MENU_TEXT_SELECT_COLOR, 0);
+	sf_draw_text(" Search",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE, 																				MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Party",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,														MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" System",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,							MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Exit",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,	MENU_TEXT_DEFAULT_COLOR, 0);
 }
 
 void sf_draw_minimap(void)
@@ -309,15 +309,15 @@ void sf_draw_minimap(void)
 		{
 			if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
 			{
-				Pset(x + 16, y + active_page * 256, 10, 0);
+				Pset(x + 16, y + active_page * SCREEN_WIDTH, 10, 0);
 			}
 			else if (player_pos_x == x && player_pos_y == y)
 			{
-				Pset(x + 16, y + active_page * 256, 13, 0);
+				Pset(x + 16, y + active_page * SCREEN_WIDTH, 13, 0);
 			}
 			else
 			{
-				Pset(x + 16, y + active_page * 256, 2, 0);
+				Pset(x + 16, y + active_page * SCREEN_WIDTH, 2, 0);
 			}
 		}
 	}
@@ -327,11 +327,11 @@ void sf_draw_vertical_test(void)
 {
 	for (int y = 0; y < 192; y++)
 	{
-		Pset(8, y + active_page * 256, 13, 0);
+		Pset(8, y + active_page * SCREEN_WIDTH, 13, 0);
 	}
 	for (int y = 192; y < 212; y++)
 	{
-		Pset(8, y + active_page * 256, 6, 0);
+		Pset(8, y + active_page * SCREEN_WIDTH, 6, 0);
 	}
 }
 
@@ -361,10 +361,10 @@ void sf_draw_dungeon_view(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case North:	sf_draw_text(".N.", 101-8, 7, 9, 0);	break;
-		case East:	sf_draw_text(".E.", 101-8, 7, 9, 0);	break;
-		case South:	sf_draw_text(".S.", 101-8, 7, 9, 0);	break;
-		case West:	sf_draw_text(".W.", 101-8, 7, 9, 0);	break;
+		case North:	sf_draw_text("N", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case East:	sf_draw_text("E", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case South:	sf_draw_text("S", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case West:	sf_draw_text("W", COMPASS_X, COMPASS_Y, 9, 0);	break;
 	}
 
 	// #WIP: Draw a different floor in odd tiles to create ilusion of movement.
