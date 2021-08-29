@@ -260,7 +260,7 @@ void sf_draw_portraits(void)
 	// Names.
 	sf_draw_text("I.Elba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
 	sf_draw_text("Echo",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
-	sf_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y, 15, 0);
+	sf_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y,  6, 0);
 
 	// Portraits.
 	sf_screen_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
@@ -293,12 +293,17 @@ void sf_draw_combat_menu(void)
 	//"Gadgets"
 	//"Streams"
 	//"Flee"
+	//"Move"
+	//"Search"
+	//"Party"
+	//"System"
+	//"Back"
 
-	sf_draw_text("*Move",		MENU_X, MENU_Y + MENU_Y_SPACE, 																										MENU_TEXT_SELECT_COLOR, 0);
-	sf_draw_text(" Search",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE, 																				MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Party",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,														MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" System",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,							MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Exit",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,	MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text("*Attack",		MENU_X, MENU_Y + MENU_Y_SPACE, 																										MENU_TEXT_SELECT_COLOR, 0);
+	sf_draw_text(" Streams",	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE, 																				MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Equip",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,														MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Flee",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,							MENU_TEXT_DEFAULT_COLOR, 0);
+	//sf_draw_text(" ",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,	MENU_TEXT_DEFAULT_COLOR, 0);
 }
 
 void sf_draw_minimap(void)
