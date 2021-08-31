@@ -192,7 +192,7 @@ void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint s
 	fLMMM(&t);
 }
 
-void sf_draw_palette(void)
+void sf_debug_draw_palette(void)
 {
 	int x = 0;
 	int y = 0;
@@ -208,9 +208,9 @@ void sf_switch_screen(void)
 {
 	if (sf_get_drawing_state() == WaitingForVDP)
 	{
-		active_page = !active_page;
+		active_page = active_page;
 
-		SetDisplayPage(!active_page);
+		SetDisplayPage(active_page);
 		SetActivePage(active_page);
 
 		sf_set_drawing_state(Finished);

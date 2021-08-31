@@ -11,4 +11,6 @@
 
 char sf_generate_dungeon(void);
 
+char sf_is_generating_dungeon(void);
+
 #endif

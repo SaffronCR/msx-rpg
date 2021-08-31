@@ -47,6 +47,6 @@ char sf_update_gfx(void);
 
 // Debug.
 
-void sf_draw_palette(void);
+void sf_debug_draw_palette(void);
 
 #endif

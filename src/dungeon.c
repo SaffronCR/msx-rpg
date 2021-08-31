@@ -24,6 +24,8 @@ char *dungeon_map;
 const int dir_translate_x[] = {0, 1, 0, -1};
 const int dir_translate_y[] = {-1, 0, 1, 0};
 
+char current_view[DUNGEON_VIEW_DX * DUNGEON_VIEW_DY];
+
 char player_moves;
 char player_turns;
 
@@ -40,136 +42,119 @@ char joy;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_draw_third_wall_far_left(uint x, uint y)
+void sf_draw_third_wall_far_left()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
-					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
-					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
+					THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
+					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_third_wall_far_right(uint x, uint y)
+void sf_draw_third_wall_far_right_fully()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
-					   THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
-					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
+					THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_third_wall_left(uint x, uint y)
+void sf_draw_third_wall_far_right_partly()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
-					   THIRD_WALL_DX, THIRD_WALL_DY,
-					   DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
+					10, THIRD_WALL_FAR_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_third_wall_right(uint x, uint y)
+void sf_draw_third_wall_left()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
-					   THIRD_WALL_DX, THIRD_WALL_DY,
-					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
+					THIRD_WALL_DX, THIRD_WALL_DY,
+					DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_second_wall_far_left(uint x, uint y)
+void sf_draw_third_wall_right()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
-					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
+					THIRD_WALL_DX, THIRD_WALL_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_second_wall_far_right(uint x, uint y)
+void sf_draw_second_wall_far_left()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
-					   SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
+					SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
+					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_second_wall_left(uint x, uint y)
+void sf_draw_second_wall_far_right()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
-					   SECOND_WALL_DX, SECOND_WALL_DY,
-					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
+					SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_second_wall_right(uint x, uint y)
+void sf_draw_second_wall_left()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE && dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
-					   SECOND_WALL_DX, SECOND_WALL_DY,
-					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
+					SECOND_WALL_DX, SECOND_WALL_DY,
+					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_first_wall_left(uint x, uint y)
+void sf_draw_second_wall_right()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
-					   FIRST_WALL_DX, FIRST_WALL_DY,
-					   DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
+					SECOND_WALL_DX, SECOND_WALL_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_first_wall_right(uint x, uint y)
+void sf_draw_first_wall_left()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
-					   FIRST_WALL_DX, FIRST_WALL_DY,
-					   DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
+					FIRST_WALL_DX, FIRST_WALL_DY,
+					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_third_wall_front(uint x, uint y)
+void sf_draw_first_wall_right_partly()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
-					   THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
-					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	// #WIP
+	sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
+					5, FIRST_WALL_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_second_wall_front(uint x, uint y)
+void sf_draw_first_wall_right_fully()
 {
-	if (x < DUNGEON_SIZE && y < DUNGEON_SIZE &&	dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
-	{
-		sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
-					   SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
-					   DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5), DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
-					   WALLS_PAGE, active_page, LOGICAL_TIMP);
-	}
+	sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
+					FIRST_WALL_DX, FIRST_WALL_DY,
+					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
+					WALLS_PAGE, active_page, LOGICAL_TIMP);
+}
+
+void sf_draw_third_wall_front()
+{
+	sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
+					THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
+					DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5),
+					DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_IMP);
+}
+
+void sf_draw_second_wall_front()
+{
+	sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
+					SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
+					DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5),
+					DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
+					WALLS_PAGE, active_page, LOGICAL_IMP);
 }
 
 /*
@@ -182,56 +167,121 @@ void sf_draw_second_wall_front(uint x, uint y)
  * horizontal order: far left, left, front, right, far right.
  * vertical order: third, second, first.
  */
-void sf_draw_dungeon_walls(void)
+void sf_update_fp_view(void)
 {
-	uint x, y, xd, yd;
+	uint x, y, distx, disty;
 
-	int mult = 1;
-
-	if (player_dir == North || player_dir == South)
+	disty = 2;
+	for (int iy = 0; iy < DUNGEON_VIEW_DY; iy++)
 	{
-		mult = -1;
+		distx = 2;
+		for (int ix = 0; ix < DUNGEON_VIEW_DX; ix++)
+		{
+			// Get the player's facing position.
+			if (player_dir == North || player_dir == South)
+			{
+				x = player_pos_x + (distx * dir_translate_y[player_dir]);
+				y = player_pos_y + (disty * dir_translate_y[player_dir]);
+			}
+			else
+			{
+				x = player_pos_x + (disty * dir_translate_x[player_dir]);
+				y = player_pos_y - (distx * dir_translate_x[player_dir]);
+			}
+
+			// If this position is valid set the tile from the dungeon map.
+			if (x < DUNGEON_SIZE && y < DUNGEON_SIZE)
+			{
+				current_view[ix + iy * DUNGEON_VIEW_DX] = dungeon_map[x + y * DUNGEON_SIZE];
+			}
+			else
+			{
+				// Set default state for the tile: a wall.
+				current_view[ix + iy * DUNGEON_VIEW_DX] = TILE_WALL;
+			}
+			distx--;
+		}
+		disty--;
+	}
+}
+
+void sf_draw_fp_view(void)
+{
+	// Front walls.
+	if (current_view[7] == TILE_WALL)
+	{
+		sf_draw_second_wall_front();
+	}
+	else if (current_view[2] == TILE_WALL)
+	{
+		sf_draw_third_wall_front();
 	}
 
-	// Draw by distance.
-	for (int dist = 2; dist > -1; dist--)
+	// #WIP The rest.
+	if (current_view[1 + DUNGEON_VIEW_DX * 2] == TILE_WALL)
 	{
-		x = player_pos_x + (dist * dir_translate_x[player_dir]);
-		y = player_pos_y + (dist * dir_translate_y[player_dir]);
+		sf_draw_first_wall_left();
+	}
 
-		// Far left walls.
-		xd = x - (2 * mult * dir_translate_y[player_dir]);
-		yd = y - (2 * mult * dir_translate_x[player_dir]);
+	if (current_view[3 + DUNGEON_VIEW_DX * 2 ] == TILE_WALL)
+	{
+		sf_draw_first_wall_right_fully();
+	}
 
-		if (dist == 2)		sf_draw_third_wall_far_left(xd, yd);
-		else if (dist == 1)	sf_draw_second_wall_far_left(xd, yd);
+	if (current_view[0 + DUNGEON_VIEW_DX] == TILE_WALL)
+	{
+		sf_draw_second_wall_far_left();
+	}
 
-		// Left walls.
-		xd = x - (mult * dir_translate_y[player_dir]);
-		yd = y - (mult * dir_translate_x[player_dir]);
+	if (current_view[1 + DUNGEON_VIEW_DX] == TILE_WALL)
+	{
+		sf_draw_second_wall_left();
+	}
 
-		if (dist == 2)		sf_draw_third_wall_left(xd, yd);
-		else if (dist == 1)	sf_draw_second_wall_left(xd, yd);
-		else				sf_draw_first_wall_left(xd, yd);
+	if (current_view[3 + DUNGEON_VIEW_DX] == TILE_WALL)
+	{
+		sf_draw_second_wall_right();
+	}
 
-		// Far right walls.
-		xd = x + (2 * mult * dir_translate_y[player_dir]);
-		yd = y + (2 * mult * dir_translate_x[player_dir]);
+	if (current_view[4 + DUNGEON_VIEW_DX] == TILE_WALL)
+	{
+		sf_draw_second_wall_far_right();
+	}
 
-		if (dist == 2)		sf_draw_third_wall_far_right(xd, yd);
-		else if (dist == 1)	sf_draw_second_wall_far_right(xd, yd);
+		if (current_view[0] == TILE_WALL)
+	{
+		sf_draw_third_wall_far_left();
+	}
 
-		// Right walls.
-		xd = x + (mult * dir_translate_y[player_dir]);
-		yd = y + (mult * dir_translate_x[player_dir]);
+		if (current_view[1] == TILE_WALL)
+	{
+		sf_draw_third_wall_left();
+	}
 
-		if (dist == 2)		sf_draw_third_wall_right(xd, yd);
-		else if (dist == 1)	sf_draw_second_wall_right(xd, yd);
-		else				sf_draw_first_wall_right(xd, yd);
+	if (current_view[3] == TILE_WALL)
+	{
+		sf_draw_third_wall_right();
+		// if (current_view[8] == TILE_WALL)
+		// {
+		// 	//partly;
+		// }
+		// else
+		// {
+		// 	//sf_draw_third_wall_right();
+		// }
+	}
 
-		// Front walls.
-		if (dist == 2)		sf_draw_third_wall_front(x, y);
-		else if (dist == 1)	sf_draw_second_wall_front(x, y);
+	if (current_view[4] == TILE_WALL)
+	{
+		sf_draw_third_wall_far_right_fully();
+		// if (current_view[9] == TILE_WALL)
+		// {
+		// 	sf_draw_third_wall_far_right_partly();
+		// }
+		// else if (current_view[8] != TILE_WALL && current_view[13] != TILE_WALL)
+		// {
+		// 	sf_draw_third_wall_far_right_fully();
+		// }
 	}
 }
 
@@ -279,9 +329,12 @@ void sf_draw_portraits(void)
 	 			   SPRITES_PAGE, active_page, opHMMM);
 
 	// HP bars.
-	LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH, HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH,
+		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH,
+		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH,
+		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 }
 
 void sf_draw_combat_menu(void)
@@ -299,69 +352,65 @@ void sf_draw_combat_menu(void)
 	//"System"
 	//"Back"
 
-	sf_draw_text("*Attack",		MENU_X, MENU_Y + MENU_Y_SPACE, 																										MENU_TEXT_SELECT_COLOR, 0);
-	sf_draw_text(" Streams",	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE, 																				MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Equip",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,														MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Flee",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,							MENU_TEXT_DEFAULT_COLOR, 0);
-	//sf_draw_text(" ",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,	MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text("*Attack",		MENU_X, MENU_Y + MENU_Y_SPACE,
+		MENU_TEXT_SELECT_COLOR, 0);
+	sf_draw_text(" Streams",	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE,
+		MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Equip",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,
+		MENU_TEXT_DEFAULT_COLOR, 0);
+	sf_draw_text(" Flee",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,
+		MENU_TEXT_DEFAULT_COLOR, 0);
 }
 
-void sf_draw_minimap(void)
+void sf_debug_draw_minimap(void)
 {
 	for (int x = 0; x < DUNGEON_SIZE; x++)
 	{
 		for (int y = 0; y < DUNGEON_SIZE; y++)
 		{
-			if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
+			if (player_pos_x == x && player_pos_y == y)
 			{
-				Pset(x + 16, y + active_page * SCREEN_WIDTH, 10, 0);
+				// Player.
+				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 11, 0);
 			}
-			else if (player_pos_x == x && player_pos_y == y)
+			else if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_STAIRS)
 			{
-				Pset(x + 16, y + active_page * SCREEN_WIDTH, 13, 0);
+				// Stairs.
+				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 9, 0);
+			}
+			else if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
+			{
+				// Wall.
+				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 3, 0);
 			}
 			else
 			{
-				Pset(x + 16, y + active_page * SCREEN_WIDTH, 2, 0);
+				// Floor.
+				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 7, 0);
 			}
 		}
 	}
 }
 
-void sf_draw_vertical_test(void)
-{
-	for (int y = 0; y < 192; y++)
-	{
-		Pset(8, y + active_page * SCREEN_WIDTH, 13, 0);
-	}
-	for (int y = 192; y < 212; y++)
-	{
-		Pset(8, y + active_page * SCREEN_WIDTH, 6, 0);
-	}
-}
-
 // Draw the current dungeon room.
-void sf_draw_dungeon_view(void)
+void sf_draw_dungeon_screen(void)
 {
 	sf_set_drawing_state(Begin);
 
 	// Screen background test.
-	sf_draw_tiles_screen_background();
+	//sf_draw_tiles_screen_background();
 
 	// #WIP Menu test.
-	sf_draw_combat_menu();
+	//sf_draw_combat_menu();
 
 	// Debug: Minimap.
-	//sf_draw_minimap();
+	sf_debug_draw_minimap();
 
 	// Debug: Palette.
-	//sf_draw_palette();
-
-	// Debug: check 192/212 vertical pixels.
-	//sf_draw_vertical_test();
+	//sf_debug_draw_palette();
 
 	// Party portraits.
-	sf_draw_portraits();
+	//sf_draw_portraits();
 
 	// Compass.
 	switch(player_dir)
@@ -402,11 +451,12 @@ void sf_draw_dungeon_view(void)
 			SPRITES_PAGE, active_page, opHMMM);
 	}
 
-	// Dungeon walls.
-	sf_draw_dungeon_walls();
+	// Dungeon first person view.
+	sf_update_fp_view();
+	sf_draw_fp_view();
 
 	// #WIP Enemies.
-	sf_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	//sf_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 
 	sf_set_drawing_state(WaitingForVDP);
@@ -477,14 +527,13 @@ void sf_update_input_dungeon_mode(void)
 	}
 
 	// Buttons.
-	if (TriggerRead(JOY1_BUTTONB) == PRESSED )
+	if (TriggerRead(JOY1_BUTTONB) == PRESSED ||
+		TriggerRead(SPACEBAR) == PRESSED )
 	{
-		sf_generate_dungeon();
-	}
-
-	if (TriggerRead(SPACEBAR) == PRESSED )
-	{
-		sf_generate_dungeon();
+		if (sf_is_generating_dungeon() == FALSE)
+		{
+			sf_generate_dungeon();
+		}
 	}
 }
 
@@ -506,7 +555,7 @@ void sf_set_dungeon_state(void)
 
 	// Initial draw call.
 	Cls();
-	sf_draw_dungeon_view();
+	sf_draw_dungeon_screen();
 }
 
 void sf_update_dungeon_state(void)
@@ -518,7 +567,7 @@ void sf_update_dungeon_state(void)
 	}
 	else
 	{
-		sf_draw_dungeon_view();
+		sf_draw_dungeon_screen();
 
 		// Reset variables.
 		player_moves = FALSE;
