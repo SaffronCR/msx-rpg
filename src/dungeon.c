@@ -122,16 +122,7 @@ void sf_draw_first_wall_left()
 					WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sf_draw_first_wall_right_partly()
-{
-	// #WIP
-	sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
-					5, FIRST_WALL_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
-}
-
-void sf_draw_first_wall_right_fully()
+void sf_draw_first_wall_right()
 {
 	sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 					FIRST_WALL_DX, FIRST_WALL_DY,
@@ -158,23 +149,21 @@ void sf_draw_second_wall_front()
 }
 
 /*
- * This is the area to draw:
+ * This is the view area:
  *
  *  x x x x x
  *  x x x x x
  *    x o x
  *
- * horizontal order: far left, left, front, right, far right.
- * vertical order: third, second, first.
  */
 void sf_update_fp_view(void)
 {
 	uint x, y, distx, disty;
 
-	disty = 2;
+	disty = DUNGEON_VIEW_DIST;
 	for (int iy = 0; iy < DUNGEON_VIEW_DY; iy++)
 	{
-		distx = 2;
+		distx = DUNGEON_VIEW_DIST;
 		for (int ix = 0; ix < DUNGEON_VIEW_DX; ix++)
 		{
 			// Get the player's facing position.
@@ -217,7 +206,6 @@ void sf_draw_fp_view(void)
 		sf_draw_third_wall_front();
 	}
 
-	// #WIP The rest.
 	if (current_view[1 + DUNGEON_VIEW_DX * 2] == TILE_WALL)
 	{
 		sf_draw_first_wall_left();
@@ -225,12 +213,7 @@ void sf_draw_fp_view(void)
 
 	if (current_view[3 + DUNGEON_VIEW_DX * 2 ] == TILE_WALL)
 	{
-		sf_draw_first_wall_right_fully();
-	}
-
-	if (current_view[0 + DUNGEON_VIEW_DX] == TILE_WALL)
-	{
-		sf_draw_second_wall_far_left();
+		sf_draw_first_wall_right();
 	}
 
 	if (current_view[1 + DUNGEON_VIEW_DX] == TILE_WALL)
@@ -243,45 +226,40 @@ void sf_draw_fp_view(void)
 		sf_draw_second_wall_right();
 	}
 
-	if (current_view[4 + DUNGEON_VIEW_DX] == TILE_WALL)
+	if (current_view[0 + DUNGEON_VIEW_DX] == TILE_WALL &&
+		current_view[1 + DUNGEON_VIEW_DX * 2] != TILE_WALL)
+	{
+		sf_draw_second_wall_far_left();
+	}
+
+	if (current_view[4 + DUNGEON_VIEW_DX] == TILE_WALL &&
+		current_view[1 + DUNGEON_VIEW_DX * 2] != TILE_WALL)
 	{
 		sf_draw_second_wall_far_right();
 	}
 
-		if (current_view[0] == TILE_WALL)
-	{
-		sf_draw_third_wall_far_left();
-	}
-
-		if (current_view[1] == TILE_WALL)
+	if (current_view[1] == TILE_WALL &&
+		(current_view[7] != TILE_WALL && current_view[1 + DUNGEON_VIEW_DX * 2] != TILE_WALL))
 	{
 		sf_draw_third_wall_left();
 	}
 
-	if (current_view[3] == TILE_WALL)
+	if (current_view[3] == TILE_WALL &&
+		(current_view[7] != TILE_WALL && current_view[3 + DUNGEON_VIEW_DX * 2 ] != TILE_WALL))
 	{
 		sf_draw_third_wall_right();
-		// if (current_view[8] == TILE_WALL)
-		// {
-		// 	//partly;
-		// }
-		// else
-		// {
-		// 	//sf_draw_third_wall_right();
-		// }
 	}
 
-	if (current_view[4] == TILE_WALL)
+	if (current_view[0] == TILE_WALL &&
+		current_view[1 + DUNGEON_VIEW_DX * 2] != TILE_WALL)
+	{
+		sf_draw_third_wall_far_left();
+	}
+
+	if (current_view[4] == TILE_WALL &&
+		current_view[3 + DUNGEON_VIEW_DX * 2 ] != TILE_WALL)
 	{
 		sf_draw_third_wall_far_right_fully();
-		// if (current_view[9] == TILE_WALL)
-		// {
-		// 	sf_draw_third_wall_far_right_partly();
-		// }
-		// else if (current_view[8] != TILE_WALL && current_view[13] != TILE_WALL)
-		// {
-		// 	sf_draw_third_wall_far_right_fully();
-		// }
 	}
 }
 

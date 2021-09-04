@@ -25,8 +25,8 @@ char is_playing_song = FALSE;
 
 void sf_init_snd(void)
 {
-	sf_init_battle_song();
-	is_playing_song = TRUE;
+	//sf_init_battle_song();
+	//is_playing_song = TRUE;
 }
 
 void sf_update_snd(void)
