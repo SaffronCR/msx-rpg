@@ -51,7 +51,7 @@ char current_threshold;
 
 void sf_init_encounter(void)
 {
-     current_step = 0;
+    current_step = 0;
     current_threshold = 10;
 }
 
@@ -64,3 +64,5 @@ BOOL sf_check_encounter(void)
 {
     return (encounter_table[current_step] < current_threshold);
 }
+
+
