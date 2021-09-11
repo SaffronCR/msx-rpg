@@ -11,8 +11,8 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_error_handler(char n, char *name);
-void sf_set_name(FCB *p_fcb, const char *p_name);
-void sf_wait(int cicles);
+void sf_error_handler(uchar n, uchar *name);
+void sf_set_name(FCB *p_fcb, const uchar *p_name);
+void sf_wait(uint cicles);
 
 #endif

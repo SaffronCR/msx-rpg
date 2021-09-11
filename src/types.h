@@ -9,9 +9,13 @@
 // Typedefs.
 //------------------------------------------------------------------
 
-typedef unsigned int uint;
+typedef unsigned char uchar;
+typedef signed char schar;
 
-typedef char BOOL;
+typedef unsigned int uint;
+typedef signed int sint;
+
+typedef uchar BOOL;
 
 //------------------------------------------------------------------
 // Defines.

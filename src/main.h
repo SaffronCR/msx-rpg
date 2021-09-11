@@ -23,12 +23,12 @@ enum GameState
 // Variables.
 //------------------------------------------------------------------
 
-extern char active_page;
+extern uchar active_page;
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_set_game_state(char new_state);
+void sf_set_game_state(uchar new_state);
 
 #endif

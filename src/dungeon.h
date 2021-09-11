@@ -136,10 +136,10 @@ enum Directions
 // Variables.
 //------------------------------------------------------------------
 
-extern int player_pos_x;
-extern int player_pos_y;
+extern uint player_pos_x;
+extern uint player_pos_y;
 
-extern char *dungeon_map;
+extern uchar *dungeon_map;
 
 //------------------------------------------------------------------
 // Prototypes.

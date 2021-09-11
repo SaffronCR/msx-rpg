@@ -26,7 +26,7 @@
 
 enum GameState game_state;
 
-char update_frame_count;
+uchar update_frame_count;
 
 uint rand_seed;
 
@@ -34,7 +34,7 @@ uint rand_seed;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_set_game_state(char new_state)
+void sf_set_game_state(uchar new_state)
 {
 	game_state = new_state;
 
@@ -60,7 +60,7 @@ void sf_update_game_state(void)
 	}
 }
 
-static char sf_interrupt(void)
+static uchar sf_interrupt(void)
 {
 	// Update game logic and audio in separate frames to ease the CPU load.
 	update_frame_count = !update_frame_count;

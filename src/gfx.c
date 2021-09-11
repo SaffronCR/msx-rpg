@@ -25,7 +25,7 @@
 // Variables.
 //------------------------------------------------------------------
 
-const char palette[] =
+const uchar palette[] =
 {
 	0, 0, 0, 0,
 	1, 2, 1, 1,
@@ -51,9 +51,9 @@ enum DrawingState drawing_state;
 
 MMMtask t;
 
-char active_page;
+uchar active_page;
 
-char load_buffer[BUFFER_SIZE];
+uchar load_buffer[BUFFER_SIZE];
 
 //------------------------------------------------------------------
 // Functions.
@@ -64,7 +64,7 @@ void sf_init_palette(void)
 	SetSC5Palette((Palette *)palette);
 }
 
-BOOL sf_load_sf5_image(char *file_name, uint initial_y_pos)
+BOOL sf_load_sf5_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -109,7 +109,7 @@ BOOL sf_load_sf5_image(char *file_name, uint initial_y_pos)
 	return (TRUE);
 }
 
-BOOL sf_load_sc8_image(char *file_name, uint initial_y_pos)
+BOOL sf_load_sc8_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -164,7 +164,7 @@ BOOL sf_load_sc8_image(char *file_name, uint initial_y_pos)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, char mode)
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
 {
 	uint src_y = 0;
 	uint dst_y = 0;
@@ -193,10 +193,10 @@ void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint s
 
 void sf_debug_draw_palette(void)
 {
-	int x = 0;
-	int y = 0;
+	uint x = 0;
+	uint y = 0;
 
-	for (int i = 0; i < 16; i++)
+	for (uint i = 0; i < 16; i++)
 	{
 		LMMV(x, y + active_page * SCREEN_WIDTH, 8, 8, i, 0);
 		y += 9;
@@ -216,12 +216,12 @@ void sf_switch_screen(void)
 	}
 }
 
-void sf_set_drawing_state(char new_state)
+void sf_set_drawing_state(uchar new_state)
 {
 	drawing_state = new_state;
 }
 
-char sf_get_drawing_state(void)
+uchar sf_get_drawing_state(void)
 {
 	return drawing_state;
 }

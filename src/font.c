@@ -178,7 +178,7 @@
 // Functions.
 //------------------------------------------------------------------
 
-void sf_draw_char(char character, int x, int y, char log_op)
+void sf_draw_char(uchar character, uint x, uint y, uchar log_op)
 {
 	switch (character)
 	{
@@ -265,9 +265,9 @@ void sf_draw_char(char character, int x, int y, char log_op)
 	}
 }
 
-void sf_draw_text(char *text, int x, int y, char text_color, char border_color)
+void sf_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color)
 {
-	char log_op = LOGICAL_IMP;
+	uchar log_op = LOGICAL_IMP;
 
 	while (*text)
 	{

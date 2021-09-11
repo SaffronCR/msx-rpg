@@ -10,7 +10,6 @@
 #include "fusion-c/header/vdp_sprites.h"
 #include "fusion-c/header/vdp_graph2.h"
 
-#include "main.h"
 #include "procgen.h"
 #include "gfx.h"
 #include "encounter.h"
@@ -20,24 +19,24 @@
 // Variables.
 //------------------------------------------------------------------
 
-const int dir_translate_x[] = {0, 1, 0, -1};
-const int dir_translate_y[] = {-1, 0, 1, 0};
+const sint dir_translate_x[] = {0, 1, 0, -1};
+const sint dir_translate_y[] = {-1, 0, 1, 0};
 
-char *dungeon_map;
+uchar *dungeon_map;
 
-char current_view[DUNGEON_VIEW_DX * DUNGEON_VIEW_DY];
+uchar current_view[DUNGEON_VIEW_DX * DUNGEON_VIEW_DY];
 
-char player_moves;
-char player_turns;
+uchar player_moves;
+uchar player_turns;
 
-char ceiling_tile;
+uchar ceiling_tile;
 
-int player_pos_x;
-int player_pos_y;
+uint player_pos_x;
+uint player_pos_y;
 
 enum Direction player_dir;
 
-char joy;
+uchar joy;
 
 //------------------------------------------------------------------
 // Functions.
@@ -162,10 +161,10 @@ void sf_update_fp_view(void)
 	uint x, y, distx, disty;
 
 	disty = DUNGEON_VIEW_DIST;
-	for (int iy = 0; iy < DUNGEON_VIEW_DY; iy++)
+	for (uint iy = 0; iy < DUNGEON_VIEW_DY; iy++)
 	{
 		distx = DUNGEON_VIEW_DIST;
-		for (int ix = 0; ix < DUNGEON_VIEW_DX; ix++)
+		for (uint ix = 0; ix < DUNGEON_VIEW_DX; ix++)
 		{
 			// Get the player's facing position.
 			if (player_dir == North || player_dir == South)
@@ -267,9 +266,9 @@ void sf_draw_fp_view(void)
 void sf_draw_tiles_screen_background(void)
 {
 	// Draw tiled background.
-	for (int x = 0; x < 11; x++)
+	for (uint x = 0; x < 11; x++)
 	{
-		for (int y = 0; y < 8; y++)
+		for (uint y = 0; y < 8; y++)
 		{
 			sf_screen_copy(232, 188,
 						   24, 24,
@@ -343,9 +342,9 @@ void sf_draw_combat_menu(void)
 
 void sf_debug_draw_minimap(void)
 {
-	for (int x = 0; x < DUNGEON_SIZE; x++)
+	for (uint x = 0; x < DUNGEON_SIZE; x++)
 	{
-		for (int y = 0; y < DUNGEON_SIZE; y++)
+		for (uint y = 0; y < DUNGEON_SIZE; y++)
 		{
 			if (player_pos_x == x && player_pos_y == y)
 			{
@@ -451,10 +450,10 @@ void sf_draw_dungeon_screen(void)
 	sf_set_drawing_state(WaitingForVDP);
 }
 
-void sf_move(int newPosX, int newPosY)
+void sf_move(uint newPosX, uint newPosY)
 {
-	if (newPosX > 0 && newPosX < DUNGEON_SIZE - 1 &&
-		newPosY > 0 && newPosY < DUNGEON_SIZE - 1 &&
+	if (newPosX < DUNGEON_SIZE - 1 &&
+		newPosY < DUNGEON_SIZE - 1 &&
 		(dungeon_map[newPosX + newPosY * DUNGEON_SIZE] == TILE_ROOM ||
 		dungeon_map[newPosX + newPosY * DUNGEON_SIZE] == TILE_CORRIDOR))
 	{
@@ -491,7 +490,7 @@ void sf_rotate_right(void)
 void sf_update_input_dungeon_mode(void)
 {
 	// Cursor.
-	for (char i = 0; i < 2; i++)
+	for (uchar i = 0; i < 2; i++)
 	{
 		joy = JoystickRead(i);
 
