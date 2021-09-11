@@ -45,107 +45,116 @@ uchar joy;
 void sf_draw_third_wall_far_left()
 {
 	sf_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
-					THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
-					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
+		DUNGEON_SCREEN_X,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_third_wall_far_right_fully()
 {
 	sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
-					THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_third_wall_far_right_partly()
 {
 	sf_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
-					10, THIRD_WALL_FAR_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		10, THIRD_WALL_FAR_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_third_wall_left()
 {
 	sf_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
-					THIRD_WALL_DX, THIRD_WALL_DY,
-					DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		THIRD_WALL_DX, THIRD_WALL_DY,
+		DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_third_wall_right()
 {
 	sf_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
-					THIRD_WALL_DX, THIRD_WALL_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		THIRD_WALL_DX, THIRD_WALL_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_second_wall_far_left()
 {
 	sf_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
-					SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
+		DUNGEON_SCREEN_X,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_second_wall_far_right()
 {
 	sf_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
-					SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_second_wall_left()
 {
 	sf_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
-					SECOND_WALL_DX, SECOND_WALL_DY,
-					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		SECOND_WALL_DX, SECOND_WALL_DY,
+		DUNGEON_SCREEN_X,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_second_wall_right()
 {
 	sf_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
-					SECOND_WALL_DX, SECOND_WALL_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX, DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		SECOND_WALL_DX, SECOND_WALL_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX,
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_first_wall_left()
 {
 	sf_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
-					FIRST_WALL_DX, FIRST_WALL_DY,
-					DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		FIRST_WALL_DX, FIRST_WALL_DY,
+		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_first_wall_right()
 {
 	sf_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
-					FIRST_WALL_DX, FIRST_WALL_DY,
-					DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
-					WALLS_PAGE, active_page, LOGICAL_TIMP);
+		FIRST_WALL_DX, FIRST_WALL_DY,
+		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
+		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
 void sf_draw_third_wall_front()
 {
 	sf_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
-					THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
-					DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5),
-					DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_IMP);
+		THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
+		DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5),
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_IMP);
 }
 
 void sf_draw_second_wall_front()
 {
 	sf_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
-					SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
-					DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5),
-					DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
-					WALLS_PAGE, active_page, LOGICAL_IMP);
+		SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
+		DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5),
+		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
+		WALLS_PAGE, active_page, LOGICAL_IMP);
 }
 
 /*
@@ -286,7 +295,7 @@ void sf_draw_tiles_screen_background(void)
 void sf_draw_portraits(void)
 {
 	// Names.
-	sf_draw_text("I.Elba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
+	sf_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
 	sf_draw_text("Echo",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
 	sf_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y,  6, 0);
 
@@ -315,7 +324,7 @@ void sf_draw_portraits(void)
 		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 }
 
-void sf_draw_combat_menu(void)
+void sf_debug_draw_test_menu(void)
 {
 	// #WIP
 
@@ -330,14 +339,17 @@ void sf_draw_combat_menu(void)
 	//"System"
 	//"Back"
 
-	sf_draw_text("*Attack",		MENU_X, MENU_Y + MENU_Y_SPACE,
-		MENU_TEXT_SELECT_COLOR, 0);
-	sf_draw_text(" Streams",	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE,
-		MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Equip",	 	MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,
-		MENU_TEXT_DEFAULT_COLOR, 0);
-	sf_draw_text(" Flee",		MENU_X, MENU_Y + MENU_Y_SPACE+ FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE + FONT_SIZE+MENU_Y_SPACE,
-		MENU_TEXT_DEFAULT_COLOR, 0);
+	uint menu_y = MENU_Y + MENU_Y_SPACE;
+	sf_draw_text("*Attack", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
+
+	menu_y += FONT_SIZE + MENU_Y_SPACE;
+	sf_draw_text(" Streams", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+	menu_y += FONT_SIZE + MENU_Y_SPACE;
+	sf_draw_text(" Equip", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+	menu_y += FONT_SIZE + MENU_Y_SPACE;
+	sf_draw_text(" Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 }
 
 void sf_debug_draw_minimap(void)
@@ -376,19 +388,19 @@ void sf_draw_dungeon_screen(void)
 	sf_set_drawing_state(Begin);
 
 	// Screen background test.
-	//sf_draw_tiles_screen_background();
+	sf_draw_tiles_screen_background();
 
-	// #WIP Menu test.
-	//sf_draw_combat_menu();
+	// #WIP test menu.
+	sf_debug_draw_test_menu();
 
 	// Debug: Minimap.
 	sf_debug_draw_minimap();
 
 	// Debug: Palette.
-	//sf_debug_draw_palette();
+	sf_debug_draw_palette();
 
 	// Party portraits.
-	//sf_draw_portraits();
+	sf_draw_portraits();
 
 	// Compass.
 	switch(player_dir)

@@ -64,5 +64,3 @@ BOOL sf_check_encounter(void)
 {
     return (encounter_table[current_step] < current_threshold);
 }
-
-

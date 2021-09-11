@@ -164,7 +164,8 @@ BOOL sf_load_sc8_image(uchar *file_name, uint initial_y_pos)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
+void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
+	uint src_pg, uint dst_pg, uchar mode)
 {
 	uint src_y = 0;
 	uint dst_y = 0;
@@ -207,9 +208,9 @@ void sf_switch_screen(void)
 {
 	if (sf_get_drawing_state() == WaitingForVDP)
 	{
-		active_page = active_page;
-
 		SetDisplayPage(active_page);
+
+		active_page = !active_page;
 		SetActivePage(active_page);
 
 		sf_set_drawing_state(Finished);
@@ -261,7 +262,8 @@ void sf_init_gfx(void)
 
 BOOL sf_update_gfx(void)
 {
-	// Checking "is ready to switch", VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
+	// Checking "is ready to switch", VDP is not busy and vsync.
+	// https://www.msx.org/wiki/VDP_Status_Registers
 	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
 		return (FALSE);
