@@ -10,7 +10,6 @@
 #include "fusion-c/header/vdp_sprites.h"
 #include "fusion-c/header/vdp_graph2.h"
 
-#include "types.h"
 #include "main.h"
 #include "dungeon.h"
 #include "procgen.h"
@@ -27,9 +26,9 @@ int prev_y;
 int current_x;
 int current_y;
 
-char is_generating_dungeon = FALSE;
+char is_generating_dungeon;
 
-char sf_check_room_valid(int room_x, int room_y, int room_size_x, int room_size_y)
+BOOL sf_check_room_valid(int room_x, int room_y, int room_size_x, int room_size_y)
 {
     // This room goes outside the map.
     if (room_x < 0 ||
@@ -132,7 +131,7 @@ void sf_create_corridor(int room_x, int room_y, int room_size_x, int room_size_y
     prev_y = room_y + rand() % room_size_y;
 }
 
-char sf_create_room()
+BOOL sf_create_room()
 {
     int room_x, room_y, room_size_x, room_size_y;
 
@@ -163,7 +162,7 @@ char sf_create_room()
     return (TRUE);
 }
 
-char sf_is_valid_position(int x, int y)
+BOOL sf_is_valid_position(int x, int y)
 {
     // Must be in a room tile.
     if (dungeon_map[x + y * DUNGEON_SIZE] != TILE_ROOM)
@@ -188,12 +187,12 @@ char sf_is_valid_position(int x, int y)
     return (TRUE);
 }
 
-char sf_is_generating_dungeon(void)
+BOOL sf_is_generating_dungeon(void)
 {
     return is_generating_dungeon;
 }
 
-char sf_generate_dungeon(void)
+BOOL sf_generate_dungeon(void)
 {
     uint room_count = 0, failsafe_count = 0;
     int stairs_x, stairs_y;

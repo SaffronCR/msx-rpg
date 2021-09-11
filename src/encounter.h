@@ -2,22 +2,17 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef FONT_H
-#define FONT_H
+#ifndef ENCOUNTER_H
+#define ENCOUNTER_H
 
 #include "main.h"
-
-//------------------------------------------------------------------
-// Defines.
-//------------------------------------------------------------------
-
-#define FONT_PAGE 2
-#define FONT_SIZE 8
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_draw_text(char *text, int x, int y, char text_color, char border_color);
+void sf_init_encounter(void);
+void sf_encounter_step(void);
+BOOL sf_check_encounter(void);
 
 #endif

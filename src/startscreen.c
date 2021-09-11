@@ -15,6 +15,10 @@
 #include "gfx.h"
 #include "startscreen.h"
 
+//------------------------------------------------------------------
+// Functions.
+//------------------------------------------------------------------
+
 void sf_draw_startscreen_intro_text(void)
 {
 	// Intro text.

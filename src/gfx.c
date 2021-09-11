@@ -10,7 +10,6 @@
 #include "fusion-c/header/vdp_sprites.h"
 #include "fusion-c/header/vdp_graph2.h"
 
-#include "types.h"
 #include "main.h"
 #include "system.h"
 #include "dungeon.h"
@@ -65,7 +64,7 @@ void sf_init_palette(void)
 	SetSC5Palette((Palette *)palette);
 }
 
-char sf_load_sf5_image(char *file_name, uint initial_y_pos)
+BOOL sf_load_sf5_image(char *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -110,7 +109,7 @@ char sf_load_sf5_image(char *file_name, uint initial_y_pos)
 	return (TRUE);
 }
 
-char sf_load_sc8_image(char *file_name, uint initial_y_pos)
+BOOL sf_load_sc8_image(char *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -260,7 +259,7 @@ void sf_init_gfx(void)
 	SetActivePage(active_page);
 }
 
-char sf_update_gfx(void)
+BOOL sf_update_gfx(void)
 {
 	// Checking "is ready to switch", VDP is not busy and vsync (https://www.msx.org/wiki/VDP_Status_Registers).
 	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)

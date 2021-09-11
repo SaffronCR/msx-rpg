@@ -8,9 +8,8 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "types.h"
 #include "system.h"
-#include "combat.h"
+#include "encounter.h"
 #include "dungeon.h"
 #include "menu.h"
 #include "procgen.h"
@@ -27,10 +26,9 @@
 
 enum GameState game_state;
 
-char update_frame_count = 0;
+char update_frame_count;
 
-// Random seed, set to 666 for debug purposes.
-uint rand_seed = 666;
+uint rand_seed;
 
 //------------------------------------------------------------------
 // Functions.
@@ -83,6 +81,10 @@ static char sf_interrupt(void)
 
 void main(void)
 {
+	// Init variables.
+	update_frame_count = 0;
+	rand_seed = 666; // Random seed, set to 666 for debug purposes.
+
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
 	if (ReadMSXtype() == 3)
 	{

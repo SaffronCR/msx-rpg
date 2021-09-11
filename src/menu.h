@@ -5,6 +5,8 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "main.h"
+
 //...
 
 #endif

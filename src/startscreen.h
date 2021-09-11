@@ -5,6 +5,8 @@
 #ifndef STARTSCREEN_H
 #define STARTSCREEN_H
 
+#include "main.h"
+
 //...
 
 //------------------------------------------------------------------

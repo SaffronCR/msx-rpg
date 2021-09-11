@@ -5,7 +5,7 @@
 #ifndef INTRO_H
 #define INTRO_H
 
-//...
+#include "main.h"
 
 //------------------------------------------------------------------
 // Prototypes.

@@ -5,12 +5,13 @@
 #ifndef PROCGEN_H
 #define PROCGEN_H
 
+#include "main.h"
+
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
-char sf_generate_dungeon(void);
-
-char sf_is_generating_dungeon(void);
+BOOL sf_generate_dungeon(void);
+BOOL sf_is_generating_dungeon(void);
 
 #endif

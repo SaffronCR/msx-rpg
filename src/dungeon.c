@@ -13,23 +13,24 @@
 #include "main.h"
 #include "procgen.h"
 #include "gfx.h"
+#include "encounter.h"
 #include "dungeon.h"
 
 //------------------------------------------------------------------
 // Variables.
 //------------------------------------------------------------------
 
-char *dungeon_map;
-
 const int dir_translate_x[] = {0, 1, 0, -1};
 const int dir_translate_y[] = {-1, 0, 1, 0};
+
+char *dungeon_map;
 
 char current_view[DUNGEON_VIEW_DX * DUNGEON_VIEW_DY];
 
 char player_moves;
 char player_turns;
 
-char ceiling_tile = 0;
+char ceiling_tile;
 
 int player_pos_x;
 int player_pos_y;
@@ -437,6 +438,16 @@ void sf_draw_dungeon_screen(void)
 	//sf_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 	//sf_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 
+	// #WIP test encounter RNG.
+	if(sf_check_encounter() == TRUE)
+	{
+		sf_draw_text("ENCOUNTER!", 0, 0, 9, 0);
+	}
+	else
+	{
+		sf_draw_text("NOTHING   ", 0, 0, 5, 0);
+	}
+
 	sf_set_drawing_state(WaitingForVDP);
 }
 
@@ -451,6 +462,8 @@ void sf_move(int newPosX, int newPosY)
 		player_pos_y = newPosY;
 
 		player_moves = TRUE;
+
+		sf_encounter_step();
 	}
 }
 
@@ -520,6 +533,7 @@ void sf_set_dungeon_state(void)
 	// Initialize variables.
 	player_moves = FALSE;
 	player_turns = FALSE;
+	ceiling_tile = 0;
 
 	// This may be set by the random generator in the future?
 	player_dir = North;
@@ -530,6 +544,9 @@ void sf_set_dungeon_state(void)
 	sf_draw_text("Entering the Undercity...", 8, 8, 15, 0);
 	dungeon_map = NULL;
 	sf_generate_dungeon();
+
+	// Initialize encounter logic.
+	sf_init_encounter();
 
 	// Initial draw call.
 	Cls();
