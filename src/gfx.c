@@ -241,7 +241,7 @@ void sr_set_screen_height(uchar height)
 void sr_init_gfx(void)
 {
 	// Set variables.
-	current_screen_height = 212;
+	current_screen_height = SH_212;
 
 	// Disable sprites (speed gain).
 	SpriteOff();
