@@ -178,94 +178,94 @@
 // Functions.
 //------------------------------------------------------------------
 
-void sf_draw_char(uchar character, uint x, uint y, uchar log_op)
+void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 {
 	switch (character)
 	{
-		case 'a': sf_screen_copy(lax,lay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'b': sf_screen_copy(lbx,lby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'c': sf_screen_copy(lcx,lcy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'd': sf_screen_copy(ldx,ldy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'e': sf_screen_copy(lex,ley, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'f': sf_screen_copy(lfx,lfy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'g': sf_screen_copy(lgx,lgy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'h': sf_screen_copy(lhx,lhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'i': sf_screen_copy(lix,liy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'j': sf_screen_copy(ljx,ljy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'k': sf_screen_copy(lkx,lky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'l': sf_screen_copy(llx,lly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'm': sf_screen_copy(lmx,lmy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'n': sf_screen_copy(lnx,lny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'o': sf_screen_copy(lox,loy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'p': sf_screen_copy(lpx,lpy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'q': sf_screen_copy(lqx,lqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'r': sf_screen_copy(lrx,lry, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 's': sf_screen_copy(lsx,lsy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 't': sf_screen_copy(ltx,lty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'u': sf_screen_copy(lux,luy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'v': sf_screen_copy(lvx,lvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'w': sf_screen_copy(lwx,lwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'x': sf_screen_copy(lxx,lxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'y': sf_screen_copy(lyx,lyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'z': sf_screen_copy(lzx,lzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'a': sr_screen_copy(lax,lay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'b': sr_screen_copy(lbx,lby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'c': sr_screen_copy(lcx,lcy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'd': sr_screen_copy(ldx,ldy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'e': sr_screen_copy(lex,ley, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'f': sr_screen_copy(lfx,lfy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'g': sr_screen_copy(lgx,lgy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'h': sr_screen_copy(lhx,lhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'i': sr_screen_copy(lix,liy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'j': sr_screen_copy(ljx,ljy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'k': sr_screen_copy(lkx,lky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'l': sr_screen_copy(llx,lly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'm': sr_screen_copy(lmx,lmy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'n': sr_screen_copy(lnx,lny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'o': sr_screen_copy(lox,loy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'p': sr_screen_copy(lpx,lpy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'q': sr_screen_copy(lqx,lqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'r': sr_screen_copy(lrx,lry, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 's': sr_screen_copy(lsx,lsy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 't': sr_screen_copy(ltx,lty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'u': sr_screen_copy(lux,luy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'v': sr_screen_copy(lvx,lvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'w': sr_screen_copy(lwx,lwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'x': sr_screen_copy(lxx,lxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'y': sr_screen_copy(lyx,lyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'z': sr_screen_copy(lzx,lzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case 'A': sf_screen_copy(uax,uay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'B': sf_screen_copy(ubx,uby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'C': sf_screen_copy(ucx,ucy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'D': sf_screen_copy(udx,udy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'E': sf_screen_copy(uex,uey, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'F': sf_screen_copy(ufx,ufy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'G': sf_screen_copy(ugx,ugy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'H': sf_screen_copy(uhx,uhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'I': sf_screen_copy(uix,uiy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'J': sf_screen_copy(ujx,ujy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'K': sf_screen_copy(ukx,uky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'L': sf_screen_copy(ulx,uly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'M': sf_screen_copy(umx,umy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'N': sf_screen_copy(unx,uny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'O': sf_screen_copy(uox,uoy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'P': sf_screen_copy(upx,upy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Q': sf_screen_copy(uqx,uqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'R': sf_screen_copy(urx,ury, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'S': sf_screen_copy(usx,usy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'T': sf_screen_copy(utx,uty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'U': sf_screen_copy(uux,uuy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'V': sf_screen_copy(uvx,uvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'W': sf_screen_copy(uwx,uwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'X': sf_screen_copy(uxx,uxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Y': sf_screen_copy(uyx,uyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Z': sf_screen_copy(uzx,uzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'A': sr_screen_copy(uax,uay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'B': sr_screen_copy(ubx,uby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'C': sr_screen_copy(ucx,ucy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'D': sr_screen_copy(udx,udy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'E': sr_screen_copy(uex,uey, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'F': sr_screen_copy(ufx,ufy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'G': sr_screen_copy(ugx,ugy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'H': sr_screen_copy(uhx,uhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'I': sr_screen_copy(uix,uiy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'J': sr_screen_copy(ujx,ujy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'K': sr_screen_copy(ukx,uky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'L': sr_screen_copy(ulx,uly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'M': sr_screen_copy(umx,umy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'N': sr_screen_copy(unx,uny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'O': sr_screen_copy(uox,uoy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'P': sr_screen_copy(upx,upy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'Q': sr_screen_copy(uqx,uqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'R': sr_screen_copy(urx,ury, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'S': sr_screen_copy(usx,usy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'T': sr_screen_copy(utx,uty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'U': sr_screen_copy(uux,uuy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'V': sr_screen_copy(uvx,uvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'W': sr_screen_copy(uwx,uwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'X': sr_screen_copy(uxx,uxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'Y': sr_screen_copy(uyx,uyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'Z': sr_screen_copy(uzx,uzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case '0': sf_screen_copy(zerox,zeroy,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '1': sf_screen_copy(onex,oney,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '2': sf_screen_copy(twox,twoy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '3': sf_screen_copy(threex,threey,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '4': sf_screen_copy(fourx,foury,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '5': sf_screen_copy(fivex,fivey,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '6': sf_screen_copy(sixx,sixy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '7': sf_screen_copy(sevenx,seveny,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '8': sf_screen_copy(eightx,eighty,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '9': sf_screen_copy(ninex,niney,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '0': sr_screen_copy(zerox,zeroy,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '1': sr_screen_copy(onex,oney,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '2': sr_screen_copy(twox,twoy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '3': sr_screen_copy(threex,threey,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '4': sr_screen_copy(fourx,foury,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '5': sr_screen_copy(fivex,fivey,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '6': sr_screen_copy(sixx,sixy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '7': sr_screen_copy(sevenx,seveny,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '8': sr_screen_copy(eightx,eighty,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '9': sr_screen_copy(ninex,niney,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case '.': sf_screen_copy(dotx,doty,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ',': sf_screen_copy(commax,commay,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '.': sr_screen_copy(dotx,doty,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case ',': sr_screen_copy(commax,commay,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case ' ': sf_screen_copy(spacex,spacey,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '!': sf_screen_copy(exclax,exclay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '^': sf_screen_copy(heartx,hearty,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '@': sf_screen_copy(copyx,copyy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '*': sf_screen_copy(asteriskx,asterisky, 	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case ' ': sr_screen_copy(spacex,spacey,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '!': sr_screen_copy(exclax,exclay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '^': sr_screen_copy(heartx,hearty,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '@': sr_screen_copy(copyx,copyy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '*': sr_screen_copy(asteriskx,asterisky, 	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case '<': sf_screen_copy(uplbx,uplby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '[': sf_screen_copy(dwnlbx,dwnlby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '_': sf_screen_copy(midbx,midby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '>': sf_screen_copy(uprbx,uprby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ']': sf_screen_copy(dwnrbx,dwnrby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '|': sf_screen_copy(latbx,latby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '<': sr_screen_copy(uplbx,uplby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '[': sr_screen_copy(dwnlbx,dwnlby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '_': sr_screen_copy(midbx,midby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '>': sr_screen_copy(uprbx,uprby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case ']': sr_screen_copy(dwnrbx,dwnrby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '|': sr_screen_copy(latbx,latby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 	}
 }
 
-void sf_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color)
+void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color)
 {
 	uchar log_op = LOGICAL_IMP;
 
@@ -275,27 +275,27 @@ void sf_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_co
 		{
 			// Color border.
 			LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
-			sf_draw_char(*text, x, y, LOGICAL_TIMP);
+			sr_draw_char(*text, x, y, LOGICAL_TIMP);
 
 			// Only for color text.
 			if (text_color != 0)
 			{
 				LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
-				sf_draw_char(*text, x, y, LOGICAL_XOR);
-				sf_draw_char(*text, x, y, LOGICAL_AND);
+				sr_draw_char(*text, x, y, LOGICAL_XOR);
+				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}
 		}
 		else
 		{
 			// Transparent border.
-			sf_draw_char(*text, x, y, LOGICAL_IMP);
+			sr_draw_char(*text, x, y, LOGICAL_IMP);
 
 			// Only for color text.
 			if (text_color != 0)
 			{
 				LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
-				sf_draw_char(*text, x, y, LOGICAL_XOR);
-				sf_draw_char(*text, x, y, LOGICAL_AND);
+				sr_draw_char(*text, x, y, LOGICAL_XOR);
+				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}
 		}
 

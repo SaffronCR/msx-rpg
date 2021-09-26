@@ -15,7 +15,7 @@
 //------------------------------------------------------------------
 
 // In case of Error.
-void sf_error_handler(uchar n, uchar *name)
+void sr_error_handler(uchar n, uchar *name)
 {
 	InitPSG();
 	Screen(0);
@@ -40,7 +40,7 @@ void sf_error_handler(uchar n, uchar *name)
 }
 
 // Set the name of a file to load (MSX DOS).
-void sf_set_name(FCB *p_fcb, const uchar *p_name)
+void sr_set_name(FCB *p_fcb, const uchar *p_name)
 {
 	uchar i, j;
 	memset(p_fcb, 0, sizeof(FCB));
@@ -65,7 +65,7 @@ void sf_set_name(FCB *p_fcb, const uchar *p_name)
 	}
 }
 
-void sf_wait(uint cicles)
+void sr_wait(uint cicles)
 {
 	for (uint i = 0; i < cicles; i++)
 	{

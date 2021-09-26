@@ -23,19 +23,19 @@ uchar is_playing_song;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_init_snd(void)
+void sr_init_snd(void)
 {
-	//sf_init_battle_song();
+	//sr_init_battle_song();
 	//is_playing_song = TRUE;
 
 	is_playing_song = FALSE;
 }
 
-void sf_update_snd(void)
+void sr_update_snd(void)
 {
 	// Update audio.
 	if (is_playing_song == TRUE)
 	{
-		sf_play_song();
+		sr_play_song();
 	}
 }

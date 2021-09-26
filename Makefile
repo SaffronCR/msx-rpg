@@ -16,7 +16,7 @@
 #\___________________________________________________________/
 #
 #  What does this file ?
-#  It generate an MSX DOS executable file ready to be launch on a MSX Computer with MSX-DOS 
+#  It generate an MSX DOS executable file ready to be launch on a MSX Computer with MSX-DOS
 #  It also start the openMSX emuilator if it isn't already started
 #
 #
@@ -27,18 +27,18 @@ ASM = sdasz80  										# ASM compilator command name
 CC = sdcc  											# SDCC commpilator command name
 C_FILES :=  $(CompFile) #test.c  $(wildcard *.c) 	# which files to compil. File name must be sent by Sublime Text Build Systeme into the $(CompFile) variable
 DEST := dsk/ 										# destination of executable files
-ASM_FILES := $(wildcard *.s)  						# definition of sources files 
+ASM_FILES := $(wildcard *.s)  						# definition of sources files
 REL_FILES := $(subst .s,.rel,$(ASM_FILES))          # definition of .rel files
 
-IHX_FILES := $(subst .c,.ihx,$(C_FILES))  			# definition of .ihx files 
-COM_FILES := $(subst .ihx,.com,$(IHX_FILES)) 		# definition of .com files 
+IHX_FILES := $(subst .c,.ihx,$(C_FILES))  			# definition of .ihx files
+COM_FILES := $(subst .ihx,.com,$(IHX_FILES)) 		# definition of .com files
 
 # Folder where to find other compiled files to include
 INCLUDEDIR = ./fusion-c/include/
-# Folder where to find Fusion.lib 		
+# Folder where to find Fusion.lib
 LIBDIR = ./fusion-c/lib/
 
-# standrd crt0 
+# standrd crt0
 crt0 = $(INCLUDEDIR)crt0_msxdos.rel
 
 # use this crt0 if you want to pass parameters to your program
@@ -63,7 +63,7 @@ crt0 = $(INCLUDEDIR)crt0_msxdos.rel
 # Standard Code-loc adress
 ADDR_CODE = 0x106
 # use this parameter if you are using crt0_msxdos_advanced
-#ADDR_CODE = 0x180 
+#ADDR_CODE = 0x180
 ADDR_DATA = 0x0
 
 # The above line is the full command line used by SDD to compil and link your to source file to an MSX-DOS executable
@@ -91,5 +91,5 @@ clean:
 	@echo "....(╯°□°） temp files removed!"
 
 emulator:
-	# Starting emulator script 
+	# Starting emulator script
 	./openMSX/emul_start.sh

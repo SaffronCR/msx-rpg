@@ -145,7 +145,7 @@ extern uchar *dungeon_map;
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_set_dungeon_state(void);
-void sf_update_dungeon_state(void);
+void sr_set_dungeon_state(void);
+void sr_update_dungeon_state(void);
 
 #endif

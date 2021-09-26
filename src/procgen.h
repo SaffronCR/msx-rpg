@@ -11,7 +11,7 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-BOOL sf_generate_dungeon(void);
-BOOL sf_is_generating_dungeon(void);
+BOOL sr_generate_dungeon(void);
+BOOL sr_is_generating_dungeon(void);
 
 #endif

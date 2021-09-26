@@ -55,25 +55,27 @@ uchar active_page;
 
 uchar load_buffer[BUFFER_SIZE];
 
+enum ScreenHeight current_screen_height;
+
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
-void sf_init_palette(void)
+void sr_init_palette(void)
 {
 	SetSC5Palette((Palette *)palette);
 }
 
-BOOL sf_load_sf5_image(uchar *file_name, uint initial_y_pos)
+BOOL sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
 
-	sf_set_name(&file, file_name);
+	sr_set_name(&file, file_name);
 
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
-		sf_error_handler(1, file_name);
+		sr_error_handler(1, file_name);
 		return (FALSE);
 	}
 
@@ -102,23 +104,23 @@ BOOL sf_load_sf5_image(uchar *file_name, uint initial_y_pos)
 	// Check for errors.
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
-		sf_error_handler(2, file_name);
+		sr_error_handler(2, file_name);
 		return (FALSE);
 	}
 
 	return (TRUE);
 }
 
-BOOL sf_load_sc8_image(uchar *file_name, uint initial_y_pos)
+BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
 
-	sf_set_name(&file, file_name);
+	sr_set_name(&file, file_name);
 
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
-		sf_error_handler(1, file_name);
+		sr_error_handler(1, file_name);
 		return (FALSE);
 	}
 
@@ -149,7 +151,7 @@ BOOL sf_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	// Check for errors.
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
-		sf_error_handler(2, file_name);
+		sr_error_handler(2, file_name);
 		return (FALSE);
 	}
 
@@ -164,7 +166,7 @@ BOOL sf_load_sc8_image(uchar *file_name, uint initial_y_pos)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
+void sr_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
 	uint src_pg, uint dst_pg, uchar mode)
 {
 	uint src_y = 0;
@@ -192,7 +194,7 @@ void sf_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
 	fLMMM(&t);
 }
 
-void sf_debug_draw_palette(void)
+void sr_debug_draw_palette(void)
 {
 	uint x = 0;
 	uint y = 0;
@@ -204,39 +206,48 @@ void sf_debug_draw_palette(void)
 	}
 }
 
-void sf_switch_screen(void)
+void sr_switch_screen(void)
 {
-	if (sf_get_drawing_state() == WaitingForVDP)
+	if (sr_get_drawing_state() == WaitingForVDP)
 	{
 		SetDisplayPage(active_page);
 
 		active_page = !active_page;
 		SetActivePage(active_page);
 
-		sf_set_drawing_state(Finished);
+		sr_set_drawing_state(Finished);
 	}
 }
 
-void sf_set_drawing_state(uchar new_state)
+void sr_set_drawing_state(uchar new_state)
 {
 	drawing_state = new_state;
 }
 
-uchar sf_get_drawing_state(void)
+uchar sr_get_drawing_state(void)
 {
 	return drawing_state;
 }
 
-void sf_init_gfx(void)
+void sr_set_screen_height(uchar height)
 {
+	if (height != current_screen_height)
+	{
+		VDPLinesSwitch();
+		height = current_screen_height;
+	}
+}
+
+void sr_init_gfx(void)
+{
+	// Set variables.
+	current_screen_height = 212;
+
 	// Disable sprites (speed gain).
 	SpriteOff();
 
 	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
-
-	// Switch from 212 to 192 vertical lines (for speed gain).
-	VDPLinesSwitch();
 
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
 	VDP60Hz();
@@ -247,29 +258,29 @@ void sf_init_gfx(void)
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
 	// Load screens.
-	sf_init_palette();
-	sf_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
-	sf_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
-	//sf_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
-	//sf_load_sf5_image("INTRO01.SF5", SCREEN_WIDTH * 0);
+	sr_init_palette();
+	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
+	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
+	//sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
+	//sr_load_sf5_image("INTRO01.SF5", SCREEN_WIDTH * 0);
 
 	// Configure pages.
-	sf_set_drawing_state(Finished);
+	sr_set_drawing_state(Finished);
 	active_page = 0;
 	SetDisplayPage(!active_page);
 	SetActivePage(active_page);
 }
 
-BOOL sf_update_gfx(void)
+BOOL sr_update_gfx(void)
 {
 	// Checking "is ready to switch", VDP is not busy and vsync.
 	// https://www.msx.org/wiki/VDP_Status_Registers
-	if (sf_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
+	if (sr_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
 		return (FALSE);
 	}
 
-	sf_switch_screen();
+	sr_switch_screen();
 
 	return (TRUE);
 }

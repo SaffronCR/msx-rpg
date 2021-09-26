@@ -36,7 +36,7 @@ uchar is_generating_dungeon;
 // Functions.
 //------------------------------------------------------------------
 
-BOOL sf_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
+BOOL sr_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
 {
     // This room goes outside the map.
     if (room_x + room_size_x > DUNGEON_SIZE ||
@@ -62,7 +62,7 @@ BOOL sf_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_s
     return (TRUE);
 }
 
-void sf_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
+void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
 {
     uint x, y, turn_x_count, turn_y_count;
 
@@ -137,7 +137,7 @@ void sf_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
     prev_y = room_y + rand() % room_size_y;
 }
 
-BOOL sf_create_room()
+BOOL sr_create_room()
 {
     uint room_x, room_y, room_size_x, room_size_y;
 
@@ -148,7 +148,7 @@ BOOL sf_create_room()
     room_size_y = rand() % (room_max_size - room_min_size + 1) + room_min_size;
 
     // Check if this room is valid.
-    if (sf_check_room_valid(room_x - 1, room_y - 1, room_size_x + 2, room_size_y + 2) == FALSE)
+    if (sr_check_room_valid(room_x - 1, room_y - 1, room_size_x + 2, room_size_y + 2) == FALSE)
     {
         return (FALSE);
     }
@@ -163,12 +163,12 @@ BOOL sf_create_room()
     }
 
     // Create corridor to previous room (if exists).
-    sf_create_corridor(room_x, room_y, room_size_x, room_size_y);
+    sr_create_corridor(room_x, room_y, room_size_x, room_size_y);
 
     return (TRUE);
 }
 
-BOOL sf_is_valid_position(uint x, uint y)
+BOOL sr_is_valid_position(uint x, uint y)
 {
     // Must be in a room tile.
     if (dungeon_map[x + y * DUNGEON_SIZE] != TILE_ROOM)
@@ -193,12 +193,12 @@ BOOL sf_is_valid_position(uint x, uint y)
     return (TRUE);
 }
 
-BOOL sf_is_generating_dungeon(void)
+BOOL sr_is_generating_dungeon(void)
 {
     return is_generating_dungeon;
 }
 
-BOOL sf_generate_dungeon(void)
+BOOL sr_generate_dungeon(void)
 {
     uint room_count = 0, failsafe_count = 0;
     uint stairs_x, stairs_y;
@@ -231,7 +231,7 @@ BOOL sf_generate_dungeon(void)
     room_count = rand() % (room_max_count - room_min_count + 1) + room_min_count;
     while (room_count > 0)
     {
-        if (sf_create_room() == TRUE)
+        if (sr_create_room() == TRUE)
         {
             room_count--;
         }
@@ -256,14 +256,14 @@ BOOL sf_generate_dungeon(void)
     {
         player_pos_x = rand() % DUNGEON_SIZE + 1;
         player_pos_y = rand() % DUNGEON_SIZE + 1;
-    } while (sf_is_valid_position(player_pos_x, player_pos_y) == FALSE);
+    } while (sr_is_valid_position(player_pos_x, player_pos_y) == FALSE);
 
     // Set random stairs position.
     do
     {
         stairs_x = rand() % DUNGEON_SIZE + 1;
         stairs_y = rand() % DUNGEON_SIZE + 1;
-    } while (sf_is_valid_position(stairs_x, stairs_y) == FALSE ||
+    } while (sr_is_valid_position(stairs_x, stairs_y) == FALSE ||
         (stairs_x == player_pos_x && stairs_y == player_pos_y));
 
     dungeon_map[stairs_x + stairs_y * DUNGEON_SIZE] = TILE_STAIRS;

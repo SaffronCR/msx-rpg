@@ -18,6 +18,6 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color);
+void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color);
 
 #endif

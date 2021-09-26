@@ -11,8 +11,8 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-void sf_init_encounter(void);
-void sf_encounter_step(void);
-BOOL sf_check_encounter(void);
+void sr_init_encounter(void);
+void sr_encounter_step(void);
+BOOL sr_check_encounter(void);
 
 #endif

@@ -8,16 +8,17 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "system.h"
-#include "encounter.h"
+#include "creationscr.h"
 #include "dungeon.h"
-#include "menu.h"
-#include "procgen.h"
-#include "startscreen.h"
-#include "intro.h"
+#include "encounter.h"
 #include "font.h"
 #include "gfx.h"
+#include "intro.h"
+#include "menu.h"
+#include "procgen.h"
 #include "snd.h"
+#include "startscr.h"
+#include "system.h"
 #include "main.h"
 
 //------------------------------------------------------------------
@@ -34,49 +35,51 @@ uint rand_seed;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_set_game_state(uchar new_state)
+void sr_set_game_state(uchar new_state)
 {
 	game_state = new_state;
 
 	switch(game_state)
 	{
-		case StartScreen:	sf_set_startscreen_state();	break;
-		case Intro:			sf_set_intro_state();		break;
-		case Dungeon:		sf_set_dungeon_state();		break;
+		case StartScreen:		sr_set_startscr_state();	break;
+		case CreationScreen:	sr_set_creationscr_state();	break;
+		case Intro:				sr_set_intro_state();		break;
+		case Dungeon:			sr_set_dungeon_state();		break;
 	}
 }
 
-void sf_update_game_state(void)
+void sr_update_game_state(void)
 {
 	// Player input must wait until the next frame is ready.
-	if (sf_get_drawing_state() == Finished)
+	if (sr_get_drawing_state() == Finished)
 	{
 		switch (game_state)
 		{
-			case StartScreen:	sf_update_startscreen_state();	break;
-			case Intro:			sf_update_intro_state();		break;
-			case Dungeon:		sf_update_dungeon_state();		break;
+			case StartScreen:		sr_update_startscr_state();		break;
+			case CreationScreen:	sr_update_creationscr_state();	break;
+			case Intro:				sr_update_intro_state();		break;
+			case Dungeon:			sr_update_dungeon_state();		break;
 		}
 	}
 }
 
-static uchar sf_interrupt(void)
+static uchar sr_interrupt(void)
 {
 	// Update game logic and audio in separate frames to ease the CPU load.
 	update_frame_count = !update_frame_count;
 	if (update_frame_count == 1)
 	{
 		// Update game logic.
-		sf_update_game_state();
+		sr_update_game_state();
 	}
 	else
 	{
 		// Update audio.
-		sf_update_snd();
+		sr_update_snd();
 	}
 
 	// Update video.
-	return sf_update_gfx();
+	return sr_update_gfx();
 }
 
 void main(void)
@@ -105,17 +108,17 @@ void main(void)
 	InitPSG();
 
 	// Init sound.
-	sf_init_snd();
+	sr_init_snd();
 
 	// Set gfx configuration.
-	sf_init_gfx();
+	sr_init_gfx();
 
 	// Set interrupt.
 	InitInterruptHandler();
-	SetInterruptHandler(sf_interrupt);
+	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sf_set_game_state(Dungeon);
+	sr_set_game_state(CreationScreen);
 
 	for (;;)
 	{

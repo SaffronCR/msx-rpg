@@ -49,18 +49,18 @@ uchar current_threshold;
 // Functions.
 //------------------------------------------------------------------
 
-void sf_init_encounter(void)
+void sr_init_encounter(void)
 {
     current_step = 0;
     current_threshold = 10;
 }
 
-void sf_encounter_step(void)
+void sr_encounter_step(void)
 {
     current_step++;
 }
 
-BOOL sf_check_encounter(void)
+BOOL sr_check_encounter(void)
 {
     return (encounter_table[current_step] < current_threshold);
 }

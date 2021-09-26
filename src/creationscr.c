@@ -13,32 +13,33 @@
 #include "main.h"
 #include "font.h"
 #include "gfx.h"
-#include "intro.h"
+#include "creationscr.h"
 
-void sr_draw_intro_text(void)
+//------------------------------------------------------------------
+// Functions.
+//------------------------------------------------------------------
+
+void sr_draw_creationscr_intro_text(void)
 {
-	// Intro text.
+	// Switch to 212 vertical lines.
+	sr_set_screen_height(SH_212);
+
 	sr_set_drawing_state(Begin);
-	// Cls();
+
+	Cls();
 	SetColors(0, 0, 14);
 
-	sr_draw_text("Deep in space far away", 8*4, 8*19, 15, 14);
-	sr_draw_text("from the inhabited regions", 8*3, 8*19+9, 15, 14);
-	sr_draw_text("of the galaxy lies a long", 8*3, 8*19+9+9, 15, 14);
-	sr_draw_text("forgotten alien station", 8*3, 8*19+9+9+9, 15, 14);
+	sr_draw_text("PRESS SPACE KEY", 8*8, 8*18, 15, 14);
+	sr_draw_text("@1987 SAFFRON SOFT", 8*7, 8*20, 15, 14);
 
 	sr_set_drawing_state(WaitingForVDP);
-	sr_wait(1000);
-
-	// Go to dungeon state.
-	sr_set_game_state(StartScreen);
 }
 
-void sr_set_intro_state(void)
+void sr_set_creationscr_state(void)
 {
-	sr_draw_intro_text();
+	sr_draw_creationscr_intro_text();
 }
 
-void sr_update_intro_state(void)
+void sr_update_creationscr_state(void)
 {
 }
