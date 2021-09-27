@@ -4335,6 +4335,220 @@ BATTLE_SUBSONG0_SPEEDTRACK0: .db 6
     .db 253
 BATTLE_SUBSONG0_SPEEDTRACK1: .db 255
 BATTLE_SUBSONG0_EVENTTRACK0: .db 255
+SFX_SOUNDEFFECTS:
+_SFX_SOUNDEFFECTS:: .dw SFX_SOUNDEFFECTS_SOUND1
+    .dw SFX_SOUNDEFFECTS_SOUND2
+    .dw SFX_SOUNDEFFECTS_SOUND3
+    .dw SFX_SOUNDEFFECTS_SOUND4
+    .dw SFX_SOUNDEFFECTS_SOUND5
+SFX_SOUNDEFFECTS_SOUND1: .db 0
+SFX_SOUNDEFFECTS_SOUND1_LOOP: .db 189
+    .db 1
+    .db 95
+    .db 0
+    .db 189
+    .db 1
+    .db 99
+    .db 0
+    .db 177
+    .db 1
+    .db 102
+    .db 0
+    .db 173
+    .db 1
+    .db 106
+    .db 0
+    .db 4
+SFX_SOUNDEFFECTS_SOUND2: .db 1
+SFX_SOUNDEFFECTS_SOUND2_LOOP: .db 189
+    .db 1
+    .db 45
+    .db 1
+    .db 189
+    .db 8
+    .db 63
+    .db 1
+    .db 185
+    .db 2
+    .db 146
+    .db 1
+    .db 181
+    .db 16
+    .db 213
+    .db 0
+    .db 177
+    .db 2
+    .db 225
+    .db 0
+    .db 173
+    .db 2
+    .db 239
+    .db 0
+    .db 165
+    .db 16
+    .db 102
+    .db 1
+    .db 157
+    .db 31
+    .db 119
+    .db 0
+    .db 153
+    .db 7
+    .db 80
+    .db 0
+    .db 4
+SFX_SOUNDEFFECTS_SOUND3: .db 1
+SFX_SOUNDEFFECTS_SOUND3_LOOP: .db 189
+    .db 1
+    .db 119
+    .db 0
+    .db 57
+    .db 60
+    .db 0
+    .db 181
+    .db 1
+    .db 95
+    .db 0
+    .db 49
+    .db 47
+    .db 0
+    .db 185
+    .db 1
+    .db 80
+    .db 0
+    .db 61
+    .db 40
+    .db 0
+    .db 3
+    .db 15
+    .db 0
+    .db 222
+    .db 1
+    .db 61
+    .db 239
+    .db 0
+    .db 3
+    .db 15
+    .db 0
+    .db 222
+    .db 1
+    .db 61
+    .db 239
+    .db 0
+    .db 3
+    .db 15
+    .db 0
+    .db 222
+    .db 1
+    .db 61
+    .db 239
+    .db 0
+    .db 3
+    .db 30
+    .db 0
+    .db 188
+    .db 3
+    .db 61
+    .db 239
+    .db 0
+    .db 3
+    .db 30
+    .db 0
+    .db 188
+    .db 3
+    .db 61
+    .db 239
+    .db 0
+    .db 4
+SFX_SOUNDEFFECTS_SOUND4: .db 1
+SFX_SOUNDEFFECTS_SOUND4_LOOP: .db 189
+    .db 1
+    .db 119
+    .db 0
+    .db 61
+    .db 56
+    .db 0
+    .db 189
+    .db 1
+    .db 106
+    .db 0
+    .db 61
+    .db 53
+    .db 0
+    .db 61
+    .db 100
+    .db 0
+    .db 61
+    .db 50
+    .db 0
+    .db 4
+SFX_SOUNDEFFECTS_SOUND5: .db 1
+SFX_SOUNDEFFECTS_SOUND5_LOOP: .db 3
+    .db 2
+    .db 0
+    .db 27
+    .db 0
+    .db 3
+    .db 3
+    .db 0
+    .db 47
+    .db 0
+    .db 3
+    .db 2
+    .db 0
+    .db 30
+    .db 0
+    .db 3
+    .db 5
+    .db 0
+    .db 75
+    .db 0
+    .db 3
+    .db 3
+    .db 0
+    .db 47
+    .db 0
+    .db 3
+    .db 7
+    .db 0
+    .db 119
+    .db 0
+    .db 3
+    .db 5
+    .db 0
+    .db 75
+    .db 0
+    .db 3
+    .db 12
+    .db 0
+    .db 190
+    .db 0
+    .db 3
+    .db 7
+    .db 0
+    .db 119
+    .db 0
+    .db 3
+    .db 19
+    .db 0
+    .db 45
+    .db 1
+    .db 3
+    .db 12
+    .db 0
+    .db 190
+    .db 0
+    .db 3
+    .db 34
+    .db 0
+    .db 24
+    .db 2
+    .db 3
+    .db 50
+    .db 0
+    .db 36
+    .db 3
+    .db 4
 PLY_AKG_START: jp PLY_AKG_INIT
     jp PLY_AKG_PLAY
     jp PLY_AKG_INITTABLE1_END
@@ -4420,45 +4634,29 @@ PLY_AKG_PSES_READFIRSTBYTE: ld a,(hl)
     rra 
     jr c,PLY_AKG_PSES_SOFTWAREORSOFTWAREANDHARDWARE
     rra 
-    jr c,PLY_AKG_PSES_HARDWAREONLY
     rra 
-    jr c,PLY_AKG_PSES_S_ENDORLOOP
-    call PLY_AKG_PSES_MANAGEVOLUMEFROMA_FILTER4BITS
-    rl b
-    call c,PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL
-    jr PLY_AKG_PSES_SAVEPOINTERANDEXIT
-PLY_AKG_PSES_S_ENDORLOOP: rra 
-    jr c,PLY_AKG_PSES_S_LOOP
-    xor a
+PLY_AKG_PSES_S_ENDORLOOP: xor a
     ld +0(ix),a
     ld +1(ix),a
     ret 
-PLY_AKG_PSES_S_LOOP: ld a,(hl)
-    inc hl
-    ld h,(hl)
-    ld l,a
-    jr PLY_AKG_PSES_READFIRSTBYTE
 PLY_AKG_PSES_SAVEPOINTERANDEXIT: ld a,+3(ix)
     cp +4(ix)
     jr c,PLY_AKG_PSES_NOTREACHED
     ld +3(ix),#0
     .db 221
     .db 117
-    .db +0
+    .db 0
     .db 221
     .db 116
-    .db +1
+    .db 1
     ret 
 PLY_AKG_PSES_NOTREACHED: inc +3(ix)
     ret 
-PLY_AKG_PSES_HARDWAREONLY: call PLY_AKG_PSES_SHARED_READRETRIGHARDWAREENVPERIODNOISE
-    set 2,c
-    jr PLY_AKG_PSES_SAVEPOINTERANDEXIT
 PLY_AKG_PSES_SOFTWAREORSOFTWAREANDHARDWARE: rra 
     jr c,PLY_AKG_PSES_SOFTWAREANDHARDWARE
     call PLY_AKG_PSES_MANAGEVOLUMEFROMA_FILTER4BITS
     rl b
-    call c,PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL
+    call PLY_AKG_PSES_READNOISEIFNEEDEDANDOPENORCLOSENOISECHANNEL
     res 2,c
     call PLY_AKG_PSES_READSOFTWAREPERIOD
     jr PLY_AKG_PSES_SAVEPOINTERANDEXIT
@@ -4467,20 +4665,17 @@ PLY_AKG_PSES_SOFTWAREANDHARDWARE: call PLY_AKG_PSES_SHARED_READRETRIGHARDWAREENV
     res 2,c
     jr PLY_AKG_PSES_SAVEPOINTERANDEXIT
 PLY_AKG_PSES_SHARED_READRETRIGHARDWAREENVPERIODNOISE: rra 
-    jr nc,PLY_AKG_PSES_H_AFTERRETRIG
-    ld d,a
-    ld a,#255
-    ld (PLY_AKG_PSGREG13_OLDVALUE+1),a
-    ld a,d
-PLY_AKG_PSES_H_AFTERRETRIG: and #7
+    and #7
     add a,#8
     ld (PLY_AKG_PSGREG13_INSTR+1),a
-    rl b
-    call c,PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL
+    set 5,c
     call PLY_AKG_PSES_READHARDWAREPERIOD
     ld a,#16
     jp PLY_AKG_PSES_MANAGEVOLUMEFROMA_HARD
-PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL: ld a,(hl)
+PLY_AKG_PSES_READNOISEIFNEEDEDANDOPENORCLOSENOISECHANNEL: jr c,PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL_OPENNOISE
+    set 5,c
+    ret 
+PLY_AKG_PSES_READNOISEANDOPENNOISECHANNEL_OPENNOISE: ld a,(hl)
     ld (PLY_AKG_PSGREG6),a
     inc hl
     res 5,c
@@ -4584,6 +4779,10 @@ PLY_AKG_INIT: ld de,#4
     ld (PLY_AKG_CHANNEL1_PTINSTRUMENT+1),hl
     ld (PLY_AKG_CHANNEL2_PTINSTRUMENT+1),hl
     ld (PLY_AKG_CHANNEL3_PTINSTRUMENT+1),hl
+    ld hl,#0
+    ld (PLY_AKG_CHANNEL1_SOUNDEFFECTDATA),hl
+    ld (PLY_AKG_CHANNEL2_SOUNDEFFECTDATA),hl
+    ld (PLY_AKG_CHANNEL3_SOUNDEFFECTDATA),hl
     ret 
 PLY_AKG_INIT_READWORDSANDFILL_LOOP: ld e,(hl)
     inc hl

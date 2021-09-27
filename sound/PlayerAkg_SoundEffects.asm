@@ -147,7 +147,7 @@ PLY_AKG_PlaySoundEffect:
         ;Gets the address to the sound effect.
         dec a                   ;The 0th is not encoded.
         IFNDEF PLY_AKG_Rom
-dknr3:
+dknr3 (void):
 PLY_AKG_PtSoundEffectTable: ld hl,0
         ELSE
         ld hl,(PLY_AKG_PtSoundEffectTable)
@@ -263,7 +263,7 @@ PLY_AKG_PlaySoundEffectsStream:
 
 
 ;Plays the sound stream from the given pointer to the sound effect. If 0, no sound is played.
-;The given R7 is given shift twice to the left, so that this code MUST set/reset the bit 2 (sound), and maybe reset bit 5 (noise).
+;The given R7 is given shift twice to the left, so that this code MUST set/reset the bit 2 (sound), and set/reset bit 5 (noise).
 ;This code MUST overwrite these bits because sound effects have priority over the music.
 ;IN:    IX = Points on the sound effect pointer. If the sound effect pointer is 0, nothing must be played.
 ;       IY = Points on the address where to store the volume for this channel.
@@ -304,11 +304,16 @@ PLY_AKG_PSES_ReadFirstByte:
         call PLY_AKG_PSES_ManageVolumeFromA_Filter4Bits
 
         ;Noise?
-                                        IFDEF PLY_CFG_SFX_NoSoftNoHard_Noise                ;CONFIG SPECIFIC
-        rl b        
-        call c,PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel
-                                        ENDIF ;PLY_CFG_SFX_NoSoftNoHard_Noise
+                                IFDEF PLY_CFG_SFX_NoSoftNoHard_Noise                ;CONFIG SPECIFIC
+        rl b
+        call PLY_AKG_PSES_ReadNoiseIfNeededAndOpenOrCloseNoiseChannel
+                                ELSE
+        set 5,c                                                 ;No noise in compilation, so stops the noise.
+                                ENDIF ;PLY_CFG_SFX_NoSoftNoHard_Noise
 
+        ;Cuts the sound.
+        set 2,c
+        
         jr PLY_AKG_PSES_SavePointerAndExit
                         ENDIF ;PLY_CFG_SFX_NoSoftNoHard
 
@@ -381,9 +386,11 @@ PLY_AKG_PSES_SoftwareOrSoftwareAndHardware:
         call PLY_AKG_PSES_ManageVolumeFromA_Filter4Bits
 
         ;Noise?
-        rl b
                                 IFDEF PLY_CFG_SFX_SoftOnly_Noise                ;CONFIG SPECIFIC
-        call c,PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel
+        rl b
+        call PLY_AKG_PSES_ReadNoiseIfNeededAndOpenOrCloseNoiseChannel
+                                ELSE
+        set 5,c                                                 ;No noise in compilation, so stops the noise.
                                 ENDIF ;PLY_CFG_SFX_SoftOnly_Noise
                                 
         ;Opens the "sound" channel.
@@ -437,7 +444,9 @@ PLY_AKG_PSES_H_AfterRetrig:
                                 IFDEF PLY_AKG_SE_HardwareNoise           ;CONFIG SPECIFIC. B not needed after, we can put it in the condition too.
         ;Noise?
         rl b
-        call c,PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel
+        call PLY_AKG_PSES_ReadNoiseIfNeededAndOpenOrCloseNoiseChannel
+                                ELSE
+        set 5,c                                                 ;No noise in compilation, so stops the noise.
                                 ENDIF ;PLY_AKG_SE_HardwareNoise
 
         ;Reads the hardware period.
@@ -450,8 +459,15 @@ PLY_AKG_PSES_H_AfterRetrig:
                         
 
                         IFDEF PLY_AKG_SE_Noise
-;Reads the noise pointed by HL, increases HL, and opens the noise channel.
-PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel:
+;If asked to, reads the noise pointed by HL, increases HL, and opens the noise channel. If no noise, closes the noise channel.
+;IN:    Carry = true if noise to read. False if no noise, so the noise channel must be closed.
+;       HL = the data.
+PLY_AKG_PSES_ReadNoiseIfNeededAndOpenOrCloseNoiseChannel:
+        jr c,PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel_OpenNoise
+        ;No noise, so closes the noise channel.
+        set 5,c
+        ret
+PLY_AKG_PSES_ReadNoiseAndOpenNoiseChannel_OpenNoise:
         ;Reads the noise.
         ld a,(hl)
         ld (PLY_AKG_PSGReg6),a
@@ -512,10 +528,10 @@ PLY_AKG_PSES_MVFA_NoOverflow:
         IFNDEF PLY_AKG_Rom
 ;The data of the Channels MUST be consecutive.
 PLY_AKG_Channel1_SoundEffectData:
-dkws
+dkws (void):
         dw 0                                            ;Points to the sound effect for the track 1, or 0 if not playing.
-dkwe
-dkbs
+dkwe (void):
+dkbs (void):
 PLY_AKG_Channel1_SoundEffectInvertedVolume:
         db 0                                            ;Inverted volume.
 PLY_AKG_Channel1_SoundEffectCurrentStep:
@@ -523,15 +539,15 @@ PLY_AKG_Channel1_SoundEffectCurrentStep:
 PLY_AKG_Channel1_SoundEffectSpeed:
         db 0                                            ;Speed (>=0).
         ds 3,0                                          ;Padding.
-dkbe
+dkbe (void):
 PLY_AKG_Channel_SoundEffectDataSize: equ $ - PLY_AKG_Channel1_SoundEffectData
     
-dkbs
+dkbs (void):
 PLY_AKG_Channel2_SoundEffectData:
         ds PLY_AKG_Channel_SoundEffectDataSize, 0
 PLY_AKG_Channel3_SoundEffectData:
         ds PLY_AKG_Channel_SoundEffectDataSize, 0
-dkbe
+dkbe (void):
 
         ;Checks that the pointers are consecutive.
         assert (PLY_AKG_Channel1_SoundEffectData + PLY_AKG_Channel_SoundEffectDataSize) == PLY_AKG_Channel2_SoundEffectData

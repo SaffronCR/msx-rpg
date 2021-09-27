@@ -8,8 +8,8 @@
 	include "battle.asm"
  
     ;Sound effects.
-    ;include "SoundEffects.asm" 
-    ;include "SoundEffects_playerconfig.asm"  ;Optional.
+    include "SoundEffects.asm" 
+    include "SoundEffects_playerconfig.asm"  ;Optional.
 
     ;Hardware config.
     PLY_AKG_HARDWARE_MSX = 1
