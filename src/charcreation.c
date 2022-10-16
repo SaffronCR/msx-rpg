@@ -20,43 +20,6 @@
 // Functions.
 //------------------------------------------------------------------
 
-void sr_draw_portraits(void)
-{
-	// Names.
-	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
-	sr_draw_text("Echo",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
-	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y, 15, 0);
-
-	// Portraits.
-	sr_screen_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
-				   PORTRAIT_SIZE, PORTRAIT_SIZE,
-				   PORTRAIT_1_X, PORTRAIT_1_Y,
-				   SPRITES_PAGE, active_page, opHMMM);
-
-	sr_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
-				   PORTRAIT_SIZE, PORTRAIT_SIZE,
-				   PORTRAIT_2_X, PORTRAIT_2_Y,
-				   SPRITES_PAGE, active_page, opHMMM);
-
-	sr_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
-	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
-	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
-	 			   SPRITES_PAGE, active_page, opHMMM);
-
-	// HP.
-	sr_draw_text("22", 256-4-(8*3), PORTRAIT_1_NAME_Y+4+8, 15, 0);
-	sr_draw_text("/",  256-4-(8*2), PORTRAIT_1_NAME_Y+4+8+8, 15, 0);
-	sr_draw_text("25", 256-4-(8*2), PORTRAIT_1_NAME_Y+4+8+8+8, 15, 0);
-
-	sr_draw_text("13", 256-4-(8*3), PORTRAIT_2_NAME_Y+4+8, 15, 0);
-	sr_draw_text("/",  256-4-(8*2), PORTRAIT_2_NAME_Y+4+8+8, 15, 0);
-	sr_draw_text("14", 256-4-(8*2), PORTRAIT_2_NAME_Y+4+8+8+8, 15, 0);
-
-	sr_draw_text("17", 256-4-(8*3), PORTRAIT_3_NAME_Y+4+8, 15, 0);
-	sr_draw_text("/",  256-4-(8*2), PORTRAIT_3_NAME_Y+4+8+8, 15, 0);
-	sr_draw_text("17", 256-4-(8*2), PORTRAIT_3_NAME_Y+4+8+8+8, 15, 0);
-}
-
 void sr_draw_page_one(void)
 {
 	uint menu_x;
@@ -135,8 +98,6 @@ void sr_draw_charcreation_intro_text(void)
 	// LMMV(1+8, 1+8 + active_page * SCREEN_WIDTH, 32, 32, 3, 0);
 
 	sr_draw_page_one();
-
-	sr_draw_portraits();
 
 	sr_set_drawing_state(WaitingForVDP);
 }

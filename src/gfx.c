@@ -63,40 +63,6 @@ const uchar palette[] =
 	15, 6, 7, 6,
 };
 
-// Hardware sprite for the cursor used in menus.
-
-static const uchar sprite_cursor[] =
-{
-	0b10000000,
-  	0b11100000,
-  	0b11111000,
-  	0b11111110,
-  	0b11111110,
-  	0b11111000,
-  	0b11100000,
-  	0b10000000
-};
-
-static uchar sprite_cursor_colors[16]=
-{
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8,
-	8
-};
-
 static FCB file;
 
 enum DrawingState drawing_state;
@@ -210,7 +176,7 @@ BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	return (TRUE);
 }
 
-//  Copy a screen zone to another place
+//  Copy a page zone to another page
 //  x1 & y1 =Top left coordonate  pixel of the zone to copy
 //  dx = Width Size in pixels, of the zone to copy
 //  dy = Height Size in pixels, of the zone to copy
@@ -218,7 +184,7 @@ BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sr_screen_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
+void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
 	uint src_pg, uint dst_pg, uchar mode)
 {
 	uint src_y = 0;
@@ -258,7 +224,7 @@ void sr_debug_draw_palette(void)
 	}
 }
 
-void sr_switch_screen(void)
+void sr_switch_page(void)
 {
 	if (sr_get_drawing_state() == WaitingForVDP)
 	{
@@ -298,33 +264,20 @@ void sr_init_gfx(void)
 	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
 
-	// Setup hardware sprites.
-	SpriteReset();
-	SpriteOn();
-	Sprite8();
-	SpriteSmall();
-
-	SetSpritePattern(0, sprite_cursor, HARDWARE_SPRITE_SIZE);
-	SC5SpriteColors(0, sprite_cursor_colors);
+	// Disable hardware sprites.
+	SpriteOff();
 
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
 	VDP60Hz();
 
-	// Reset vram pages.
-	SetActivePage(0);
-	Cls();
-	SetActivePage(1);
-	Cls();
-	SetActivePage(2);
-	Cls();
-	SetActivePage(3);
-	Cls();
+	// Reset vram memory.
+	FillVram(0, 0, GetVramSize());
 
 	// Set loading text.
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
-	// Load screens.
+	// Load images.
 	sr_init_palette();
 	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
 	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
@@ -347,7 +300,7 @@ BOOL sr_update_gfx(void)
 		return (FALSE);
 	}
 
-	sr_switch_screen();
+	sr_switch_page();
 
 	return (TRUE);
 }

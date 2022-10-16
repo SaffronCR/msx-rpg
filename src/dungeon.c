@@ -44,7 +44,7 @@ uchar joy;
 
 void sr_draw_third_wall_far_left()
 {
-	sr_screen_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
+	sr_page_copy(THIRD_WALL_FAR_LEFT_X, THIRD_WALL_FAR_LEFT_Y,
 		THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 		DUNGEON_SCREEN_X,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
@@ -53,7 +53,7 @@ void sr_draw_third_wall_far_left()
 
 void sr_draw_third_wall_far_right_fully()
 {
-	sr_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
+	sr_page_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
 		THIRD_WALL_FAR_DX, THIRD_WALL_FAR_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
@@ -62,7 +62,7 @@ void sr_draw_third_wall_far_right_fully()
 
 void sr_draw_third_wall_far_right_partly()
 {
-	sr_screen_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
+	sr_page_copy(THIRD_WALL_FAR_RIGHT_X, THIRD_WALL_FAR_RIGHT_Y,
 		10, THIRD_WALL_FAR_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_FAR_DX,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
@@ -71,7 +71,7 @@ void sr_draw_third_wall_far_right_partly()
 
 void sr_draw_third_wall_left()
 {
-	sr_screen_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
+	sr_page_copy(THIRD_WALL_LEFT_X, THIRD_WALL_LEFT_Y,
 		THIRD_WALL_DX, THIRD_WALL_DY,
 		DUNGEON_SCREEN_X + THIRD_WALL_OFFSET_X,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
@@ -80,7 +80,7 @@ void sr_draw_third_wall_left()
 
 void sr_draw_third_wall_right()
 {
-	sr_screen_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
+	sr_page_copy(THIRD_WALL_RIGHT_X, THIRD_WALL_RIGHT_Y,
 		THIRD_WALL_DX, THIRD_WALL_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_WALL_DY) * 0.5),
@@ -89,7 +89,7 @@ void sr_draw_third_wall_right()
 
 void sr_draw_second_wall_far_left()
 {
-	sr_screen_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
+	sr_page_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 		DUNGEON_SCREEN_X,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
@@ -98,7 +98,7 @@ void sr_draw_second_wall_far_left()
 
 void sr_draw_second_wall_far_right()
 {
-	sr_screen_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
+	sr_page_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_FAR_DX,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
@@ -107,7 +107,7 @@ void sr_draw_second_wall_far_right()
 
 void sr_draw_second_wall_left()
 {
-	sr_screen_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
+	sr_page_copy(SECOND_WALL_LEFT_X, SECOND_WALL_LEFT_Y,
 		SECOND_WALL_DX, SECOND_WALL_DY,
 		DUNGEON_SCREEN_X,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
@@ -116,7 +116,7 @@ void sr_draw_second_wall_left()
 
 void sr_draw_second_wall_right()
 {
-	sr_screen_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
+	sr_page_copy(SECOND_WALL_RIGHT_X, SECOND_WALL_RIGHT_Y,
 		SECOND_WALL_DX, SECOND_WALL_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - SECOND_WALL_DX,
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_WALL_DY) * 0.5),
@@ -125,7 +125,7 @@ void sr_draw_second_wall_right()
 
 void sr_draw_first_wall_left()
 {
-	sr_screen_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
+	sr_page_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
 		DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
@@ -133,7 +133,7 @@ void sr_draw_first_wall_left()
 
 void sr_draw_first_wall_right()
 {
-	sr_screen_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
+	sr_page_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
 		DUNGEON_SCREEN_X + DUNGEON_SCREEN_DX - FIRST_WALL_DX, DUNGEON_SCREEN_Y,
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
@@ -141,7 +141,7 @@ void sr_draw_first_wall_right()
 
 void sr_draw_third_wall_front()
 {
-	sr_screen_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
+	sr_page_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 		THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
 		DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5),
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
@@ -150,7 +150,7 @@ void sr_draw_third_wall_front()
 
 void sr_draw_second_wall_front()
 {
-	sr_screen_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
+	sr_page_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 		SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
 		DUNGEON_SCREEN_X + ((DUNGEON_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5),
 		DUNGEON_SCREEN_Y + ((DUNGEON_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
@@ -276,7 +276,7 @@ void sr_draw_tiles_screen_background(void)
 	{
 		for (uint y = 0; y < 8; y++)
 		{
-			sr_screen_copy(232, 188,
+			sr_page_copy(232, 188,
 						   24, 24,
 						   x * 24, y * 24,
 						   SPRITES_PAGE, active_page, opHMMM);
@@ -297,17 +297,17 @@ void sr_draw_portraits(void)
 	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y,  6, 0);
 
 	// Portraits.
-	sr_screen_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
+	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_1_X, PORTRAIT_1_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sr_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+	sr_page_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_2_X, PORTRAIT_2_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sr_screen_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+	sr_page_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
 	 			   SPRITES_PAGE, active_page, opHMMM);
@@ -421,13 +421,13 @@ void sr_draw_dungeon_screen(void)
 	if (ceiling_tile == 1)
 	{
 		// Draw Standard background minus the floor.
-		sr_screen_copy(0, 0,
+		sr_page_copy(0, 0,
 			DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY - 22,
 			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
 			SPRITES_PAGE, active_page, opHMMM);
 
 		// Draw alternate floor.
-		sr_screen_copy(0, 120,
+		sr_page_copy(0, 120,
 			DUNGEON_SCREEN_DX, 22,
 			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y + 98,
 			SPRITES_PAGE, active_page, opHMMM);
@@ -435,7 +435,7 @@ void sr_draw_dungeon_screen(void)
 	else
 	{
 		// Draw standard background in full.
-		sr_screen_copy(0, 0,
+		sr_page_copy(0, 0,
 			DUNGEON_SCREEN_DX, DUNGEON_SCREEN_DY,
 			DUNGEON_SCREEN_X, DUNGEON_SCREEN_Y,
 			SPRITES_PAGE, active_page, opHMMM);
