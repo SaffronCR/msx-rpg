@@ -159,6 +159,47 @@
 #define asterisky	172
 #define exclax  	0+8+8+8
 #define exclay  	172
+#define plusx		0+8+8+8+8+8+8+8+8+8+8+8+8+8
+#define plusy		172
+#define minusx		0+8+8+8+8+8+8+8+8+8+8+8+8+8+8
+#define minusy		172
+#define slashx		0+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8
+#define slashy		172
+
+// &#032; 	20 	  	&sp; 		space
+// &#033; 	21 	! 	&excl; 		exclamation mark
+// &#034; 	22 	" 	&quot; 		double quotation mark
+// &#035; 	23 	# 	&num; 		number sign, pound
+// &#036; 	24 	$ 	&dollar; 	dollar sign
+// &#037; 	25 	% 	&percnt; 	percent sign
+// &#038; 	26 	& 	&amp; 		ampersand
+// &#039; 	27 	' 	&apos; 		apostrophe, single quote mark
+// &#040; 	28 	( 	&lpar; 		left parenthesis
+// &#041; 	29 	) 	&rpar; 		right parenthesis
+// &#042; 	2A 	* 	&ast; 		asterisk
+// &#043; 	2B 	+ 	&plus; 		plus sign
+// &#044; 	2C 	, 	&comma; 	comma
+// &#045; 	2D 	- 	&minus;   &hyphen; 	minus sign, hyphen
+// &#046; 	2E 	. 	&period; 	period, decimal point, full stop
+// &#047; 	2F 	/ 	&sol; 		slash, virgule, solidus
+// &#058; 	3A 	: 	&colon; 	colon
+// &#059; 	3B 	; 	&semi; 		semicolon
+// &#060; 	3C 	< 	&lt; 		less-than sign
+// &#061; 	3D 	= 	&equals; 	equal sign
+// &#062; 	3E 	> 	&gt; 		greater-than sign
+// &#063; 	3F 	? 	&quest; 	question mark
+// &#064; 	40 	@ 	&commat; 	commercial at sign
+// &#091; 	5B 	[ 	&lsqb; 		left square bracket
+// &#092; 	5C 	\ 	&bsol; 		backslash, reverse solidus
+// &#093; 	5D 	] 	&rsqb; 		right square bracket
+// &#094; 	5E 	^ 	&circ; 		spacing circumflex accent
+// &#095; 	5F 	_ 	&lowbar;   &horbar; 	spacing underscore, low line, horizontal bar
+// &#096; 	60 	` 	&grave; 	spacing grave accent, back apostrophe
+// &#123; 	7B 	{ 	&lcub; 		left brace, left curly bracket
+// &#124; 	7C 	| 	&verbar; 	vertical bar
+// &#125; 	7D 	} 	&rcub; 		right brace, right curly bracket
+// &#126; 	7E 	~ 	&tilde; 	tilde accent
+// &#169; 	A9 	© 	&copy; 		copyright sign
 
 // Textbox
 #define uplbx 16+8+8+8+8+8+8+8+8+8
@@ -247,21 +288,22 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 		case '8': sr_screen_copy(eightx,eighty,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case '9': sr_screen_copy(ninex,niney,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 
-		case '.': sr_screen_copy(dotx,doty,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ',': sr_screen_copy(commax,commay,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-
+		case '.': sr_screen_copy(dotx,doty,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case ',': sr_screen_copy(commax,commay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case ' ': sr_screen_copy(spacex,spacey,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case '!': sr_screen_copy(exclax,exclay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case '^': sr_screen_copy(heartx,hearty,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case '@': sr_screen_copy(copyx,copyy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 		case '*': sr_screen_copy(asteriskx,asterisky, 	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-
-		case '<': sr_screen_copy(uplbx,uplby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '[': sr_screen_copy(dwnlbx,dwnlby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '_': sr_screen_copy(midbx,midby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '>': sr_screen_copy(uprbx,uprby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ']': sr_screen_copy(dwnrbx,dwnrby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '|': sr_screen_copy(latbx,latby,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '+': sr_screen_copy(plusx,plusy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '-': sr_screen_copy(minusx,minusy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '/': sr_screen_copy(slashx,slashy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '<': sr_screen_copy(uplbx,uplby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '[': sr_screen_copy(dwnlbx,dwnlby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '_': sr_screen_copy(midbx,midby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '>': sr_screen_copy(uprbx,uprby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case ']': sr_screen_copy(dwnrbx,dwnrby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '|': sr_screen_copy(latbx,latby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
 	}
 }
 

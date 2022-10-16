@@ -25,6 +25,24 @@
 // Variables.
 //------------------------------------------------------------------
 
+// Palette
+//  0 Black
+//  1 Dark Brown
+//  2 Dark Blue
+//  3 Dark Gray
+//  4 Light Brown
+//  5 Dark Green
+//  6 Salmon
+//  7 Medium Gray
+//  8 Light Blue
+//  9 Dark Orange
+// 10 Light Gray
+// 11 Light Green
+// 12 Light Orange
+// 13 Yellow
+// 14 Dark Purple
+// 15 Broken White
+
 const uchar palette[] =
 {
 	0, 0, 0, 0,
@@ -43,6 +61,40 @@ const uchar palette[] =
 	13, 6, 6, 3,
 	14, 1, 0, 1,
 	15, 6, 7, 6,
+};
+
+// Hardware sprite for the cursor used in menus.
+
+static const uchar sprite_cursor[] =
+{
+	0b10000000,
+  	0b11100000,
+  	0b11111000,
+  	0b11111110,
+  	0b11111110,
+  	0b11111000,
+  	0b11100000,
+  	0b10000000
+};
+
+static uchar sprite_cursor_colors[16]=
+{
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8,
+	8
 };
 
 static FCB file;
@@ -243,17 +295,32 @@ void sr_init_gfx(void)
 	// Set variables.
 	current_screen_height = SH_212;
 
-	// Disable sprites (speed gain).
-	SpriteOff();
-
 	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
+
+	// Setup hardware sprites.
+	SpriteReset();
+	SpriteOn();
+	Sprite8();
+	SpriteSmall();
+
+	SetSpritePattern(0, sprite_cursor, HARDWARE_SPRITE_SIZE);
+	SC5SpriteColors(0, sprite_cursor_colors);
 
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
 	VDP60Hz();
 
-	// Set loading text.
+	// Reset vram pages.
+	SetActivePage(0);
 	Cls();
+	SetActivePage(1);
+	Cls();
+	SetActivePage(2);
+	Cls();
+	SetActivePage(3);
+	Cls();
+
+	// Set loading text.
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 

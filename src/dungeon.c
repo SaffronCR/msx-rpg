@@ -157,14 +157,11 @@ void sr_draw_second_wall_front()
 		WALLS_PAGE, active_page, LOGICAL_IMP);
 }
 
-/*
- * This is the view area:
- *
- *  x x x x x
- *  x x x x x
- *    x o x
- *
- */
+//  This is the view area:
+//   x x x x x
+//   x x x x x
+//     x o x
+
 void sr_update_fp_view(void)
 {
 	uint x, y, distx, disty;
@@ -340,16 +337,19 @@ void sr_debug_draw_test_menu(void)
 	//"Back"
 
 	uint menu_y = MENU_Y + MENU_Y_SPACE;
-	sr_draw_text("*Attack", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
+	sr_draw_text("Attack", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text(" Streams", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("Streams", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text(" Equip", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("Equip", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text(" Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+	// #SPRITE #WIP
+	PutSprite(0, 0, MENU_X-8-1, menu_y-1, 0);
 }
 
 void sr_debug_draw_minimap(void)

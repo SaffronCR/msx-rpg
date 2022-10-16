@@ -15,7 +15,7 @@ enum GameState
 {
 	None,
 	StartScreen,
-	CreationScreen,
+	CharacterCreation,
     Intro,
 	HubCity,
 	Encounter,
