@@ -263,6 +263,7 @@ void sr_init_gfx(void)
 
 	// Sets display to SCREEN 5 mode resolution 256 pixels x 212 lines x 16 colors.
 	Screen(5);
+	sr_set_screen_height(current_screen_height);
 
 	// Disable hardware sprites.
 	SpriteOff();
@@ -281,8 +282,7 @@ void sr_init_gfx(void)
 	sr_init_palette();
 	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
 	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
-	//sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
-	//sr_load_sf5_image("INTRO01.SF5", SCREEN_WIDTH * 0);
+	sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
 
 	// Configure pages.
 	sr_set_drawing_state(Finished);

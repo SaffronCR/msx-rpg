@@ -85,9 +85,6 @@ void sr_draw_page_two(void)
 // #WIP this is a mockup.
 void sr_draw_charcreation_intro_text(void)
 {
-	// Switch to 212 vertical lines.
-	sr_set_screen_height(SH_212);
-
 	sr_set_drawing_state(Begin);
 
 	Cls();

@@ -118,7 +118,7 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(Dungeon);
+	sr_set_game_state(StartScreen);
 
 	for (;;)
 	{

@@ -546,9 +546,6 @@ void sr_set_dungeon_state(void)
 	player_turns = FALSE;
 	ceiling_tile = 0;
 
-	// Switch to 192 vertical lines (for speed gain).
-	sr_set_screen_height(SH_192);
-
 	// This may be set by the random generator in the future?
 	player_dir = North;
 
