@@ -2,8 +2,8 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef DUNGEON_H
-#define DUNGEON_H
+#ifndef INGAME_H
+#define INGAME_H
 
 #include "main.h"
 #include "font.h"
@@ -12,29 +12,29 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define DUNGEON_SIZE 24
+#define LEVEL_SIZE 24
 
 #define SPRITES_PAGE 2
 #define WALLS_PAGE 3
 
-#define DUNGEON_SCREEN_X 24
-#define DUNGEON_SCREEN_Y 8
-#define DUNGEON_SCREEN_DX 160
-#define DUNGEON_SCREEN_DY 120
+#define LEVEL_SCREEN_X 24
+#define LEVEL_SCREEN_Y 8
+#define LEVEL_SCREEN_DX 160
+#define LEVEL_SCREEN_DY 120
 
-#define DUNGEON_VIEW_DX 5
-#define DUNGEON_VIEW_DY 3
+#define LEVEL_VIEW_DX 5
+#define LEVEL_VIEW_DY 3
 
-#define DUNGEON_VIEW_DIST 2
+#define LEVEL_VIEW_DIST 2
 
-#define COMPASS_X FONT_SIZE + DUNGEON_SCREEN_X + (DUNGEON_SCREEN_DX - DUNGEON_SCREEN_X) / 2
+#define COMPASS_X FONT_SIZE + LEVEL_SCREEN_X + (LEVEL_SCREEN_DX - LEVEL_SCREEN_X) / 2
 #define COMPASS_Y 0
 
 #define MENU_Y_SPACE 1
 #define MENU_TEXT_DEFAULT_COLOR 0
 #define MENU_TEXT_SELECT_COLOR 8
-#define MENU_X DUNGEON_SCREEN_X
-#define MENU_Y DUNGEON_SCREEN_Y + DUNGEON_SCREEN_DY + FONT_SIZE
+#define MENU_X LEVEL_SCREEN_X
+#define MENU_Y LEVEL_SCREEN_Y + LEVEL_SCREEN_DY + FONT_SIZE
 #define MENU_DX 160
 #define MENU_DY 45
 
@@ -139,13 +139,13 @@ enum Directions
 extern uint player_pos_x;
 extern uint player_pos_y;
 
-extern uchar *dungeon_map;
+extern uchar *level_map;
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
-void sr_set_dungeon_state(void);
-void sr_update_dungeon_state(void);
+void sr_set_ingame_state(void);
+void sr_update_ingame_state(void);
 
 #endif

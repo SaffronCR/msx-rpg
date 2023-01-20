@@ -12,7 +12,7 @@
 
 #include "main.h"
 #include "system.h"
-#include "dungeon.h"
+#include "ingame.h"
 #include "gfx.h"
 
 //------------------------------------------------------------------
@@ -84,7 +84,7 @@ void sr_init_palette(void)
 	SetSC5Palette((Palette *)palette);
 }
 
-BOOL sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
+bool sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -94,7 +94,7 @@ BOOL sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
 		sr_error_handler(1, file_name);
-		return (FALSE);
+		return (false);
 	}
 
 	while (read != 0)
@@ -123,13 +123,13 @@ BOOL sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sr_error_handler(2, file_name);
-		return (FALSE);
+		return (false);
 	}
 
-	return (TRUE);
+	return (true);
 }
 
-BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
+bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 {
 	uint read = BUFFER_SIZE;
 	uint read_y_length = 0;
@@ -139,7 +139,7 @@ BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	if (fcb_open(&file) != FCB_SUCCESS)
 	{
 		sr_error_handler(1, file_name);
-		return (FALSE);
+		return (false);
 	}
 
 	// Skip 7 first bytes of the file.
@@ -170,10 +170,10 @@ BOOL sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	if (fcb_close(&file) != FCB_SUCCESS)
 	{
 		sr_error_handler(2, file_name);
-		return (FALSE);
+		return (false);
 	}
 
-	return (TRUE);
+	return (true);
 }
 
 //  Copy a page zone to another page
@@ -282,7 +282,7 @@ void sr_init_gfx(void)
 	sr_init_palette();
 	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
 	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
-	sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
+	//sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
 
 	// Configure pages.
 	sr_set_drawing_state(Finished);
@@ -291,16 +291,16 @@ void sr_init_gfx(void)
 	SetActivePage(active_page);
 }
 
-BOOL sr_update_gfx(void)
+bool sr_update_gfx(void)
 {
 	// Checking "is ready to switch", VDP is not busy and vsync.
 	// https://www.msx.org/wiki/VDP_Status_Registers
 	if (sr_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
 	{
-		return (FALSE);
+		return (false);
 	}
 
 	sr_switch_page();
 
-	return (TRUE);
+	return (true);
 }

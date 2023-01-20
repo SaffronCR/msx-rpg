@@ -60,7 +60,7 @@ void sr_encounter_step(void)
     current_step++;
 }
 
-BOOL sr_check_encounter(void)
+bool sr_check_encounter(void)
 {
     return (encounter_table[current_step] < current_threshold);
 }

@@ -5,6 +5,7 @@
         "stdlib.h": "c",
         "dungeon.h": "c",
         "vdp_sprites.h": "c",
-        "iosfwd": "c"
+        "iosfwd": "c",
+        "ingame.h": "c"
     }
 }

@@ -9,7 +9,7 @@
 #include "fusion-c/header/msx_fusion.h"
 
 #include "charcreation.h"
-#include "dungeon.h"
+#include "ingame.h"
 #include "encounter.h"
 #include "font.h"
 #include "gfx.h"
@@ -44,7 +44,7 @@ void sr_set_game_state(uchar new_state)
 		case StartScreen:		sr_set_startscr_state();		break;
 		case CharacterCreation:	sr_set_charcreation_state();	break;
 		case Intro:				sr_set_intro_state();			break;
-		case Dungeon:			sr_set_dungeon_state();			break;
+		case InGame:			sr_set_ingame_state();			break;
 	}
 }
 
@@ -58,7 +58,7 @@ void sr_update_game_state(void)
 			case StartScreen:		sr_update_startscr_state();		break;
 			case CharacterCreation:	sr_update_charcreation_state();	break;
 			case Intro:				sr_update_intro_state();		break;
-			case Dungeon:			sr_update_dungeon_state();		break;
+			case InGame:			sr_update_ingame_state();		break;
 		}
 	}
 }
@@ -118,7 +118,7 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(StartScreen);
+	sr_set_game_state(InGame);
 
 	for (;;)
 	{

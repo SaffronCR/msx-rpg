@@ -13,6 +13,6 @@
 
 void sr_init_encounter(void);
 void sr_encounter_step(void);
-BOOL sr_check_encounter(void);
+bool sr_check_encounter(void);
 
 #endif

@@ -44,15 +44,15 @@ extern char active_page;
 //------------------------------------------------------------------
 
 void sr_init_palette(void);
-BOOL sr_load_sf5_image(uchar *file_name, uint start_Y);
-BOOL sr_load_sc8_image(uchar *file_name, uint start_Y);
+bool sr_load_sf5_image(uchar *file_name, uint start_Y);
+bool sr_load_sc8_image(uchar *file_name, uint start_Y);
 void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
 void sr_wait(uint cicles);
 void sr_set_drawing_state(uchar new_state);
 uchar sr_get_drawing_state(void);
 void sr_set_screen_height(uchar height);
 void sr_init_gfx(void);
-BOOL sr_update_gfx(void);
+bool sr_update_gfx(void);
 
 // Debug.
 

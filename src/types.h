@@ -15,13 +15,10 @@ typedef signed char schar;
 typedef unsigned int uint;
 typedef signed int sint;
 
-typedef uchar BOOL;
+typedef enum { false, true } bool;
 
 //------------------------------------------------------------------
 // Defines.
 //------------------------------------------------------------------
-
-#define FALSE 0
-#define TRUE 1
 
 #endif

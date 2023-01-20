@@ -11,7 +11,7 @@
 #include "fusion-c/header/vdp_graph2.h"
 
 #include "main.h"
-#include "dungeon.h"
+#include "ingame.h"
 #include "procgen.h"
 
 //------------------------------------------------------------------
@@ -30,19 +30,19 @@ uint prev_y;
 uint current_x;
 uint current_y;
 
-uchar is_generating_dungeon;
+uchar is_generating_dungeon_level;
 
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
-BOOL sr_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
+bool sr_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
 {
     // This room goes outside the map.
-    if (room_x + room_size_x > DUNGEON_SIZE ||
-        room_y + room_size_y > DUNGEON_SIZE)
+    if (room_x + room_size_x > LEVEL_SIZE ||
+        room_y + room_size_y > LEVEL_SIZE)
     {
-        return (FALSE);
+        return (false);
     }
 
     // Check if there's empty space for this room.
@@ -50,16 +50,16 @@ BOOL sr_check_room_valid(uint room_x, uint room_y, uint room_size_x, uint room_s
     {
         for (uint y = room_y; y < room_y + room_size_y; y++)
         {
-            if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_ROOM ||
-                dungeon_map[x + y * DUNGEON_SIZE] == TILE_CORRIDOR )
+            if (level_map[x + y * LEVEL_SIZE] == TILE_ROOM ||
+                level_map[x + y * LEVEL_SIZE] == TILE_CORRIDOR )
             {
-                return (FALSE);
+                return (false);
             }
         }
     }
 
     // This room is valid.
-    return (TRUE);
+    return (true);
 }
 
 void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_size_y)
@@ -103,9 +103,9 @@ void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
                     x++;
                 }
 
-                if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
+                if (level_map[x + y * LEVEL_SIZE] == TILE_WALL)
                 {
-                    dungeon_map[x + y * DUNGEON_SIZE] = TILE_CORRIDOR;
+                    level_map[x + y * LEVEL_SIZE] = TILE_CORRIDOR;
                 }
             }
 
@@ -124,9 +124,9 @@ void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
                     y++;
                 }
 
-                if (dungeon_map[x + y * DUNGEON_SIZE] == TILE_WALL)
+                if (level_map[x + y * LEVEL_SIZE] == TILE_WALL)
                 {
-                    dungeon_map[x + y * DUNGEON_SIZE] = TILE_CORRIDOR;
+                    level_map[x + y * LEVEL_SIZE] = TILE_CORRIDOR;
                 }
             }
         }
@@ -137,20 +137,20 @@ void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
     prev_y = room_y + rand() % room_size_y;
 }
 
-BOOL sr_create_room()
+bool sr_create_room()
 {
     uint room_x, room_y, room_size_x, room_size_y;
 
-    room_x = rand() % DUNGEON_SIZE + 1;
-    room_y = rand() % DUNGEON_SIZE + 1;
+    room_x = rand() % LEVEL_SIZE + 1;
+    room_y = rand() % LEVEL_SIZE + 1;
 
     room_size_x = rand() % (room_max_size - room_min_count + 1) + room_min_count;
     room_size_y = rand() % (room_max_size - room_min_size + 1) + room_min_size;
 
     // Check if this room is valid.
-    if (sr_check_room_valid(room_x - 1, room_y - 1, room_size_x + 2, room_size_y + 2) == FALSE)
+    if (sr_check_room_valid(room_x - 1, room_y - 1, room_size_x + 2, room_size_y + 2) == false)
     {
-        return (FALSE);
+        return (false);
     }
 
     // Create room space.
@@ -158,22 +158,22 @@ BOOL sr_create_room()
     {
         for (uint y = room_y; y < room_y + room_size_y; y++)
         {
-            dungeon_map[x + y * DUNGEON_SIZE] = TILE_ROOM;
+            level_map[x + y * LEVEL_SIZE] = TILE_ROOM;
         }
     }
 
     // Create corridor to previous room (if exists).
     sr_create_corridor(room_x, room_y, room_size_x, room_size_y);
 
-    return (TRUE);
+    return (true);
 }
 
-BOOL sr_is_valid_position(uint x, uint y)
+bool sr_is_valid_position(uint x, uint y)
 {
     // Must be in a room tile.
-    if (dungeon_map[x + y * DUNGEON_SIZE] != TILE_ROOM)
+    if (level_map[x + y * LEVEL_SIZE] != TILE_ROOM)
     {
-        return (FALSE);
+        return (false);
     }
 
     // Can't be close to a corridor.
@@ -181,57 +181,57 @@ BOOL sr_is_valid_position(uint x, uint y)
     {
         for (uint j = y - 1; j < y + 2; j++)
         {
-            if (i < DUNGEON_SIZE && j < DUNGEON_SIZE &&
-                dungeon_map[i + j * DUNGEON_SIZE] == TILE_CORRIDOR)
+            if (i < LEVEL_SIZE && j < LEVEL_SIZE &&
+                level_map[i + j * LEVEL_SIZE] == TILE_CORRIDOR)
             {
-                return (FALSE);
+                return (false);
             }
         }
     }
 
     // Otherwise it's fine.
-    return (TRUE);
+    return (true);
 }
 
-BOOL sr_is_generating_dungeon(void)
+bool sr_is_generating_dungeon_level(void)
 {
-    return is_generating_dungeon;
+    return is_generating_dungeon_level;
 }
 
-BOOL sr_generate_dungeon(void)
+bool sr_generate_dungeon_level(void)
 {
     uint room_count = 0, failsafe_count = 0;
     uint stairs_x, stairs_y;
 
-    // Set the dungeon generator state.
-    is_generating_dungeon = TRUE;
+    // Set the level generator state.
+    is_generating_dungeon_level = true;
 
     // Reset values.
     prev_x = 0;
     prev_y = 0;
 
-    // Allocate memory for dungeon map.
-    if (dungeon_map == NULL)
+    // Allocate memory for level map.
+    if (level_map == NULL)
     {
-        dungeon_map = malloc(DUNGEON_SIZE*DUNGEON_SIZE);
+        level_map = malloc(LEVEL_SIZE*LEVEL_SIZE);
 
         // Uh Oh...
-        if (dungeon_map == NULL)
+        if (level_map == NULL)
         {
-            // Set the dungeon generator state.
-            is_generating_dungeon = FALSE;
-            return (FALSE);
+            // Set the level generator state.
+            is_generating_dungeon_level = false;
+            return (false);
         }
     }
 
-    // Clear dungeon map.
-    memset(dungeon_map, TILE_WALL, DUNGEON_SIZE*DUNGEON_SIZE);
+    // Clear level map.
+    memset(level_map, TILE_WALL, LEVEL_SIZE*LEVEL_SIZE);
 
     // Create rooms.
     room_count = rand() % (room_max_count - room_min_count + 1) + room_min_count;
     while (room_count > 0)
     {
-        if (sr_create_room() == TRUE)
+        if (sr_create_room() == true)
         {
             room_count--;
         }
@@ -244,9 +244,9 @@ BOOL sr_generate_dungeon(void)
             }
             else
             {
-                // Set the dungeon generator state.
-                is_generating_dungeon = FALSE;
-                return (FALSE);
+                // Set the level generator state.
+                is_generating_dungeon_level = false;
+                return (false);
             }
         }
     }
@@ -254,21 +254,21 @@ BOOL sr_generate_dungeon(void)
     // Set random player position.
     do
     {
-        player_pos_x = rand() % DUNGEON_SIZE + 1;
-        player_pos_y = rand() % DUNGEON_SIZE + 1;
-    } while (sr_is_valid_position(player_pos_x, player_pos_y) == FALSE);
+        player_pos_x = rand() % LEVEL_SIZE + 1;
+        player_pos_y = rand() % LEVEL_SIZE + 1;
+    } while (sr_is_valid_position(player_pos_x, player_pos_y) == false);
 
     // Set random stairs position.
     do
     {
-        stairs_x = rand() % DUNGEON_SIZE + 1;
-        stairs_y = rand() % DUNGEON_SIZE + 1;
-    } while (sr_is_valid_position(stairs_x, stairs_y) == FALSE ||
+        stairs_x = rand() % LEVEL_SIZE + 1;
+        stairs_y = rand() % LEVEL_SIZE + 1;
+    } while (sr_is_valid_position(stairs_x, stairs_y) == false ||
         (stairs_x == player_pos_x && stairs_y == player_pos_y));
 
-    dungeon_map[stairs_x + stairs_y * DUNGEON_SIZE] = TILE_STAIRS;
+    level_map[stairs_x + stairs_y * LEVEL_SIZE] = TILE_STAIRS;
 
-    // Set the dungeon generator state.
-    is_generating_dungeon = FALSE;
-    return (TRUE);
+    // Set the level generator state.
+    is_generating_dungeon_level = false;
+    return (true);
 }

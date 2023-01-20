@@ -13,7 +13,7 @@
 #include "main.h"
 #include "font.h"
 #include "gfx.h"
-#include "dungeon.h" // #WIP needed for draw portraits defines
+#include "ingame.h" // #WIP needed for draw portraits defines
 #include "charcreation.h"
 
 //------------------------------------------------------------------

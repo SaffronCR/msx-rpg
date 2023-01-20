@@ -19,7 +19,7 @@ enum GameState
     Intro,
 	HubCity,
 	Encounter,
-	Dungeon,
+	InGame,
 	Camp,
 	CharacterSheet,
 	Shop
