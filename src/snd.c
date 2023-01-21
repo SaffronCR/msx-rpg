@@ -25,10 +25,10 @@ uchar is_playing_song;
 
 void sr_init_snd(void)
 {
-	//sr_init_battle_song();
-	//is_playing_song = TRUE;
+	sr_init_battle_song();
+	is_playing_song = TRUE;
 
-	is_playing_song = FALSE;
+	//is_playing_song = FALSE;
 }
 
 void sr_update_snd(void)

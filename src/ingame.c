@@ -505,8 +505,9 @@ void sr_draw_portraits(void)
 {
 	// Names.
 	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
-	sr_draw_text("Echo",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
-	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_3_NAME_Y,  6, 0);
+	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
+	sr_draw_text("Krevar",	PORTRAIT_3_NAME_X, PORTRAIT_3_NAME_Y, 15, 0);
+	sr_draw_text("Echo",	PORTRAIT_4_NAME_X, PORTRAIT_4_NAME_Y, 15, 0);
 
 	// Portraits.
 	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
@@ -514,23 +515,34 @@ void sr_draw_portraits(void)
 				   PORTRAIT_1_X, PORTRAIT_1_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sr_page_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_2_X, PORTRAIT_2_Y,
 				   SPRITES_PAGE, active_page, opHMMM);
 
-	sr_page_copy(PORTRAIT_SRC_X + PORTRAIT_SIZE + PORTRAIT_SIZE, PORTRAIT_SRC_Y,
+	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
 	 			   SPRITES_PAGE, active_page, opHMMM);
 
-	// HP bars.
-	LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH,
-		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH,
-		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH,
-		HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE + PORTRAIT_SIZE,
+	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
+	 			   PORTRAIT_4_X, PORTRAIT_4_Y,
+	 			   SPRITES_PAGE, active_page, opHMMM);
+
+	// HP text.
+	sr_draw_text("10/12", 	PORTRAIT_1_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_1_NAME_Y + 8, 15, 0);
+	sr_draw_text("8/8", 	PORTRAIT_2_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_2_NAME_Y + 8, 15, 0);
+	sr_draw_text("7/7", 	PORTRAIT_3_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_3_NAME_Y + 8, 15, 0);
+	sr_draw_text("9/9",		PORTRAIT_4_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_4_NAME_Y + 8, 15, 0);
+
+	// // HP bars.
+	// LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH,
+	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	// LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH,
+	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+	// LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH,
+	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 }
 
 void sr_debug_draw_test_menu(void)
@@ -561,7 +573,7 @@ void sr_debug_draw_test_menu(void)
 	sr_draw_text("Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	// #SPRITE #WIP
-	PutSprite(0, 0, MENU_X-8-1, menu_y-1, 0);
+	PutSprite(0, 0, MENU_X-8, menu_y, 0);
 }
 
 void sr_debug_draw_minimap(void)
