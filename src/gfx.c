@@ -284,6 +284,9 @@ void sr_init_gfx(void)
 	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
 	//sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
 
+	// Reset current screen.
+	Cls();
+
 	// Configure pages.
 	sr_set_drawing_state(Finished);
 	active_page = 0;

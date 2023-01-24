@@ -6,6 +6,7 @@
         "dungeon.h": "c",
         "vdp_sprites.h": "c",
         "iosfwd": "c",
-        "ingame.h": "c"
+        "ingame.h": "c",
+        "main.h": "c"
     }
 }

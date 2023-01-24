@@ -14,157 +14,185 @@
 #include "gfx.h"
 #include "font.h"
 
+//------------------------------------------------------------------
+// Defines.
+//------------------------------------------------------------------
+
+// Font graphics offset.
+
+#define FONT_OFFSET_X 0
+#define FONT_OFFSET_Y 0
+
 // Lowercase.
-#define lax		8
-#define lay		196
-#define lbx		16
-#define lby		196
-#define lcx		16+8
-#define lcy		196
-#define ldx		16+8+8
-#define ldy		196
-#define lex		16+8+8+8
-#define ley		196
-#define lfx		16+8+8+8+8
-#define lfy		196
-#define lgx		16+8+8+8+8+8
-#define lgy		196
-#define lhx		16+8+8+8+8+8+8
-#define lhy		196
-#define lix		16+8+8+8+8+8+8+8
-#define liy		196
-#define ljx		16+8+8+8+8+8+8+8+8
-#define ljy		196
-#define lkx		16+8+8+8+8+8+8+8+8+8
-#define lky		196
-#define llx		16+8+8+8+8+8+8+8+8+8+8
-#define lly		196
-#define lmx		16+8+8+8+8+8+8+8+8+8+8+8
-#define lmy		196
-#define lnx		16+8+8+8+8+8+8+8+8+8+8+8+8
-#define lny		196
-#define lox		16+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define loy		196
-#define lpx		0
-#define lpy		204
-#define lqx		8
-#define lqy		204
-#define lrx		16
-#define lry		204
-#define lsx		16+8
-#define lsy		204
-#define ltx		16+8+8
-#define lty		204
-#define lux		16+8+8+8
-#define luy		204
-#define lvx		16+8+8+8+8
-#define lvy		204
-#define lwx		16+8+8+8+8+8
-#define lwy		204
-#define lxx		16+8+8+8+8+8+8
-#define lxy		204
-#define lyx		16+8+8+8+8+8+8+8
-#define lyy		204
-#define lzx		16+8+8+8+8+8+8+8+8
-#define lzy		204
+
+#define LOWER_A_X		8
+#define LOWER_A_Y		196
+#define LOWER_B_X		16
+#define LOWER_B_Y		196
+#define LOWER_C_X		24
+#define LOWER_C_Y		196
+#define LOWER_D_X		32
+#define LOWER_D_Y		196
+#define LOWER_E_X		40
+#define LOWER_E_Y		196
+#define LOWER_F_X		48
+#define LOWER_F_Y		196
+#define LOWER_G_X		56
+#define LOWER_G_Y		196
+#define LOWER_H_X		64
+#define LOWER_H_Y		196
+#define LOWER_I_X		72
+#define LOWER_I_Y		196
+#define LOWER_J_X		80
+#define LOWER_J_Y		196
+#define LOWER_K_X		88
+#define LOWER_K_Y		196
+#define LOWER_L_X		96
+#define LOWER_L_Y		196
+#define LOWER_M_X		104
+#define LOWER_M_Y		196
+#define LOWER_N_X		112
+#define LOWER_N_Y		196
+#define LOWER_O_X		120
+#define LOWER_O_Y		196
+#define LOWER_P_X		0
+#define LOWER_P_Y		204
+#define LOWER_Q_X		8
+#define LOWER_Q_Y		204
+#define LOWER_R_X		16
+#define LOWER_R_Y		204
+#define LOWER_S_X		24
+#define LOWER_S_Y		204
+#define LOWER_T_X		32
+#define LOWER_T_Y		204
+#define LOWER_U_X		40
+#define LOWER_U_Y		204
+#define LOWER_V_X		48
+#define LOWER_V_Y		204
+#define LOWER_W_X		56
+#define LOWER_W_Y		204
+#define LOWER_X_X		64
+#define LOWER_X_Y		204
+#define LOWER_Y_X		72
+#define LOWER_Y_Y		204
+#define LOWER_Z_X		80
+#define LOWER_Z_Y		204
 
 // Uppercase.
-#define uax		8
-#define uay		180
-#define ubx		16
-#define uby		180
-#define ucx		16+8
-#define ucy		180
-#define udx		16+8+8
-#define udy		180
-#define uex		16+8+8+8
-#define uey		180
-#define ufx		16+8+8+8+8
-#define ufy		180
-#define ugx		16+8+8+8+8+8
-#define ugy		180
-#define uhx		16+8+8+8+8+8+8
-#define uhy		180
-#define uix		16+8+8+8+8+8+8+8
-#define uiy		180
-#define ujx		16+8+8+8+8+8+8+8+8
-#define ujy		180
-#define ukx		16+8+8+8+8+8+8+8+8+8
-#define uky		180
-#define ulx		16+8+8+8+8+8+8+8+8+8+8
-#define uly		180
-#define umx		16+8+8+8+8+8+8+8+8+8+8+8
-#define umy		180
-#define unx		16+8+8+8+8+8+8+8+8+8+8+8+8
-#define uny		180
-#define uox		16+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define uoy		180
-#define upx		0
-#define upy		188
-#define uqx		8
-#define uqy		188
-#define urx		16
-#define ury		188
-#define usx		16+8
-#define usy		188
-#define utx		16+8+8
-#define uty		188
-#define uux		16+8+8+8
-#define uuy		188
-#define uvx		16+8+8+8+8
-#define uvy		188
-#define uwx		16+8+8+8+8+8
-#define uwy		188
-#define uxx		16+8+8+8+8+8+8
-#define uxy		188
-#define uyx		16+8+8+8+8+8+8+8
-#define uyy		188
-#define uzx		16+8+8+8+8+8+8+8+8
-#define uzy		188
+
+#define UPPER_A_X		8
+#define UPPER_A_Y		180
+#define UPPER_B_X		16
+#define UPPER_B_Y		180
+#define UPPER_C_X		24
+#define UPPER_C_Y		180
+#define UPPER_D_X		32
+#define UPPER_D_Y		180
+#define UPPER_E_X		40
+#define UPPER_E_Y		180
+#define UPPER_F_X		48
+#define UPPER_F_Y		180
+#define UPPER_G_X		56
+#define UPPER_G_Y		180
+#define UPPER_H_X		64
+#define UPPER_H_Y		180
+#define UPPER_I_X		72
+#define UPPER_I_Y		180
+#define UPPER_J_X		80
+#define UPPER_J_Y		180
+#define UPPER_K_X		88
+#define UPPER_K_Y		180
+#define UPPER_L_X		96
+#define UPPER_L_Y		180
+#define UPPER_M_X		104
+#define UPPER_M_Y		180
+#define UPPER_N_X		112
+#define UPPER_N_Y		180
+#define UPPER_O_X		120
+#define UPPER_O_Y		180
+#define UPPER_P_X		0
+#define UPPER_P_Y		188
+#define UPPER_Q_X		8
+#define UPPER_Q_Y		188
+#define UPPER_R_X		16
+#define UPPER_R_Y		188
+#define UPPER_S_X		24
+#define UPPER_S_Y		188
+#define UPPER_T_X		32
+#define UPPER_T_Y		188
+#define UPPER_U_X		40
+#define UPPER_U_Y		188
+#define UPPER_V_X		48
+#define UPPER_V_Y		188
+#define UPPER_W_X		56
+#define UPPER_W_Y		188
+#define UPPER_X_X		64
+#define UPPER_X_Y		188
+#define UPPER_Y_X		72
+#define UPPER_Y_Y		188
+#define UPPER_Z_X		80
+#define UPPER_Z_Y		188
 
 // Numbers.
-#define zerox   0
-#define zeroy   164
-#define onex    8
-#define oney    164
-#define twox    16
-#define twoy    164
-#define threex  16+8
-#define threey  164
-#define fourx   16+8+8
-#define foury   164
-#define fivex   16+8+8+8
-#define fivey   164
-#define sixx    16+8+8+8+8
-#define sixy    164
-#define sevenx  16+8+8+8+8+8
-#define seveny  164
-#define eightx  16+8+8+8+8+8+8
-#define eighty  164
-#define ninex   16+8+8+8+8+8+8+8
-#define niney   164
+
+#define ZERO_X   0
+#define ZERO_Y   164
+#define ONE_X    8
+#define ONE_Y    164
+#define TWO_X    16
+#define TWO_Y    164
+#define THREE_X  24
+#define THREE_Y  164
+#define FOUR_X   32
+#define FOUR_Y   164
+#define FIVE_X   40
+#define FIVE_Y   164
+#define SIX_X    48
+#define SIX_Y    164
+#define SEVEN_X  56
+#define SEVEN_Y  164
+#define EIGHT_X  64
+#define EIGHT_Y  164
+#define NINE_X   72
+#define NINE_Y   164
 
 // Symbols.
-#define dotx		16+8+8+8+8+8+8+8+8
-#define doty   		164
-#define commax		16+8+8+8+8+8+8+8+8+8
-#define commay  	164
-#define spacex  	16+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define spacey  	204
-#define heartx		0
-#define hearty		180
-#define copyx		0
-#define copyy		196
-#define asteriskx	0+8+8+8+8+8+8
-#define asterisky	172
-#define exclax  	0+8+8+8
-#define exclay  	172
-#define plusx		0+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define plusy		172
-#define minusx		0+8+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define minusy		172
-#define slashx		0+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8
-#define slashy		172
+
+#define DOT_X		80
+#define DOT_Y  		164
+#define COMMA_X		88
+#define COMMA_Y  	164
+#define SPACE_X  	120
+#define SPACE_Y  	204
+#define HEART_X		0
+#define HEART_Y		180
+#define COPY_X		0
+#define COPY_Y		196
+#define ASTERISK_X	48
+#define ASTERISK_Y	172
+#define EXCLA_X  	24
+#define EXCLA_Y  	172
+#define PLUS_X		104
+#define PLUS_Y		172
+#define MINUS_X		112
+#define MINUS_Y		172
+#define SLASH_X		120
+#define SLASH_Y		172
+
+// Textbox
+
+#define TXTBOX_UP_L_X	88
+#define TXTBOX_UP_L_Y	204
+#define TXTBOX_UP_R_X	104
+#define TXTBOX_UP_R_Y	204
+#define TXTBOX_DWN_L_X	104
+#define TXTBOX_DWN_L_Y	188
+#define TXTBOX_DWN_R_X	112
+#define TXTBOX_DWN_R_Y	188
+#define TXTBOX_MID_X	96
+#define TXTBOX_MID_Y	204
+#define TXTBOX_LAT_X	112
+#define TXTBOX_LAT_Y	204
 
 // &#032; 	20 	  	&sp; 		space
 // &#033; 	21 	! 	&excl; 		exclamation mark
@@ -201,109 +229,101 @@
 // &#126; 	7E 	~ 	&tilde; 	tilde accent
 // &#169; 	A9 	© 	&copy; 		copyright sign
 
-// Textbox
-#define uplbx 16+8+8+8+8+8+8+8+8+8
-#define uplby 204
-#define uprbx 16+8+8+8+8+8+8+8+8+8+8+8
-#define uprby 204
-#define dwnlbx 16+8+8+8+8+8+8+8+8+8+8+8
-#define dwnlby 188
-#define dwnrbx 16+8+8+8+8+8+8+8+8+8+8+8+8
-#define dwnrby 188
-#define midbx 16+8+8+8+8+8+8+8+8+8+8
-#define midby 204
-#define latbx 16+8+8+8+8+8+8+8+8+8+8+8+8
-#define latby 204
-
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
+
+void sr_draw_char_src_to_dst(uint src_x, uint src_y, uint dst_x, uint dst_y, uchar log_op)
+{
+	sr_page_copy(FONT_OFFSET_X + src_x, FONT_OFFSET_Y + src_y, FONT_SIZE, FONT_SIZE, dst_x, dst_y, FONT_PAGE, active_page, log_op);
+}
 
 void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 {
 	switch (character)
 	{
-		case 'a': sr_page_copy(lax,lay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'b': sr_page_copy(lbx,lby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'c': sr_page_copy(lcx,lcy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'd': sr_page_copy(ldx,ldy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'e': sr_page_copy(lex,ley, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'f': sr_page_copy(lfx,lfy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'g': sr_page_copy(lgx,lgy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'h': sr_page_copy(lhx,lhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'i': sr_page_copy(lix,liy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'j': sr_page_copy(ljx,ljy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'k': sr_page_copy(lkx,lky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'l': sr_page_copy(llx,lly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'm': sr_page_copy(lmx,lmy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'n': sr_page_copy(lnx,lny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'o': sr_page_copy(lox,loy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'p': sr_page_copy(lpx,lpy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'q': sr_page_copy(lqx,lqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'r': sr_page_copy(lrx,lry, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 's': sr_page_copy(lsx,lsy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 't': sr_page_copy(ltx,lty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'u': sr_page_copy(lux,luy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'v': sr_page_copy(lvx,lvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'w': sr_page_copy(lwx,lwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'x': sr_page_copy(lxx,lxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'y': sr_page_copy(lyx,lyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'z': sr_page_copy(lzx,lzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'a': sr_draw_char_src_to_dst(LOWER_A_X, LOWER_A_Y, x, y, log_op); break;
+		case 'b': sr_draw_char_src_to_dst(LOWER_B_X, LOWER_B_Y, x, y, log_op); break;
+		case 'c': sr_draw_char_src_to_dst(LOWER_C_X, LOWER_C_Y, x, y, log_op); break;
+		case 'd': sr_draw_char_src_to_dst(LOWER_D_X, LOWER_D_Y, x, y, log_op); break;
+		case 'e': sr_draw_char_src_to_dst(LOWER_E_X, LOWER_E_Y, x, y, log_op); break;
+		case 'f': sr_draw_char_src_to_dst(LOWER_F_X, LOWER_F_Y, x, y, log_op); break;
+		case 'g': sr_draw_char_src_to_dst(LOWER_G_X, LOWER_G_Y, x, y, log_op); break;
+		case 'h': sr_draw_char_src_to_dst(LOWER_H_X, LOWER_H_Y, x, y, log_op); break;
+		case 'i': sr_draw_char_src_to_dst(LOWER_I_X, LOWER_I_Y, x, y, log_op); break;
+		case 'j': sr_draw_char_src_to_dst(LOWER_J_X, LOWER_J_Y, x, y, log_op); break;
+		case 'k': sr_draw_char_src_to_dst(LOWER_K_X, LOWER_K_Y, x, y, log_op); break;
+		case 'l': sr_draw_char_src_to_dst(LOWER_L_X, LOWER_L_Y, x, y, log_op); break;
+		case 'm': sr_draw_char_src_to_dst(LOWER_M_X, LOWER_M_Y, x, y, log_op); break;
+		case 'n': sr_draw_char_src_to_dst(LOWER_N_X, LOWER_N_Y, x, y, log_op); break;
+		case 'o': sr_draw_char_src_to_dst(LOWER_O_X, LOWER_O_Y, x, y, log_op); break;
+		case 'p': sr_draw_char_src_to_dst(LOWER_P_X, LOWER_P_Y, x, y, log_op); break;
+		case 'q': sr_draw_char_src_to_dst(LOWER_Q_X, LOWER_Q_Y, x, y, log_op); break;
+		case 'r': sr_draw_char_src_to_dst(LOWER_R_X, LOWER_R_Y, x, y, log_op); break;
+		case 's': sr_draw_char_src_to_dst(LOWER_S_X, LOWER_S_Y, x, y, log_op); break;
+		case 't': sr_draw_char_src_to_dst(LOWER_T_X, LOWER_T_Y, x, y, log_op); break;
+		case 'u': sr_draw_char_src_to_dst(LOWER_U_X, LOWER_U_Y, x, y, log_op); break;
+		case 'v': sr_draw_char_src_to_dst(LOWER_V_X, LOWER_V_Y, x, y, log_op); break;
+		case 'w': sr_draw_char_src_to_dst(LOWER_W_X, LOWER_W_Y, x, y, log_op); break;
+		case 'x': sr_draw_char_src_to_dst(LOWER_X_X, LOWER_X_Y, x, y, log_op); break;
+		case 'y': sr_draw_char_src_to_dst(LOWER_Y_X, LOWER_Y_Y, x, y, log_op); break;
+		case 'z': sr_draw_char_src_to_dst(LOWER_Z_X, LOWER_Z_Y, x, y, log_op); break;
 
-		case 'A': sr_page_copy(uax,uay, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'B': sr_page_copy(ubx,uby, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'C': sr_page_copy(ucx,ucy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'D': sr_page_copy(udx,udy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'E': sr_page_copy(uex,uey, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'F': sr_page_copy(ufx,ufy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'G': sr_page_copy(ugx,ugy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'H': sr_page_copy(uhx,uhy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'I': sr_page_copy(uix,uiy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'J': sr_page_copy(ujx,ujy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'K': sr_page_copy(ukx,uky, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'L': sr_page_copy(ulx,uly, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'M': sr_page_copy(umx,umy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'N': sr_page_copy(unx,uny, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'O': sr_page_copy(uox,uoy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'P': sr_page_copy(upx,upy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Q': sr_page_copy(uqx,uqy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'R': sr_page_copy(urx,ury, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'S': sr_page_copy(usx,usy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'T': sr_page_copy(utx,uty, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'U': sr_page_copy(uux,uuy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'V': sr_page_copy(uvx,uvy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'W': sr_page_copy(uwx,uwy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'X': sr_page_copy(uxx,uxy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Y': sr_page_copy(uyx,uyy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case 'Z': sr_page_copy(uzx,uzy, FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case 'A': sr_draw_char_src_to_dst(UPPER_A_X, UPPER_A_Y, x, y, log_op); break;
+		case 'B': sr_draw_char_src_to_dst(UPPER_B_X, UPPER_B_Y, x, y, log_op); break;
+		case 'C': sr_draw_char_src_to_dst(UPPER_C_X, UPPER_C_Y, x, y, log_op); break;
+		case 'D': sr_draw_char_src_to_dst(UPPER_D_X, UPPER_D_Y, x, y, log_op); break;
+		case 'E': sr_draw_char_src_to_dst(UPPER_E_X, UPPER_E_Y, x, y, log_op); break;
+		case 'F': sr_draw_char_src_to_dst(UPPER_F_X, UPPER_F_Y, x, y, log_op); break;
+		case 'G': sr_draw_char_src_to_dst(UPPER_G_X, UPPER_G_Y, x, y, log_op); break;
+		case 'H': sr_draw_char_src_to_dst(UPPER_H_X, UPPER_H_Y, x, y, log_op); break;
+		case 'I': sr_draw_char_src_to_dst(UPPER_I_X, UPPER_I_Y, x, y, log_op); break;
+		case 'J': sr_draw_char_src_to_dst(UPPER_J_X, UPPER_J_Y, x, y, log_op); break;
+		case 'K': sr_draw_char_src_to_dst(UPPER_K_X, UPPER_K_Y, x, y, log_op); break;
+		case 'L': sr_draw_char_src_to_dst(UPPER_L_X, UPPER_L_Y, x, y, log_op); break;
+		case 'M': sr_draw_char_src_to_dst(UPPER_M_X, UPPER_M_Y, x, y, log_op); break;
+		case 'N': sr_draw_char_src_to_dst(UPPER_N_X, UPPER_N_Y, x, y, log_op); break;
+		case 'O': sr_draw_char_src_to_dst(UPPER_O_X, UPPER_O_Y, x, y, log_op); break;
+		case 'P': sr_draw_char_src_to_dst(UPPER_P_X, UPPER_P_Y, x, y, log_op); break;
+		case 'Q': sr_draw_char_src_to_dst(UPPER_Q_X, UPPER_Q_Y, x, y, log_op); break;
+		case 'R': sr_draw_char_src_to_dst(UPPER_R_X, UPPER_R_Y, x, y, log_op); break;
+		case 'S': sr_draw_char_src_to_dst(UPPER_S_X, UPPER_S_Y, x, y, log_op); break;
+		case 'T': sr_draw_char_src_to_dst(UPPER_T_X, UPPER_T_Y, x, y, log_op); break;
+		case 'U': sr_draw_char_src_to_dst(UPPER_U_X, UPPER_U_Y, x, y, log_op); break;
+		case 'V': sr_draw_char_src_to_dst(UPPER_V_X, UPPER_V_Y, x, y, log_op); break;
+		case 'W': sr_draw_char_src_to_dst(UPPER_W_X, UPPER_W_Y, x, y, log_op); break;
+		case 'X': sr_draw_char_src_to_dst(UPPER_X_X, UPPER_X_Y, x, y, log_op); break;
+		case 'Y': sr_draw_char_src_to_dst(UPPER_Y_X, UPPER_Y_Y, x, y, log_op); break;
+		case 'Z': sr_draw_char_src_to_dst(UPPER_Z_X, UPPER_Z_Y, x, y, log_op); break;
 
-		case '0': sr_page_copy(zerox,zeroy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '1': sr_page_copy(onex,oney,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '2': sr_page_copy(twox,twoy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '3': sr_page_copy(threex,threey,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '4': sr_page_copy(fourx,foury,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '5': sr_page_copy(fivex,fivey,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '6': sr_page_copy(sixx,sixy,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '7': sr_page_copy(sevenx,seveny,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '8': sr_page_copy(eightx,eighty,	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '9': sr_page_copy(ninex,niney,		FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '0': sr_draw_char_src_to_dst(ZERO_X,	ZERO_Y, 	x, y, log_op); break;
+		case '1': sr_draw_char_src_to_dst(ONE_X,		ONE_Y, 		x, y, log_op); break;
+		case '2': sr_draw_char_src_to_dst(TWO_X,		TWO_Y, 		x, y, log_op); break;
+		case '3': sr_draw_char_src_to_dst(THREE_X,	THREE_Y, 	x, y, log_op); break;
+		case '4': sr_draw_char_src_to_dst(FOUR_X,	FOUR_Y, 	x, y, log_op); break;
+		case '5': sr_draw_char_src_to_dst(FIVE_X,	FIVE_Y, 	x, y, log_op); break;
+		case '6': sr_draw_char_src_to_dst(SIX_X,		SIX_Y, 		x, y, log_op); break;
+		case '7': sr_draw_char_src_to_dst(SEVEN_X,	SEVEN_Y, 	x, y, log_op); break;
+		case '8': sr_draw_char_src_to_dst(EIGHT_X,	EIGHT_Y,	x, y, log_op); break;
+		case '9': sr_draw_char_src_to_dst(NINE_X,	NINE_Y, 	x, y, log_op); break;
 
-		case '.': sr_page_copy(dotx,doty,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ',': sr_page_copy(commax,commay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ' ': sr_page_copy(spacex,spacey,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '!': sr_page_copy(exclax,exclay,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '^': sr_page_copy(heartx,hearty,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '@': sr_page_copy(copyx,copyy,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '*': sr_page_copy(asteriskx,asterisky, 	FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '+': sr_page_copy(plusx,plusy,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '-': sr_page_copy(minusx,minusy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '/': sr_page_copy(slashx,slashy,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '<': sr_page_copy(uplbx,uplby,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '[': sr_page_copy(dwnlbx,dwnlby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '_': sr_page_copy(midbx,midby,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '>': sr_page_copy(uprbx,uprby,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case ']': sr_page_copy(dwnrbx,dwnrby,			FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
-		case '|': sr_page_copy(latbx,latby,				FONT_SIZE,FONT_SIZE, x,y, FONT_PAGE, active_page, log_op); break;
+		case '.': sr_draw_char_src_to_dst(DOT_X, 		DOT_Y, 		x, y, log_op); break;
+		case ',': sr_draw_char_src_to_dst(COMMA_X, 		COMMA_Y, 	x, y, log_op); break;
+		case ' ': sr_draw_char_src_to_dst(SPACE_X, 		SPACE_Y, 	x, y, log_op); break;
+		case '^': sr_draw_char_src_to_dst(HEART_X, 		HEART_Y, 	x, y, log_op); break;
+		case '@': sr_draw_char_src_to_dst(COPY_X, 		COPY_Y, 	x, y, log_op); break;
+		case '*': sr_draw_char_src_to_dst(ASTERISK_X,	ASTERISK_Y,	x, y, log_op); break;
+		case '!': sr_draw_char_src_to_dst(EXCLA_X,		EXCLA_Y,	x, y, log_op); break;
+		case '+': sr_draw_char_src_to_dst(PLUS_X,		PLUS_Y, 	x, y, log_op); break;
+		case '-': sr_draw_char_src_to_dst(MINUS_X,		MINUS_Y, 	x, y, log_op); break;
+		case '/': sr_draw_char_src_to_dst(SLASH_X,		SLASH_Y, 	x, y, log_op); break;
+
+		case '<': sr_draw_char_src_to_dst(TXTBOX_UP_L_X, 	TXTBOX_UP_L_Y, 	x, y, log_op); break;
+		case '[': sr_draw_char_src_to_dst(TXTBOX_DWN_L_X,	TXTBOX_DWN_L_Y,	x, y, log_op); break;
+		case '_': sr_draw_char_src_to_dst(TXTBOX_MID_X, 		TXTBOX_MID_Y, 	x, y, log_op); break;
+		case '>': sr_draw_char_src_to_dst(TXTBOX_UP_R_X, 	TXTBOX_UP_R_Y, 	x, y, log_op); break;
+		case ']': sr_draw_char_src_to_dst(TXTBOX_DWN_R_X, 	TXTBOX_DWN_R_Y,	x, y, log_op); break;
+		case '|': sr_draw_char_src_to_dst(TXTBOX_LAT_X, 		TXTBOX_LAT_Y, 	x, y, log_op); break;
 	}
 }
 

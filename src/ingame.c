@@ -624,7 +624,7 @@ void sr_draw_level_screen(void)
 	//sr_debug_draw_palette();
 
 	// Party portraits.
-	//sr_draw_portraits();
+	sr_draw_portraits();
 
 	// Compass.
 	switch(player_dir)
@@ -673,15 +673,15 @@ void sr_draw_level_screen(void)
 	//sr_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 	//sr_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, active_page, LOGICAL_TIMP);
 
-	// #WIP Test encounter RNG.
-	if(sr_check_encounter() == true)
-	{
-		sr_draw_text("ENCOUNTER!", 0, 0, 9, 0);
-	}
-	else
-	{
-		sr_draw_text("NOTHING   ", 0, 0, 5, 0);
-	}
+	// // #WIP Test encounter RNG.
+	// if(sr_check_encounter() == true)
+	// {
+	// 	sr_draw_text("ENCOUNTER!", 0, 0, 9, 0);
+	// }
+	// else
+	// {
+	// 	sr_draw_text("NOTHING   ", 0, 0, 5, 0);
+	// }
 
 	sr_set_drawing_state(WaitingForVDP);
 }
