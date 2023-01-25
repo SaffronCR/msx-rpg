@@ -42,43 +42,43 @@ uchar joy;
 // Functions.
 //------------------------------------------------------------------
 
-void sr_draw_third_wall_far_left(uint offsetLeft, uint offsetRight)
+void sr_draw_third_wall_far_left(uint offset_left, uint offset_right)
 {
-	sr_page_copy(THIRD_WALL_FAR_LEFT_X + offsetLeft, THIRD_WALL_FAR_LEFT_Y,
-		THIRD_WALL_FAR_DX - offsetLeft - offsetRight, THIRD_WALL_FAR_DY,
-		LEVEL_SCREEN_X + offsetLeft,
+	sr_page_copy(THIRD_WALL_FAR_LEFT_X + offset_left, THIRD_WALL_FAR_LEFT_Y,
+		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
+		LEVEL_SCREEN_X + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_third_wall_far_right(uint offsetLeft, uint offsetRight)
+void sr_draw_third_wall_far_right(uint offset_left, uint offset_right)
 {
-	sr_page_copy(THIRD_WALL_FAR_RIGHT_X + offsetLeft, THIRD_WALL_FAR_RIGHT_Y,
-		THIRD_WALL_FAR_DX - offsetLeft - offsetRight, THIRD_WALL_FAR_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_FAR_DX + offsetLeft,
+	sr_page_copy(THIRD_WALL_FAR_RIGHT_X + offset_left, THIRD_WALL_FAR_RIGHT_Y,
+		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_FAR_DX + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_third_wall_left(uint offsetLeft, uint offsetRight)
+void sr_draw_third_wall_left(uint offset_left, uint offset_right)
 {
-	sr_page_copy(THIRD_WALL_LEFT_X + offsetLeft, THIRD_WALL_LEFT_Y,
-		THIRD_WALL_DX - offsetLeft - offsetRight, THIRD_WALL_DY,
-		LEVEL_SCREEN_X + THIRD_WALL_OFFSET_X + offsetLeft,
+	sr_page_copy(THIRD_WALL_LEFT_X + offset_left, THIRD_WALL_LEFT_Y,
+		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
+		LEVEL_SCREEN_X + THIRD_WALL_OFFSET_X + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_third_wall_right(uint offsetLeft, uint offsetRight)
+void sr_draw_third_wall_right(uint offset_left, uint offset_right)
 {
-	sr_page_copy(THIRD_WALL_RIGHT_X + offsetLeft, THIRD_WALL_RIGHT_Y,
-		THIRD_WALL_DX - offsetLeft - offsetRight, THIRD_WALL_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X + offsetLeft,
+	sr_page_copy(THIRD_WALL_RIGHT_X + offset_left, THIRD_WALL_RIGHT_Y,
+		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_second_wall_far_left()
+void sr_draw_second_wall_far_left(void)
 {
 	sr_page_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
@@ -87,7 +87,7 @@ void sr_draw_second_wall_far_left()
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_second_wall_far_right()
+void sr_draw_second_wall_far_right(void)
 {
 	sr_page_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
@@ -96,25 +96,25 @@ void sr_draw_second_wall_far_right()
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_second_wall_left(uint offsetLeft, uint offsetRight)
+void sr_draw_second_wall_left(uint offset_left, uint offset_right)
 {
-	sr_page_copy(SECOND_WALL_LEFT_X + offsetLeft, SECOND_WALL_LEFT_Y,
-		SECOND_WALL_DX - offsetLeft - offsetRight, SECOND_WALL_DY,
-		LEVEL_SCREEN_X + offsetLeft,
+	sr_page_copy(SECOND_WALL_LEFT_X + offset_left, SECOND_WALL_LEFT_Y,
+		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
+		LEVEL_SCREEN_X + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_second_wall_right(uint offsetLeft, uint offsetRight)
+void sr_draw_second_wall_right(uint offset_left, uint offset_right)
 {
-	sr_page_copy(SECOND_WALL_RIGHT_X + offsetLeft, SECOND_WALL_RIGHT_Y,
-		SECOND_WALL_DX - offsetLeft - offsetRight, SECOND_WALL_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - SECOND_WALL_DX + offsetLeft,
+	sr_page_copy(SECOND_WALL_RIGHT_X + offset_left, SECOND_WALL_RIGHT_Y,
+		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - SECOND_WALL_DX + offset_left,
 		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5),
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_first_wall_left()
+void sr_draw_first_wall_left(void)
 {
 	sr_page_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
@@ -122,7 +122,7 @@ void sr_draw_first_wall_left()
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_first_wall_right()
+void sr_draw_first_wall_right(void)
 {
 	sr_page_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
@@ -130,7 +130,7 @@ void sr_draw_first_wall_right()
 		WALLS_PAGE, active_page, LOGICAL_TIMP);
 }
 
-void sr_draw_third_wall_front()
+void sr_draw_third_wall_front(void)
 {
 	sr_page_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 		THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
@@ -139,7 +139,7 @@ void sr_draw_third_wall_front()
 		WALLS_PAGE, active_page, LOGICAL_IMP);
 }
 
-void sr_draw_second_wall_front()
+void sr_draw_second_wall_front(void)
 {
 	sr_page_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 		SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
@@ -164,7 +164,7 @@ void sr_update_fp_view(void)
 		for (uint ix = 0; ix < LEVEL_VIEW_DX; ix++)
 		{
 			// Get the player's facing position.
-			if (player_dir == North || player_dir == South)
+			if (player_dir == NORTH || player_dir == SOUTH)
 			{
 				x = player_pos_x + (distx * dir_translate_y[player_dir]);
 				y = player_pos_y + (disty * dir_translate_y[player_dir]);
@@ -191,62 +191,62 @@ void sr_update_fp_view(void)
 	}
 }
 
-bool sr_is_second_wall_front()
+bool sr_is_second_wall_front(void)
 {
 	return (current_view[7] == TILE_WALL);
 }
 
-bool sr_is_third_wall_front()
+bool sr_is_third_wall_front(void)
 {
 	return (current_view[2] == TILE_WALL);
 }
 
-bool sr_is_first_wall_left()
+bool sr_is_first_wall_left(void)
 {
 	return (current_view[1 + LEVEL_VIEW_DX * 2] == TILE_WALL);
 }
 
-bool sr_is_second_wall_left()
+bool sr_is_second_wall_left(void)
 {
 	return (current_view[1 + LEVEL_VIEW_DX] == TILE_WALL);
 }
 
-bool sr_is_third_wall_left()
+bool sr_is_third_wall_left(void)
 {
 	return (current_view[1] == TILE_WALL);
 }
 
-bool sr_is_second_wall_far_left()
+bool sr_is_second_wall_far_left(void)
 {
 	return (current_view[0 + LEVEL_VIEW_DX] == TILE_WALL);
 }
 
-bool sr_is_third_wall_far_left()
+bool sr_is_third_wall_far_left(void)
 {
 	return (current_view[0] == TILE_WALL);
 }
 
-bool sr_is_first_wall_right()
+bool sr_is_first_wall_right(void)
 {
 	return (current_view[3 + LEVEL_VIEW_DX * 2] == TILE_WALL);
 }
 
-bool sr_is_second_wall_right()
+bool sr_is_second_wall_right(void)
 {
 	return (current_view[3 + LEVEL_VIEW_DX] == TILE_WALL);
 }
 
-bool sr_is_third_wall_right()
+bool sr_is_third_wall_right(void)
 {
 	return (current_view[3] == TILE_WALL);
 }
 
-bool sr_is_second_wall_far_right()
+bool sr_is_second_wall_far_right(void)
 {
 	return (current_view[4 + LEVEL_VIEW_DX] == TILE_WALL);
 }
 
-bool sr_is_third_wall_far_right()
+bool sr_is_third_wall_far_right(void)
 {
 	return (current_view[4] == TILE_WALL);
 }
@@ -629,10 +629,10 @@ void sr_draw_level_screen(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case North:	sr_draw_text("N", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case East:	sr_draw_text("E", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case South:	sr_draw_text("S", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case West:	sr_draw_text("W", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case NORTH:	sr_draw_text("N", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case EAST:	sr_draw_text("E", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case SOUTH:	sr_draw_text("S", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case WEST:	sr_draw_text("W", COMPASS_X, COMPASS_Y, 9, 0);	break;
 	}
 
 	// #WIP Draw a different floor in odd tiles to create ilusion of movement.
@@ -686,15 +686,15 @@ void sr_draw_level_screen(void)
 	sr_set_drawing_state(WaitingForVDP);
 }
 
-void sr_move(uint newPosX, uint newPosY)
+void sr_move(uint new_pos_x, uint new_pos_y)
 {
-	if (newPosX < LEVEL_SIZE - 1 &&
-		newPosY < LEVEL_SIZE - 1 &&
-		(level_map[newPosX + newPosY * LEVEL_SIZE] == TILE_ROOM ||
-		level_map[newPosX + newPosY * LEVEL_SIZE] == TILE_CORRIDOR))
+	if (new_pos_x < LEVEL_SIZE - 1 &&
+		new_pos_y < LEVEL_SIZE - 1 &&
+		(level_map[new_pos_x + new_pos_y * LEVEL_SIZE] == TILE_ROOM ||
+		level_map[new_pos_x + new_pos_y * LEVEL_SIZE] == TILE_CORRIDOR))
 	{
-		player_pos_x = newPosX;
-		player_pos_y = newPosY;
+		player_pos_x = new_pos_x;
+		player_pos_y = new_pos_y;
 
 		player_moves = true;
 
@@ -704,9 +704,9 @@ void sr_move(uint newPosX, uint newPosY)
 
 void sr_rotate_left(void)
 {
-	if (--player_dir < North)
+	if (--player_dir < NORTH)
 	{
-		player_dir = West;
+		player_dir = WEST;
 	}
 
 	player_turns = true;
@@ -714,9 +714,9 @@ void sr_rotate_left(void)
 
 void sr_rotate_right(void)
 {
-	if (++player_dir > West)
+	if (++player_dir > WEST)
 	{
-		player_dir = North;
+		player_dir = NORTH;
 	}
 
 	player_turns = true;
@@ -771,7 +771,7 @@ void sr_set_ingame_state(void)
 	ceiling_tile = 0;
 
 	// This may be set by the random generator in the future?
-	player_dir = North;
+	player_dir = NORTH;
 
 	// Generate level.
 	SetColors(0,0,0);

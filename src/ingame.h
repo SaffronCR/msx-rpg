@@ -130,10 +130,10 @@
 
 enum Directions
 {
-	North,
-	East,
-	South,
-	West,
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST,
 };
 
 //------------------------------------------------------------------

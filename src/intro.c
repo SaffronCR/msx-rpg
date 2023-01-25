@@ -35,7 +35,7 @@ void sr_draw_intro_text(void)
 	sr_wait(1000);
 
 	// Go to dungeon state.
-	sr_set_game_state(StartScreen);
+	sr_set_game_state(START_SCREEN);
 }
 
 void sr_set_intro_state(void)

@@ -297,33 +297,33 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 		case 'Z': sr_draw_char_src_to_dst(UPPER_Z_X, UPPER_Z_Y, x, y, log_op); break;
 
 		case '0': sr_draw_char_src_to_dst(ZERO_X,	ZERO_Y, 	x, y, log_op); break;
-		case '1': sr_draw_char_src_to_dst(ONE_X,		ONE_Y, 		x, y, log_op); break;
-		case '2': sr_draw_char_src_to_dst(TWO_X,		TWO_Y, 		x, y, log_op); break;
+		case '1': sr_draw_char_src_to_dst(ONE_X,	ONE_Y, 		x, y, log_op); break;
+		case '2': sr_draw_char_src_to_dst(TWO_X,	TWO_Y, 		x, y, log_op); break;
 		case '3': sr_draw_char_src_to_dst(THREE_X,	THREE_Y, 	x, y, log_op); break;
 		case '4': sr_draw_char_src_to_dst(FOUR_X,	FOUR_Y, 	x, y, log_op); break;
 		case '5': sr_draw_char_src_to_dst(FIVE_X,	FIVE_Y, 	x, y, log_op); break;
-		case '6': sr_draw_char_src_to_dst(SIX_X,		SIX_Y, 		x, y, log_op); break;
+		case '6': sr_draw_char_src_to_dst(SIX_X,	SIX_Y, 		x, y, log_op); break;
 		case '7': sr_draw_char_src_to_dst(SEVEN_X,	SEVEN_Y, 	x, y, log_op); break;
 		case '8': sr_draw_char_src_to_dst(EIGHT_X,	EIGHT_Y,	x, y, log_op); break;
 		case '9': sr_draw_char_src_to_dst(NINE_X,	NINE_Y, 	x, y, log_op); break;
 
-		case '.': sr_draw_char_src_to_dst(DOT_X, 		DOT_Y, 		x, y, log_op); break;
-		case ',': sr_draw_char_src_to_dst(COMMA_X, 		COMMA_Y, 	x, y, log_op); break;
+		case '.': sr_draw_char_src_to_dst(DOT_X,		DOT_Y, 		x, y, log_op); break;
+		case ',': sr_draw_char_src_to_dst(COMMA_X,		COMMA_Y, 	x, y, log_op); break;
 		case ' ': sr_draw_char_src_to_dst(SPACE_X, 		SPACE_Y, 	x, y, log_op); break;
 		case '^': sr_draw_char_src_to_dst(HEART_X, 		HEART_Y, 	x, y, log_op); break;
-		case '@': sr_draw_char_src_to_dst(COPY_X, 		COPY_Y, 	x, y, log_op); break;
+		case '@': sr_draw_char_src_to_dst(COPY_X,		COPY_Y, 	x, y, log_op); break;
 		case '*': sr_draw_char_src_to_dst(ASTERISK_X,	ASTERISK_Y,	x, y, log_op); break;
 		case '!': sr_draw_char_src_to_dst(EXCLA_X,		EXCLA_Y,	x, y, log_op); break;
 		case '+': sr_draw_char_src_to_dst(PLUS_X,		PLUS_Y, 	x, y, log_op); break;
 		case '-': sr_draw_char_src_to_dst(MINUS_X,		MINUS_Y, 	x, y, log_op); break;
 		case '/': sr_draw_char_src_to_dst(SLASH_X,		SLASH_Y, 	x, y, log_op); break;
 
-		case '<': sr_draw_char_src_to_dst(TXTBOX_UP_L_X, 	TXTBOX_UP_L_Y, 	x, y, log_op); break;
+		case '<': sr_draw_char_src_to_dst(TXTBOX_UP_L_X,	TXTBOX_UP_L_Y, 	x, y, log_op); break;
 		case '[': sr_draw_char_src_to_dst(TXTBOX_DWN_L_X,	TXTBOX_DWN_L_Y,	x, y, log_op); break;
-		case '_': sr_draw_char_src_to_dst(TXTBOX_MID_X, 		TXTBOX_MID_Y, 	x, y, log_op); break;
+		case '_': sr_draw_char_src_to_dst(TXTBOX_MID_X,		TXTBOX_MID_Y, 	x, y, log_op); break;
 		case '>': sr_draw_char_src_to_dst(TXTBOX_UP_R_X, 	TXTBOX_UP_R_Y, 	x, y, log_op); break;
-		case ']': sr_draw_char_src_to_dst(TXTBOX_DWN_R_X, 	TXTBOX_DWN_R_Y,	x, y, log_op); break;
-		case '|': sr_draw_char_src_to_dst(TXTBOX_LAT_X, 		TXTBOX_LAT_Y, 	x, y, log_op); break;
+		case ']': sr_draw_char_src_to_dst(TXTBOX_DWN_R_X,	TXTBOX_DWN_R_Y,	x, y, log_op); break;
+		case '|': sr_draw_char_src_to_dst(TXTBOX_LAT_X,		TXTBOX_LAT_Y, 	x, y, log_op); break;
 	}
 }
 

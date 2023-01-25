@@ -41,10 +41,10 @@ void sr_set_game_state(uchar new_state)
 
 	switch(game_state)
 	{
-		case StartScreen:		sr_set_startscr_state();		break;
-		case CharacterCreation:	sr_set_charcreation_state();	break;
-		case Intro:				sr_set_intro_state();			break;
-		case InGame:			sr_set_ingame_state();			break;
+		case START_SCREEN:		sr_set_startscr_state();		break;
+		case CHARACTER_CREATION:	sr_set_charcreation_state();	break;
+		case INTRO:				sr_set_intro_state();			break;
+		case IN_GAME:			sr_set_ingame_state();			break;
 	}
 }
 
@@ -55,10 +55,10 @@ void sr_update_game_state(void)
 	{
 		switch (game_state)
 		{
-			case StartScreen:		sr_update_startscr_state();		break;
-			case CharacterCreation:	sr_update_charcreation_state();	break;
-			case Intro:				sr_update_intro_state();		break;
-			case InGame:			sr_update_ingame_state();		break;
+			case START_SCREEN:		sr_update_startscr_state();		break;
+			case CHARACTER_CREATION:	sr_update_charcreation_state();	break;
+			case INTRO:				sr_update_intro_state();		break;
+			case IN_GAME:			sr_update_ingame_state();		break;
 		}
 	}
 }
@@ -94,6 +94,11 @@ void main(void)
 		ChangeCPU(0);
 	}
 
+	VDP60Hz();
+
+	// Reset timer.
+	SetRealTimer(0);
+
 	// Init random.
 	srand(rand_seed);
 
@@ -118,7 +123,7 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(InGame);
+	sr_set_game_state(IN_GAME);
 
 	for (;;)
 	{
