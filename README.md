@@ -96,3 +96,13 @@ https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature
 *- Author: Redshrike*
 
 https://opengameart.org/content/more-rpg-enemies
+
+**MSX-DOS binaries (MSXDOS.SYS and COMMAND.COM)**
+*- Owned by MSX Licensing Corporation*
+
+http://www.nishi.org/
+
+**Nextor binaries (NEXTOR.SYS and COMMAND2.COM)**
+*- Author: Konamiman (Néstor Soriano)*
+
+https://github.com/Konamiman/Nextor
