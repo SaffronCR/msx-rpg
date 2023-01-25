@@ -38,7 +38,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 ## How To Compile
 
 * Download the repository with your git client of your choice.
-* The project is configured for Visual Code, but any other editor will do.
+* The project is configured for Visual Studio Code, but any other editor will do.
 * Download and install SDCC 4.1.0 (http://sdcc.sourceforge.net/). Make sure it's added to your PATH.
 * You need to modify SDCC included libraries to make them compatible with Fusion-C. Open a terminal window and browse to the Z80 library folder (SDCC\lib\z80), then type these commands:
 > copy z80.lib z80.save
@@ -53,7 +53,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 >
 > sdar -d z80.lib getchar.rel
 * Download and install OpenMSX (https://openmsx.org/). Create a folder inside the project called "openmsx" and extract the emulator to it. You will also need to find and install the system roms in the "share/systemroms" folder.
-* In Visual Code you can select "Terminal/Run Build Task" to build and run the game.
+* In Visual Studio Code you can select "Terminal/Run Build Task" to build and run the game.
 * The game should run.
 * Enjoy!
 
