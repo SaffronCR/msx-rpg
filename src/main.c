@@ -19,6 +19,7 @@
 #include "snd.h"
 #include "startscr.h"
 #include "system.h"
+#include "random.h"
 #include "main.h"
 
 //------------------------------------------------------------------
@@ -41,10 +42,10 @@ void sr_set_game_state(uchar new_state)
 
 	switch(game_state)
 	{
-		case START_SCREEN:		sr_set_startscr_state();		break;
+		case START_SCREEN:			sr_set_startscr_state();		break;
 		case CHARACTER_CREATION:	sr_set_charcreation_state();	break;
-		case INTRO:				sr_set_intro_state();			break;
-		case IN_GAME:			sr_set_ingame_state();			break;
+		case INTRO:					sr_set_intro_state();			break;
+		case IN_GAME:				sr_set_ingame_state();			break;
 	}
 }
 
@@ -55,10 +56,10 @@ void sr_update_game_state(void)
 	{
 		switch (game_state)
 		{
-			case START_SCREEN:		sr_update_startscr_state();		break;
+			case START_SCREEN:			sr_update_startscr_state();		break;
 			case CHARACTER_CREATION:	sr_update_charcreation_state();	break;
-			case INTRO:				sr_update_intro_state();		break;
-			case IN_GAME:			sr_update_ingame_state();		break;
+			case INTRO:					sr_update_intro_state();		break;
+			case IN_GAME:				sr_update_ingame_state();		break;
 		}
 	}
 }
@@ -100,7 +101,7 @@ void main(void)
 	SetRealTimer(0);
 
 	// Init random.
-	srand(rand_seed);
+	sr_random_init(rand_seed);
 
 	// Disable key sound.
 	KeySound(0);

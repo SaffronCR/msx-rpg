@@ -13,6 +13,7 @@
 #include "main.h"
 #include "ingame.h"
 #include "procgen.h"
+#include "random.h"
 
 //------------------------------------------------------------------
 // Variables.
@@ -69,8 +70,8 @@ void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
 	// Connect to previous room (if there's one).
 	if (prev_x != 0)
 	{
-		current_x = room_x + rand() % room_size_x;
-		current_y = room_y + rand() % room_size_y;
+		current_x = room_x + sr_random_range(0, room_size_x - 1);
+		current_y = room_y + sr_random_range(0, room_size_y - 1);
 
 		x = prev_x;
 		y = prev_y;
@@ -133,19 +134,19 @@ void sr_create_corridor(uint room_x, uint room_y, uint room_size_x, uint room_si
 	}
 
 	// Set previous coords so next room can connect to this one.
-	prev_x = room_x + rand() % room_size_x;
-	prev_y = room_y + rand() % room_size_y;
+	prev_x = room_x + sr_random_range(0, room_size_x - 1);
+	prev_y = room_y + sr_random_range(0, room_size_y - 1);
 }
 
 bool sr_create_room(void)
 {
 	uint room_x, room_y, room_size_x, room_size_y;
 
-	room_x = rand() % LEVEL_SIZE + 1;
-	room_y = rand() % LEVEL_SIZE + 1;
+	room_x = sr_random_range(0, LEVEL_SIZE);
+	room_y = sr_random_range(0, LEVEL_SIZE);
 
-	room_size_x = rand() % (room_max_size - room_min_count + 1) + room_min_count;
-	room_size_y = rand() % (room_max_size - room_min_size + 1) + room_min_size;
+	room_size_x = sr_random_range(room_min_count, room_max_size);
+	room_size_y = sr_random_range(room_min_size, room_max_size);
 
 	// Check if this room is valid.
 	if (sr_check_room_valid(room_x - 1, room_y - 1, room_size_x + 2, room_size_y + 2) == false)
@@ -228,7 +229,7 @@ bool sr_generate_dungeon_level(void)
 	memset(level_map, TILE_WALL, LEVEL_SIZE * LEVEL_SIZE);
 
 	// Create rooms.
-	room_count = rand() % (room_max_count - room_min_count + 1) + room_min_count;
+	room_count = sr_random_range(room_min_count, room_max_count);
 	while (room_count > 0)
 	{
 		if (sr_create_room() == true)
@@ -254,15 +255,15 @@ bool sr_generate_dungeon_level(void)
 	// Set random player position.
 	do
 	{
-		player_pos_x = rand() % LEVEL_SIZE + 1;
-		player_pos_y = rand() % LEVEL_SIZE + 1;
+		player_pos_x = sr_random_range(1, LEVEL_SIZE);
+		player_pos_y = sr_random_range(1, LEVEL_SIZE);
 	} while (sr_is_valid_position(player_pos_x, player_pos_y) == false);
 
 	// Set random stairs position.
 	do
 	{
-		stairs_x = rand() % LEVEL_SIZE + 1;
-		stairs_y = rand() % LEVEL_SIZE + 1;
+		stairs_x = sr_random_range(1, LEVEL_SIZE);
+		stairs_y = sr_random_range(1, LEVEL_SIZE);
 	} while (sr_is_valid_position(stairs_x, stairs_y) == false ||
 			 (stairs_x == player_pos_x && stairs_y == player_pos_y));
 

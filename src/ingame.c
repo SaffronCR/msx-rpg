@@ -585,22 +585,22 @@ void sr_debug_draw_minimap(void)
 			if (player_pos_x == x && player_pos_y == y)
 			{
 				// Player.
-				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 11, 0);
+				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 11, 0);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_STAIRS)
 			{
 				// Stairs.
-				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 9, 0);
+				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 9, 0);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_WALL)
 			{
 				// Wall.
-				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 3, 0);
+				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 3, 0);
 			}
 			else
 			{
 				// Floor.
-				Pset(x + 200, y + 160 + active_page * SCREEN_WIDTH, 7, 0);
+				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 7, 0);
 			}
 		}
 	}
@@ -618,7 +618,7 @@ void sr_draw_level_screen(void)
 	//sr_debug_draw_test_menu();
 
 	// Debug: Minimap.
-	//sr_debug_draw_minimap();
+	sr_debug_draw_minimap();
 
 	// Debug: Palette.
 	//sr_debug_draw_palette();
