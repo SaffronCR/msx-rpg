@@ -30,8 +30,6 @@ enum GameState game_state;
 
 uchar update_frame_count;
 
-uint rand_seed;
-
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
@@ -87,7 +85,6 @@ void main(void)
 {
 	// Init variables.
 	update_frame_count = 0;
-	rand_seed = 666; // Random seed, set to 666 for debug purposes.
 
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
 	if (ReadMSXtype() == 3)
@@ -95,13 +92,11 @@ void main(void)
 		ChangeCPU(0);
 	}
 
+	// Switch VDP to 60Hz.
 	VDP60Hz();
 
 	// Reset timer.
 	SetRealTimer(0);
-
-	// Init random.
-	sr_random_init(rand_seed);
 
 	// Disable key sound.
 	KeySound(0);

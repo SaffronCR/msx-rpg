@@ -8,44 +8,43 @@
 // Variables.
 //------------------------------------------------------------------
 
-uint xs = 1;
+uint a = 13;
+uint b = 5;
+uint c = 10;
+uint d = 9;
+
+uint s0 = 1;
+uint s1 = 0;
 
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
-void sr_random_init(uint seed)
+uint sr_rol(uint x, uint k)
 {
-	xs = seed | 0x8000; // Make sure seed is never zero.
+	return (x << k) | (x >> ((sizeof(x) * 8) - k));
 }
 
-// 16-bit xorshift PRNG.
-uint sr_random(void)
+// Pseudorandom number generator using a xoroshiro32++ algorithm.
+uint sr_xoroshiro32(void)
 {
-	xs ^= xs << 7;
-	xs ^= xs >> 9;
-	xs ^= xs << 8;
+	uint result = sr_rol(s0 + s1, d) + s0;
 
-	return (xs);
+	s1 ^= s0;
+	s0 = sr_rol(s0, a) ^ s1 ^ (s1 << b);
+	s1 = sr_rol(s1, c);
+
+	return result;
 }
 
-// Generate a pseudo-random number between min and max (inclusive).
+// Returns a pseudorandom number within min and max (inclusive).
 uint sr_random_range(uint min, uint max)
 {
-	return (sr_random() % (max + 1 - min) + min);
+	return (sr_xoroshiro32() % (max + 1 - min) + min);
 }
 
-// Generate a pseudo-random number between min and max (inclusive) using rejection sampling (for smaller numbers).
-uint sr_random_range_small(uint min, uint max)
+// Returns the result of rolling a [sides] die.
+uint sr_random_die(uint sides)
 {
-    uint range = max - min + 1;
-    uint value = 0;
-    do
-	{
-		value = sr_random() % (range * 2);
-    } while (value >= range * 2);
-    value *= 0.5;
-    value += min;
-
-    return (value);
+	return (sr_xoroshiro32() % (sides + 1));
 }
