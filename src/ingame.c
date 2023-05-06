@@ -568,17 +568,47 @@ void sr_debug_draw_test_menu(void)
 	//"System"
 	//"Back"
 
+/**************************************************************************/
+// Initial combat encounter
+
+	// uint menu_y = MENU_Y + MENU_Y_SPACE;
+	// sr_draw_text("~Attack", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
+
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+	// sr_draw_text(" Talk", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+	// sr_draw_text(" Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+/**************************************************************************/
+// Attack
+
 	uint menu_y = MENU_Y + MENU_Y_SPACE;
-	sr_draw_text("Attack", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("E.Ilba", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text("Streams", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text("Equip", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("~Attack", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text("Flee", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text(" Gadget", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+/**************************************************************************/
+// Talk
+
+	// uint menu_y = MENU_Y + MENU_Y_SPACE;
+	// sr_draw_text("Slime wants", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+	// sr_draw_text("health potion", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+	// sr_draw_text("~Give item", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
+
+	// menu_y += FONT_SIZE + MENU_Y_SPACE;
+	// sr_draw_text(" Refuse", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+/**************************************************************************/
 
 	// #SPRITE #WIP
 	PutSprite(0, 0, MENU_X-8, menu_y, 0);
@@ -626,7 +656,7 @@ void sr_draw_level_screen(void)
 	//sr_debug_draw_test_menu();
 
 	// Debug: Minimap.
-	sr_debug_draw_minimap();
+	//sr_debug_draw_minimap();
 
 	// Debug: Palette.
 	//sr_debug_draw_palette();
@@ -678,8 +708,14 @@ void sr_draw_level_screen(void)
 	sr_draw_fp_view();
 
 	// #WIP Enemies.
-	//sr_screen_copy(160,32, 55,64, 60,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
-	//sr_screen_copy(169,55, 32,32, 100,110, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	//sr_page_copy(175,192, 50,60, 30,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+
+	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+
+	// // hit frame test.
+	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, active_page, LOGICAL_TNOT);
+	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, active_page, LOGICAL_TNOT);
 
 	// // #WIP Test encounter RNG.
 	// if(sr_check_encounter() == true)
@@ -733,7 +769,7 @@ void sr_rotate_right(void)
 // Reads input from keyboard's arrow keys and joystick port 1.
 void sr_update_input_level_mode(void)
 {
-	// Cursor.
+	// Movement.
 	for (uchar i = 0; i < 2; i++)
 	{
 		joy = JoystickRead(i);
@@ -760,7 +796,7 @@ void sr_update_input_level_mode(void)
 		}
 	}
 
-	// Buttons.
+	// Actions.
 	if (TriggerRead(JOY1_BUTTONB) == PRESSED ||
 		TriggerRead(SPACEBAR) == PRESSED )
 	{

@@ -179,7 +179,7 @@
 #define SLASH_X		120
 #define SLASH_Y		172
 
-// Textbox
+// Textbox.
 
 #define TXTBOX_UP_L_X	88
 #define TXTBOX_UP_L_Y	204
@@ -194,40 +194,10 @@
 #define TXTBOX_LAT_X	112
 #define TXTBOX_LAT_Y	204
 
-// &#032; 	20 	  	&sp; 		space
-// &#033; 	21 	! 	&excl; 		exclamation mark
-// &#034; 	22 	" 	&quot; 		double quotation mark
-// &#035; 	23 	# 	&num; 		number sign, pound
-// &#036; 	24 	$ 	&dollar; 	dollar sign
-// &#037; 	25 	% 	&percnt; 	percent sign
-// &#038; 	26 	& 	&amp; 		ampersand
-// &#039; 	27 	' 	&apos; 		apostrophe, single quote mark
-// &#040; 	28 	( 	&lpar; 		left parenthesis
-// &#041; 	29 	) 	&rpar; 		right parenthesis
-// &#042; 	2A 	* 	&ast; 		asterisk
-// &#043; 	2B 	+ 	&plus; 		plus sign
-// &#044; 	2C 	, 	&comma; 	comma
-// &#045; 	2D 	- 	&minus;   &hyphen; 	minus sign, hyphen
-// &#046; 	2E 	. 	&period; 	period, decimal point, full stop
-// &#047; 	2F 	/ 	&sol; 		slash, virgule, solidus
-// &#058; 	3A 	: 	&colon; 	colon
-// &#059; 	3B 	; 	&semi; 		semicolon
-// &#060; 	3C 	< 	&lt; 		less-than sign
-// &#061; 	3D 	= 	&equals; 	equal sign
-// &#062; 	3E 	> 	&gt; 		greater-than sign
-// &#063; 	3F 	? 	&quest; 	question mark
-// &#064; 	40 	@ 	&commat; 	commercial at sign
-// &#091; 	5B 	[ 	&lsqb; 		left square bracket
-// &#092; 	5C 	\ 	&bsol; 		backslash, reverse solidus
-// &#093; 	5D 	] 	&rsqb; 		right square bracket
-// &#094; 	5E 	^ 	&circ; 		spacing circumflex accent
-// &#095; 	5F 	_ 	&lowbar;   &horbar; 	spacing underscore, low line, horizontal bar
-// &#096; 	60 	` 	&grave; 	spacing grave accent, back apostrophe
-// &#123; 	7B 	{ 	&lcub; 		left brace, left curly bracket
-// &#124; 	7C 	| 	&verbar; 	vertical bar
-// &#125; 	7D 	} 	&rcub; 		right brace, right curly bracket
-// &#126; 	7E 	~ 	&tilde; 	tilde accent
-// &#169; 	A9 	© 	&copy; 		copyright sign
+// Cursor.
+
+#define CURSOR_X 0
+#define CURSOR_Y 212
 
 //------------------------------------------------------------------
 // Functions.
@@ -324,6 +294,8 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 		case '>': sr_draw_char_src_to_dst(TXTBOX_UP_R_X, 	TXTBOX_UP_R_Y, 	x, y, log_op); break;
 		case ']': sr_draw_char_src_to_dst(TXTBOX_DWN_R_X,	TXTBOX_DWN_R_Y,	x, y, log_op); break;
 		case '|': sr_draw_char_src_to_dst(TXTBOX_LAT_X,		TXTBOX_LAT_Y, 	x, y, log_op); break;
+
+		case '~': sr_draw_char_src_to_dst(CURSOR_X, CURSOR_Y, x, y, log_op); break;
 	}
 }
 
