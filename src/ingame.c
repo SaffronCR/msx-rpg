@@ -317,6 +317,10 @@ void sr_draw_fp_view(void)
 				sr_draw_third_wall_left(30, 0);
 			}
 		}
+		else if (sr_is_second_wall_front())
+		{
+			sr_draw_third_wall_left(0, 22);
+		}
 		else if (sr_is_third_wall_front())
 		{
 			sr_draw_third_wall_left(0, 6);
@@ -424,6 +428,10 @@ void sr_draw_fp_view(void)
 			{
 				sr_draw_third_wall_right(0, 30);
 			}
+		}
+		else if (sr_is_second_wall_front())
+		{
+			sr_draw_third_wall_right(22, 0);
 		}
 		else if (sr_is_third_wall_front())
 		{
