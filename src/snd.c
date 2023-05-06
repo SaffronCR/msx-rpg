@@ -25,7 +25,7 @@ uchar is_playing_song;
 
 void sr_init_snd(void)
 {
-	sr_init_battle_song();
+	sr_init_dungeon_song();
 	is_playing_song = TRUE;
 
 	//is_playing_song = FALSE;

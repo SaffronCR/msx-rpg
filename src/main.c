@@ -74,7 +74,7 @@ static uchar sr_interrupt(void)
 	else
 	{
 		// Update audio.
-		//sr_update_snd(); // [CRIS] Disabled for ease of development.
+		sr_update_snd(); // [CRIS] Disabled for ease of development.
 	}
 
 	// Update video.

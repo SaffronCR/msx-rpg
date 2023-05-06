@@ -2,13 +2,12 @@
 ;No ORG needed.
 
     ;Songs.
-	include "song_playerconfig.asm" ;Optional.
-	
-    include "song.asm"
-	include "battle.asm"
- 
+	include "dungeon_playerconfig.asm" ;Optional.
+
+    include "dungeon.asm"
+
     ;Sound effects.
-    include "SoundEffects.asm" 
+    include "SoundEffects.asm"
     include "SoundEffects_playerconfig.asm"  ;Optional.
 
     ;Hardware config.
