@@ -224,19 +224,6 @@ void sr_debug_draw_palette(void)
 	}
 }
 
-void sr_switch_page(void)
-{
-	if (sr_get_drawing_state() == WaitingForVDP)
-	{
-		SetDisplayPage(active_page);
-
-		active_page = !active_page;
-		SetActivePage(active_page);
-
-		sr_set_drawing_state(Finished);
-	}
-}
-
 void sr_set_drawing_state(uchar new_state)
 {
 	drawing_state = new_state;
@@ -290,7 +277,7 @@ void sr_init_gfx(void)
 	// Configure pages.
 	sr_set_drawing_state(Finished);
 	active_page = 0;
-	SetDisplayPage(!active_page);
+	SetDisplayPage(active_page);
 	SetActivePage(active_page);
 }
 
@@ -302,8 +289,6 @@ bool sr_update_gfx(void)
 	{
 		return (false);
 	}
-
-	sr_switch_page();
 
 	return (true);
 }

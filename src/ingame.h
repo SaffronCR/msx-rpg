@@ -14,6 +14,7 @@
 
 #define LEVEL_SIZE 24
 
+#define BACKBUFFER_PAGE 1
 #define SPRITES_PAGE 2
 #define WALLS_PAGE 3
 
@@ -151,5 +152,6 @@ extern uchar *level_map;
 
 void sr_set_ingame_state(void);
 void sr_update_ingame_state(void);
+void sr_finished_ingame_drawing(void);
 
 #endif

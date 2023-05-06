@@ -56,7 +56,7 @@ void sr_draw_startscr_intro_text(void)
 	sr_draw_text("DOOR    SEARCH", 8*6+8+8, 8+8+8+8+8+8+8+8+8+8,		15, 14);
 */
 
-	sr_set_drawing_state(WaitingForVDP);
+	//sr_set_drawing_state(WaitingForVDP);
 
 
 	// Go to dungeon state.

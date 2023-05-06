@@ -74,10 +74,20 @@ static uchar sr_interrupt(void)
 	else
 	{
 		// Update audio.
-		//sr_update_snd(); // [CRIS] Disabled for ease of development.
+		sr_update_snd(); // [CRIS] Disabled for ease of development.
 	}
 
 	// Update video.
+	if (sr_get_drawing_state() == WaitingForVDP && (VDPstatusNi(2) & 0x1) == false)
+	{
+		sr_set_drawing_state(Finished);
+
+		switch (game_state)
+		{
+			case IN_GAME:	sr_finished_ingame_drawing();	break;
+		}
+	}
+
 	return sr_update_gfx();
 }
 

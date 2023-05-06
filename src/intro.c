@@ -31,7 +31,7 @@ void sr_draw_intro_text(void)
 	sr_draw_text("of the galaxy lies a long", 8*3, 8*19+9+9, 15, 14);
 	sr_draw_text("forgotten alien station", 8*3, 8*19+9+9+9, 15, 14);
 
-	sr_set_drawing_state(WaitingForVDP);
+	//sr_set_drawing_state(WaitingForVDP);
 	sr_wait(1000);
 
 	// Go to dungeon state.

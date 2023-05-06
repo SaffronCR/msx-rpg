@@ -46,106 +46,106 @@ void sr_draw_third_wall_far_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy(THIRD_WALL_FAR_LEFT_X + offset_left, THIRD_WALL_FAR_LEFT_Y,
 		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
-		LEVEL_SCREEN_X + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		offset_left,
+		(LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_third_wall_far_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy(THIRD_WALL_FAR_RIGHT_X + offset_left, THIRD_WALL_FAR_RIGHT_Y,
 		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_FAR_DX + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		LEVEL_SCREEN_DX - THIRD_WALL_FAR_DX + offset_left,
+		(LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_third_wall_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy(THIRD_WALL_LEFT_X + offset_left, THIRD_WALL_LEFT_Y,
 		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
-		LEVEL_SCREEN_X + THIRD_WALL_OFFSET_X + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		THIRD_WALL_OFFSET_X + offset_left,
+		(LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_third_wall_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy(THIRD_WALL_RIGHT_X + offset_left, THIRD_WALL_RIGHT_Y,
 		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		LEVEL_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X + offset_left,
+		(LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_second_wall_far_left(void)
 {
 	sr_page_copy(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-		LEVEL_SCREEN_X,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		0,
+		(LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_second_wall_far_right(void)
 {
 	sr_page_copy(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
 		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - SECOND_WALL_FAR_DX,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		LEVEL_SCREEN_DX - SECOND_WALL_FAR_DX,
+		(LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_second_wall_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy(SECOND_WALL_LEFT_X + offset_left, SECOND_WALL_LEFT_Y,
 		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
-		LEVEL_SCREEN_X + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		offset_left,
+		(LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_second_wall_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy(SECOND_WALL_RIGHT_X + offset_left, SECOND_WALL_RIGHT_Y,
 		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - SECOND_WALL_DX + offset_left,
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		LEVEL_SCREEN_DX - SECOND_WALL_DX + offset_left,
+		(LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_first_wall_left(void)
 {
 	sr_page_copy(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
-		LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		0, 0,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_first_wall_right(void)
 {
 	sr_page_copy(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
 		FIRST_WALL_DX, FIRST_WALL_DY,
-		LEVEL_SCREEN_X + LEVEL_SCREEN_DX - FIRST_WALL_DX, LEVEL_SCREEN_Y,
-		WALLS_PAGE, active_page, LOGICAL_TIMP);
+		LEVEL_SCREEN_DX - FIRST_WALL_DX, 0,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_TIMP);
 }
 
 void sr_draw_third_wall_front(void)
 {
 	sr_page_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
 		THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
-		LEVEL_SCREEN_X + ((LEVEL_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5),
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_IMP);
+		(LEVEL_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5,
+		(LEVEL_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_IMP);
 }
 
 void sr_draw_second_wall_front(void)
 {
 	sr_page_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
 		SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
-		LEVEL_SCREEN_X + ((LEVEL_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5),
-		LEVEL_SCREEN_Y + ((LEVEL_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5),
-		WALLS_PAGE, active_page, LOGICAL_IMP);
+		(LEVEL_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5,
+		(LEVEL_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5,
+		WALLS_PAGE, BACKBUFFER_PAGE, LOGICAL_IMP);
 }
 
 //  This is the view area:
@@ -253,6 +253,31 @@ bool sr_is_third_wall_far_right(void)
 
 void sr_draw_fp_view(void)
 {
+	// Background.
+
+	if (ceiling_tile == 1)
+	{
+		// Draw Standard background minus the floor.
+		sr_page_copy(0, 0,
+			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY - 22,
+			0, 0,
+			SPRITES_PAGE, BACKBUFFER_PAGE, opHMMM);
+
+		// Draw alternate floor.
+		sr_page_copy(0, 120,
+			LEVEL_SCREEN_DX, 22,
+			0, 98,
+			SPRITES_PAGE, BACKBUFFER_PAGE, opHMMM);
+	}
+	else
+	{
+		// Draw standard background in full.
+		sr_page_copy(0, 0,
+			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
+			0, 0,
+			SPRITES_PAGE, BACKBUFFER_PAGE, opHMMM);
+	}
+
 	// Front walls.
 
 	if (sr_is_second_wall_front())
@@ -679,30 +704,6 @@ void sr_draw_level_screen(void)
 		ceiling_tile = !ceiling_tile;
 	}
 
-	// Dungeon background.
-	if (ceiling_tile == 1)
-	{
-		// Draw Standard background minus the floor.
-		sr_page_copy(0, 0,
-			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY - 22,
-			LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
-			SPRITES_PAGE, active_page, opHMMM);
-
-		// Draw alternate floor.
-		sr_page_copy(0, 120,
-			LEVEL_SCREEN_DX, 22,
-			LEVEL_SCREEN_X, LEVEL_SCREEN_Y + 98,
-			SPRITES_PAGE, active_page, opHMMM);
-	}
-	else
-	{
-		// Draw standard background in full.
-		sr_page_copy(0, 0,
-			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
-			LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
-			SPRITES_PAGE, active_page, opHMMM);
-	}
-
 	// Dungeon first person view.
 	sr_update_fp_view();
 	sr_draw_fp_view();
@@ -847,4 +848,13 @@ void sr_update_ingame_state(void)
 		player_moves = false;
 		player_turns = false;
 	}
+}
+
+void sr_finished_ingame_drawing(void)
+{
+	// Copy finished drawing of the first person view from back to front.
+	sr_page_copy(0, 0,
+		LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
+		LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
+		BACKBUFFER_PAGE, active_page, opHMMM);
 }
