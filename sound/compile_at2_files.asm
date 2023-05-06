@@ -3,8 +3,10 @@
 
     ;Songs.
 	include "dungeon_playerconfig.asm" ;Optional.
+	include "battle_playerconfig.asm" ;Optional.
 
     include "dungeon.asm"
+	include "battle.asm"
 
     ;Sound effects.
     include "SoundEffects.asm"
