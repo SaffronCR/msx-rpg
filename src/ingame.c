@@ -524,12 +524,12 @@ void sr_draw_tiles_screen_background(void)
 			sr_page_copy(232, 188,
 						   24, 24,
 						   x * 24, y * 24,
-						   SPRITES_PAGE, active_page, opHMMM);
+						   SPRITES_PAGE, sr_get_active_page(), opHMMM);
 		}
 	}
 
 	// Draw menu background in one solid color.
-	LMMV(MENU_X, MENU_Y + active_page * SCREEN_WIDTH,
+	LMMV(MENU_X, MENU_Y + sr_get_active_page() * SCREEN_WIDTH,
 		 MENU_DX, MENU_DY,
 		 0, 0);
 }
@@ -546,22 +546,22 @@ void sr_draw_portraits(void)
 	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_1_X, PORTRAIT_1_Y,
-				   SPRITES_PAGE, active_page, opHMMM);
+				   SPRITES_PAGE, sr_get_active_page(), opHMMM);
 
 	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_2_X, PORTRAIT_2_Y,
-				   SPRITES_PAGE, active_page, opHMMM);
+				   SPRITES_PAGE, sr_get_active_page(), opHMMM);
 
 	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
-	 			   SPRITES_PAGE, active_page, opHMMM);
+	 			   SPRITES_PAGE, sr_get_active_page(), opHMMM);
 
 	sr_page_copy(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE + PORTRAIT_SIZE,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_4_X, PORTRAIT_4_Y,
-	 			   SPRITES_PAGE, active_page, opHMMM);
+	 			   SPRITES_PAGE, sr_get_active_page(), opHMMM);
 
 	// HP text.
 	sr_draw_text("10/12", 	PORTRAIT_1_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_1_NAME_Y + 8, 15, 0);
@@ -570,11 +570,11 @@ void sr_draw_portraits(void)
 	sr_draw_text("9/9",		PORTRAIT_4_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_4_NAME_Y + 8, 15, 0);
 
 	// // HP bars.
-	// LMMV(HP_BAR_1_X, HP_BAR_1_Y + active_page * SCREEN_WIDTH,
+	// LMMV(HP_BAR_1_X, HP_BAR_1_Y + get_active_page() * SCREEN_WIDTH,
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	// LMMV(HP_BAR_2_X, HP_BAR_2_Y + active_page * SCREEN_WIDTH,
+	// LMMV(HP_BAR_2_X, HP_BAR_2_Y + get_active_page() * SCREEN_WIDTH,
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
-	// LMMV(HP_BAR_3_X, HP_BAR_3_Y + active_page * SCREEN_WIDTH,
+	// LMMV(HP_BAR_3_X, HP_BAR_3_Y + get_active_page() * SCREEN_WIDTH,
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 }
 
@@ -648,22 +648,22 @@ void sr_debug_draw_minimap(void)
 			if (player_pos_x == x && player_pos_y == y)
 			{
 				// Player.
-				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 11, 0);
+				Pset(x + 20, y + 160 + sr_get_active_page() * SCREEN_WIDTH, 11, 0);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_STAIRS)
 			{
 				// Stairs.
-				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 9, 0);
+				Pset(x + 20, y + 160 + sr_get_active_page() * SCREEN_WIDTH, 9, 0);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_WALL)
 			{
 				// Wall.
-				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 3, 0);
+				Pset(x + 20, y + 160 + sr_get_active_page() * SCREEN_WIDTH, 3, 0);
 			}
 			else
 			{
 				// Floor.
-				Pset(x + 20, y + 160 + active_page * SCREEN_WIDTH, 7, 0);
+				Pset(x + 20, y + 160 + sr_get_active_page() * SCREEN_WIDTH, 7, 0);
 			}
 		}
 	}
@@ -709,14 +709,14 @@ void sr_draw_level_screen(void)
 	sr_draw_fp_view();
 
 	// #WIP Enemies.
-	//sr_page_copy(175,192, 50,60, 30,60, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	//sr_page_copy(175,192, 50,60, 30,60, SPRITES_PAGE, get_active_page(), LOGICAL_TIMP);
 
-	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, active_page, LOGICAL_TIMP);
-	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, active_page, LOGICAL_TIMP);
+	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, get_active_page(), LOGICAL_TIMP);
+	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, get_active_page(), LOGICAL_TIMP);
 
 	// // hit frame test.
-	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, active_page, LOGICAL_TNOT);
-	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, active_page, LOGICAL_TNOT);
+	// sr_page_copy(224,224, 32,32, 50,80, SPRITES_PAGE, get_active_page(), LOGICAL_TNOT);
+	// sr_page_copy(224,192, 32,32, 90,80, SPRITES_PAGE, get_active_page(), LOGICAL_TNOT);
 
 	// // #WIP Test encounter RNG.
 	// if(sr_check_encounter() == true)
@@ -728,7 +728,7 @@ void sr_draw_level_screen(void)
 	// 	sr_draw_text("NOTHING   ", 0, 0, 5, 0);
 	// }
 
-	sr_set_drawing_state(WaitingForVDP);
+	sr_set_drawing_state(End);
 }
 
 void sr_move(uint new_pos_x, uint new_pos_y)
@@ -856,5 +856,5 @@ void sr_finished_ingame_drawing(void)
 	sr_page_copy(0, 0,
 		LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
 		LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
-		BACKBUFFER_PAGE, active_page, opHMMM);
+		BACKBUFFER_PAGE, sr_get_active_page(), opHMMM);
 }

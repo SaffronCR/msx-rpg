@@ -21,47 +21,26 @@
 
 void sr_draw_startscr_intro_text(void)
 {
-	// Intro text.
+	// Reset current screen.
+	Cls();
+
+	// Load the title screen.
+	sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * TITLE_PAGE);
+
+	// Set active page.
+	sr_set_active_page(TITLE_PAGE);
+
+	// Begin drawing.
 	sr_set_drawing_state(Begin);
-	//Cls();
+
+	// Intro text.
 	SetColors(0, 0, 14);
 
-	sr_draw_text("PRESS SPACE KEY", 8*8, 8*22, 15, 14);
-	sr_draw_text("@1987 SAFFRON SOFT", 8*7, 8*25, 15, 14);
+	sr_draw_text("PRESS SPACE KEY",		FONT_SIZE * 8, FONT_SIZE * 15, 15, 14);
+	sr_draw_text("@ 2023 SAFFRON SOFT",	FONT_SIZE * 6, FONT_SIZE * 18, 15, 14);
 
-	//sr_draw_text("@SAFFRON SOFT 2020", 8*6, 100, 2, 0);
-	// PutText(0, 90, "********************************", LOGICAL_IMP);
-/*
-	sr_draw_text("<______________>", 8*6, 70,		8, 0);
-	sr_draw_text("|              |", 8*6, 70+8,	8, 0);
-	sr_draw_text("[______________]", 8*6, 70+8+8,	8, 0);
-	sr_draw_text("SAFFRON SOFT",   8*6+8+8, 70+8,   15, 0);
-*/
-
-/*
-	sr_draw_text("<_____COMMAND_____>", 8*6, 8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8+8,		13, 14);
-	sr_draw_text("|                 |", 8*6, 8+8+8+8+8+8+8+8+8+8,		13, 14);
-	sr_draw_text("[_________________]", 8*6, 8+8+8+8+8+8+8+8+8+8+8,		13, 14);
-
-	sr_draw_text("^TALK    SPELL", 8*6+8, 8+8+8+8,		15, 14);
-	sr_draw_text("STATUS  ITEM", 8*6+8+8, 8+8+8+8+8+8,		15, 14);
-	sr_draw_text("EQUIP   TACTICS", 8*6+8+8, 8+8+8+8+8+8+8+8,		15, 14);
-	sr_draw_text("DOOR    SEARCH", 8*6+8+8, 8+8+8+8+8+8+8+8+8+8,		15, 14);
-*/
-
-	//sr_set_drawing_state(WaitingForVDP);
-
-
-	// Go to dungeon state.
-	//sr_wait(1000);
-	//sr_set_game_state(Intro);
+	// Finish drawing.
+	sr_set_drawing_state(End);
 }
 
 void sr_set_startscr_state(void)
@@ -71,5 +50,14 @@ void sr_set_startscr_state(void)
 
 void sr_update_startscr_state(void)
 {
+	// TODO:
+	// MENU
+	// Go to load game -> ingame.
+	// Go to new game -> intro.
 }
 
+void sr_finished_startscr_drawing(void)
+{
+	// Set display page.
+	sr_set_display_page(TITLE_PAGE);
+}

@@ -22,9 +22,9 @@
 
 enum DrawingState
 {
+	Ready,
 	Begin,
-	WaitingForVDP,
-	Finished
+	End
 };
 
 enum ScreenHeight
@@ -34,15 +34,13 @@ enum ScreenHeight
 };
 
 //------------------------------------------------------------------
-// Variables.
-//------------------------------------------------------------------
-
-extern char active_page;
-
-//------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
+void sr_set_active_page(uchar page);
+uint sr_get_active_page(void);
+void sr_set_display_page(uchar page);
+uint sr_get_display_page(void);
 void sr_init_palette(void);
 bool sr_load_sf5_image(uchar *file_name, uint start_Y);
 bool sr_load_sc8_image(uchar *file_name, uint start_Y);
@@ -51,6 +49,7 @@ void sr_wait(uint cicles);
 void sr_set_drawing_state(uchar new_state);
 uchar sr_get_drawing_state(void);
 void sr_set_screen_height(uchar height);
+bool sr_is_vdp_ready(void);
 void sr_init_gfx(void);
 bool sr_update_gfx(void);
 

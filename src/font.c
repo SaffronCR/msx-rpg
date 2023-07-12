@@ -205,7 +205,7 @@
 
 void sr_draw_char_src_to_dst(uint src_x, uint src_y, uint dst_x, uint dst_y, uchar log_op)
 {
-	sr_page_copy(FONT_OFFSET_X + src_x, FONT_OFFSET_Y + src_y, FONT_SIZE, FONT_SIZE, dst_x, dst_y, FONT_PAGE, active_page, log_op);
+	sr_page_copy(FONT_OFFSET_X + src_x, FONT_OFFSET_Y + src_y, FONT_SIZE, FONT_SIZE, dst_x, dst_y, FONT_PAGE, sr_get_active_page(), log_op);
 }
 
 void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
@@ -308,13 +308,13 @@ void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_co
 		if (border_color != 0)
 		{
 			// Color border.
-			LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
+			LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
 			sr_draw_char(*text, x, y, LOGICAL_TIMP);
 
 			// Only for color text.
 			if (text_color != 0)
 			{
-				LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
+				LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
 				sr_draw_char(*text, x, y, LOGICAL_XOR);
 				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}
@@ -327,7 +327,7 @@ void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_co
 			// Only for color text.
 			if (text_color != 0)
 			{
-				LMMV(x, y + active_page * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
+				LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
 				sr_draw_char(*text, x, y, LOGICAL_XOR);
 				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}

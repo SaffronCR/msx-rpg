@@ -71,6 +71,8 @@ MMMtask t;
 
 uchar active_page;
 
+uchar display_page;
+
 uchar load_buffer[BUFFER_SIZE];
 
 enum ScreenHeight current_screen_height;
@@ -78,6 +80,30 @@ enum ScreenHeight current_screen_height;
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
+
+void sr_set_active_page(uchar page)
+{
+	active_page = page;
+
+	SetActivePage(active_page);
+}
+
+uint sr_get_active_page(void)
+{
+	return active_page;
+}
+
+void sr_set_display_page(uchar page)
+{
+	display_page = page;
+
+	SetDisplayPage(page);
+}
+
+uint sr_get_display_page(void)
+{
+	return display_page;
+}
 
 void sr_init_palette(void)
 {
@@ -219,7 +245,7 @@ void sr_debug_draw_palette(void)
 
 	for (uint i = 0; i < 16; i++)
 	{
-		LMMV(x, y + active_page * SCREEN_WIDTH, 8, 8, i, 0);
+		LMMV(x, y + sr_get_active_page() * SCREEN_WIDTH, 8, 8, i, 0);
 		y += 9;
 	}
 }
@@ -241,6 +267,11 @@ void sr_set_screen_height(uchar height)
 		VDPLinesSwitch();
 		height = current_screen_height;
 	}
+}
+
+bool sr_is_vdp_ready(void)
+{
+	return ((VDPstatusNi(2) & 0x1) == false);
 }
 
 void sr_init_gfx(void)
@@ -269,23 +300,21 @@ void sr_init_gfx(void)
 	sr_init_palette();
 	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
 	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
-	//sr_load_sf5_image("STRTSCR.SF5", SCREEN_WIDTH * 0);
 
 	// Reset current screen.
 	Cls();
 
-	// Configure pages.
-	sr_set_drawing_state(Finished);
-	active_page = 0;
-	SetDisplayPage(active_page);
-	SetActivePage(active_page);
+	// Initialize drawing state and pages.
+	sr_set_drawing_state(Ready);
+	SetDisplayPage(0);
+	SetActivePage(0);
 }
 
 bool sr_update_gfx(void)
 {
-	// Checking "is ready to switch", VDP is not busy and vsync.
+	// Checking game is not drawing and VDP is not busy and vsync.
 	// https://www.msx.org/wiki/VDP_Status_Registers
-	if (sr_get_drawing_state() != WaitingForVDP || VDPstatusNi(2) & 0x1 || IsVsync() == 0)
+	if (sr_get_drawing_state() != End || sr_is_vdp_ready() == false || IsVsync() == 0)
 	{
 		return (false);
 	}

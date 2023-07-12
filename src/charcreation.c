@@ -91,12 +91,12 @@ void sr_draw_charcreation_intro_text(void)
 	SetColors(0, 0, 14);
 
 	// Portrait.
-	// LMMV(8, 	8 + active_page * SCREEN_WIDTH, 34, 34, 15, 0);
-	// LMMV(1+8, 1+8 + active_page * SCREEN_WIDTH, 32, 32, 3, 0);
+	// LMMV(8, 	8 + get_active_page() * SCREEN_WIDTH, 34, 34, 15, 0);
+	// LMMV(1+8, 1+8 + get_active_page() * SCREEN_WIDTH, 32, 32, 3, 0);
 
 	sr_draw_page_one();
 
-	sr_set_drawing_state(WaitingForVDP);
+	sr_set_drawing_state(End);
 }
 
 void sr_set_charcreation_state(void)
