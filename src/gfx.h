@@ -11,9 +11,10 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define SCREEN_HEIGHT 256
-#define SCREEN_WIDTH 256
-#define SCREEN_WIDTH_HALF 128
+#define PAGE_HEIGHT 256
+#define PAGE_WIDTH 256
+
+#define PAGE_WIDTH_HALF 128
 
 #define HARDWARE_SPRITE_SIZE 8
 
@@ -46,12 +47,12 @@ void sr_init_palette(void);
 bool sr_load_sf5_image(uchar *file_name, uint start_Y);
 bool sr_load_sc8_image(uchar *file_name, uint start_Y);
 void sr_page_copy_fast(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
-void sr_page_copy_y_fast( int XS, int YS, int DY, int NY, char DiRX);
-void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
-void sr_page_copy_trans(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
-void sr_page_copy_mode(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
-void sr_draw_rectangle(int x, int y, int width, int height, char color);
-void sr_draw_pixel(int x, int y, char color);
+void sr_page_copy_y_fast(uint src_x, uint src_y, uint dst_y, uint height, char dir);
+void sr_page_copy(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg);
+void sr_page_copy_trans(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg);
+void sr_page_copy_mode(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg, uchar mode);
+void sr_draw_rectangle(uint x, uint y, uint width, uint height, char color);
+void sr_draw_pixel(uint x, uint y, char color);
 void sr_wait(uint cicles);
 void sr_set_drawing_state(uchar new_state);
 uchar sr_get_drawing_state(void);

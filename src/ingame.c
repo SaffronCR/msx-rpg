@@ -22,7 +22,7 @@ const sint dir_translate_y[] = {-1, 0, 1, 0};
 
 uchar *level_map;
 
-uchar current_view[LEVEL_VIEW_DX * LEVEL_VIEW_DY];
+uchar current_view[LEVEL_VIEW_SIZE_X * LEVEL_VIEW_SIZE_Y];
 
 uchar player_moves;
 uchar player_turns;
@@ -43,106 +43,106 @@ uchar joy;
 void sr_draw_third_wall_far_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(THIRD_WALL_FAR_LEFT_X + offset_left, THIRD_WALL_FAR_LEFT_Y,
-		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
-		offset_left,
-		(LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5,
+		THIRD_WALL_FAR_SIZE_X - offset_left - offset_right, THIRD_WALL_FAR_SIZE_Y,
+		LEVEL_SCREEN_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - THIRD_WALL_FAR_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_third_wall_far_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(THIRD_WALL_FAR_RIGHT_X + offset_left, THIRD_WALL_FAR_RIGHT_Y,
-		THIRD_WALL_FAR_DX - offset_left - offset_right, THIRD_WALL_FAR_DY,
-		LEVEL_SCREEN_DX - THIRD_WALL_FAR_DX + offset_left,
-		(LEVEL_SCREEN_DY - THIRD_WALL_FAR_DY) * 0.5,
+		THIRD_WALL_FAR_SIZE_X - offset_left - offset_right, THIRD_WALL_FAR_SIZE_Y,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X - THIRD_WALL_FAR_SIZE_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - THIRD_WALL_FAR_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_third_wall_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(THIRD_WALL_LEFT_X + offset_left, THIRD_WALL_LEFT_Y,
-		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
-		THIRD_WALL_OFFSET_X + offset_left,
-		(LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5,
+		THIRD_WALL_SIZE_X - offset_left - offset_right, THIRD_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + THIRD_WALL_OFFSET_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - THIRD_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_third_wall_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(THIRD_WALL_RIGHT_X + offset_left, THIRD_WALL_RIGHT_Y,
-		THIRD_WALL_DX - offset_left - offset_right, THIRD_WALL_DY,
-		LEVEL_SCREEN_DX - THIRD_WALL_DX - THIRD_WALL_OFFSET_X + offset_left,
-		(LEVEL_SCREEN_DY - THIRD_WALL_DY) * 0.5,
+		THIRD_WALL_SIZE_X - offset_left - offset_right, THIRD_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X - THIRD_WALL_SIZE_X - THIRD_WALL_OFFSET_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - THIRD_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_second_wall_far_left(void)
 {
 	sr_page_copy_trans(SECOND_WALL_FAR_LEFT_X, SECOND_WALL_FAR_LEFT_Y,
-		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-		0,
-		(LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5,
+		SECOND_WALL_FAR_SIZE_X, SECOND_WALL_FAR_SIZE_Y,
+		LEVEL_SCREEN_X,
+		(LEVEL_SCREEN_SIZE_Y - SECOND_WALL_FAR_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_second_wall_far_right(void)
 {
 	sr_page_copy_trans(SECOND_WALL_FAR_RIGHT_X, SECOND_WALL_FAR_RIGHT_Y,
-		SECOND_WALL_FAR_DX, SECOND_WALL_FAR_DY,
-		LEVEL_SCREEN_DX - SECOND_WALL_FAR_DX,
-		(LEVEL_SCREEN_DY - SECOND_WALL_FAR_DY) * 0.5,
+		SECOND_WALL_FAR_SIZE_X, SECOND_WALL_FAR_SIZE_Y,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X - SECOND_WALL_FAR_SIZE_X,
+		(LEVEL_SCREEN_SIZE_Y - SECOND_WALL_FAR_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_second_wall_left(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(SECOND_WALL_LEFT_X + offset_left, SECOND_WALL_LEFT_Y,
-		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
-		offset_left,
-		(LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5,
+		SECOND_WALL_SIZE_X - offset_left - offset_right, SECOND_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - SECOND_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_second_wall_right(uint offset_left, uint offset_right)
 {
 	sr_page_copy_trans(SECOND_WALL_RIGHT_X + offset_left, SECOND_WALL_RIGHT_Y,
-		SECOND_WALL_DX - offset_left - offset_right, SECOND_WALL_DY,
-		LEVEL_SCREEN_DX - SECOND_WALL_DX + offset_left,
-		(LEVEL_SCREEN_DY - SECOND_WALL_DY) * 0.5,
+		SECOND_WALL_SIZE_X - offset_left - offset_right, SECOND_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X - SECOND_WALL_SIZE_X + offset_left,
+		(LEVEL_SCREEN_SIZE_Y - SECOND_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_first_wall_left(void)
 {
 	sr_page_copy_trans(FIRST_WALL_LEFT_X, FIRST_WALL_LEFT_Y,
-		FIRST_WALL_DX, FIRST_WALL_DY,
-		0, 0,
+		FIRST_WALL_SIZE_X, FIRST_WALL_SIZE_Y,
+		LEVEL_SCREEN_X, 0,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_first_wall_right(void)
 {
 	sr_page_copy_trans(FIRST_WALL_RIGHT_X, FIRST_WALL_RIGHT_Y,
-		FIRST_WALL_DX, FIRST_WALL_DY,
-		LEVEL_SCREEN_DX - FIRST_WALL_DX, 0,
+		FIRST_WALL_SIZE_X, FIRST_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X - FIRST_WALL_SIZE_X, 0,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_third_wall_front(void)
 {
 	sr_page_copy(THIRD_FRONT_WALL_X, THIRD_FRONT_WALL_Y,
-		THIRD_FRONT_WALL_DX, THIRD_FRONT_WALL_DY,
-		(LEVEL_SCREEN_DX - THIRD_FRONT_WALL_DX) * 0.5,
-		(LEVEL_SCREEN_DY - THIRD_FRONT_WALL_DY) * 0.5,
+		THIRD_FRONT_WALL_SIZE_X, THIRD_FRONT_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + (LEVEL_SCREEN_SIZE_X - THIRD_FRONT_WALL_SIZE_X) * 0.5,
+		(LEVEL_SCREEN_SIZE_Y - THIRD_FRONT_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
 void sr_draw_second_wall_front(void)
 {
 	sr_page_copy(SECOND_FRONT_WALL_X, SECOND_FRONT_WALL_Y,
-		SECOND_FRONT_WALL_DX, SECOND_FRONT_WALL_DY,
-		(LEVEL_SCREEN_DX - SECOND_FRONT_WALL_DX) * 0.5,
-		(LEVEL_SCREEN_DY - SECOND_FRONT_WALL_DY) * 0.5,
+		SECOND_FRONT_WALL_SIZE_X, SECOND_FRONT_WALL_SIZE_Y,
+		LEVEL_SCREEN_X + (LEVEL_SCREEN_SIZE_X - SECOND_FRONT_WALL_SIZE_X) * 0.5,
+		(LEVEL_SCREEN_SIZE_Y - SECOND_FRONT_WALL_SIZE_Y) * 0.5,
 		WALLS_PAGE, BACKBUFFER_PAGE);
 }
 
@@ -153,39 +153,39 @@ void sr_draw_second_wall_front(void)
 
 void sr_update_fp_view(void)
 {
-	uint x, y, distx, disty;
+	uint x, y, dist_x, dist_y;
 
-	disty = LEVEL_VIEW_DIST;
-	for (uint iy = 0; iy < LEVEL_VIEW_DY; iy++)
+	dist_y = LEVEL_VIEW_DIST;
+	for (uint iy = 0; iy < LEVEL_VIEW_SIZE_Y; iy++)
 	{
-		distx = LEVEL_VIEW_DIST;
-		for (uint ix = 0; ix < LEVEL_VIEW_DX; ix++)
+		dist_x = LEVEL_VIEW_DIST;
+		for (uint ix = 0; ix < LEVEL_VIEW_SIZE_X; ix++)
 		{
 			// Get the player's facing position.
 			if (player_dir == NORTH || player_dir == SOUTH)
 			{
-				x = player_pos_x + (distx * dir_translate_y[player_dir]);
-				y = player_pos_y + (disty * dir_translate_y[player_dir]);
+				x = player_pos_x + (dist_x * dir_translate_y[player_dir]);
+				y = player_pos_y + (dist_y * dir_translate_y[player_dir]);
 			}
 			else
 			{
-				x = player_pos_x + (disty * dir_translate_x[player_dir]);
-				y = player_pos_y - (distx * dir_translate_x[player_dir]);
+				x = player_pos_x + (dist_y * dir_translate_x[player_dir]);
+				y = player_pos_y - (dist_x * dir_translate_x[player_dir]);
 			}
 
 			// If this position is valid set the tile from the level map.
 			if (x < LEVEL_SIZE && y < LEVEL_SIZE)
 			{
-				current_view[ix + iy * LEVEL_VIEW_DX] = level_map[x + y * LEVEL_SIZE];
+				current_view[ix + iy * LEVEL_VIEW_SIZE_X] = level_map[x + y * LEVEL_SIZE];
 			}
 			else
 			{
 				// Set default state for the tile: a wall.
-				current_view[ix + iy * LEVEL_VIEW_DX] = TILE_WALL;
+				current_view[ix + iy * LEVEL_VIEW_SIZE_X] = TILE_WALL;
 			}
-			distx--;
+			dist_x--;
 		}
-		disty--;
+		dist_y--;
 	}
 }
 
@@ -201,12 +201,12 @@ bool sr_is_third_wall_front(void)
 
 bool sr_is_first_wall_left(void)
 {
-	return (current_view[1 + LEVEL_VIEW_DX * 2] == TILE_WALL);
+	return (current_view[1 + LEVEL_VIEW_SIZE_X * 2] == TILE_WALL);
 }
 
 bool sr_is_second_wall_left(void)
 {
-	return (current_view[1 + LEVEL_VIEW_DX] == TILE_WALL);
+	return (current_view[1 + LEVEL_VIEW_SIZE_X] == TILE_WALL);
 }
 
 bool sr_is_third_wall_left(void)
@@ -216,7 +216,7 @@ bool sr_is_third_wall_left(void)
 
 bool sr_is_second_wall_far_left(void)
 {
-	return (current_view[0 + LEVEL_VIEW_DX] == TILE_WALL);
+	return (current_view[0 + LEVEL_VIEW_SIZE_X] == TILE_WALL);
 }
 
 bool sr_is_third_wall_far_left(void)
@@ -226,12 +226,12 @@ bool sr_is_third_wall_far_left(void)
 
 bool sr_is_first_wall_right(void)
 {
-	return (current_view[3 + LEVEL_VIEW_DX * 2] == TILE_WALL);
+	return (current_view[3 + LEVEL_VIEW_SIZE_X * 2] == TILE_WALL);
 }
 
 bool sr_is_second_wall_right(void)
 {
-	return (current_view[3 + LEVEL_VIEW_DX] == TILE_WALL);
+	return (current_view[3 + LEVEL_VIEW_SIZE_X] == TILE_WALL);
 }
 
 bool sr_is_third_wall_right(void)
@@ -241,7 +241,7 @@ bool sr_is_third_wall_right(void)
 
 bool sr_is_second_wall_far_right(void)
 {
-	return (current_view[4 + LEVEL_VIEW_DX] == TILE_WALL);
+	return (current_view[4 + LEVEL_VIEW_SIZE_X] == TILE_WALL);
 }
 
 bool sr_is_third_wall_far_right(void)
@@ -257,22 +257,22 @@ void sr_draw_fp_view(void)
 	{
 		// Draw Standard background minus the floor.
 		sr_page_copy_fast(0, 0,
-			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY - 22,
-			0, 0,
+			LEVEL_SCREEN_SIZE_X, LEVEL_SCREEN_SIZE_Y - 22,
+			LEVEL_SCREEN_X, 0,
 			SPRITES_PAGE, BACKBUFFER_PAGE);
 
 		// Draw alternate floor.
 		sr_page_copy_fast(0, 120,
-			LEVEL_SCREEN_DX, 22,
-			0, 98,
+			LEVEL_SCREEN_SIZE_X, 22,
+			LEVEL_SCREEN_X, 98,
 			SPRITES_PAGE, BACKBUFFER_PAGE);
 	}
 	else
 	{
 		// Draw standard background in full.
 		sr_page_copy_fast(0, 0,
-			LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
-			0, 0,
+			LEVEL_SCREEN_SIZE_X, LEVEL_SCREEN_SIZE_Y,
+			LEVEL_SCREEN_X, 0,
 			SPRITES_PAGE, BACKBUFFER_PAGE);
 	}
 
@@ -527,8 +527,8 @@ void sr_draw_tiles_screen_background(void)
 	}
 
 	// Draw menu background in one solid color.
-	sr_draw_rectangle(MENU_X, MENU_Y + sr_get_active_page() * SCREEN_HEIGHT,
-		 MENU_DX, MENU_DY,
+	sr_draw_rectangle(MENU_SIZE_X, MENU_Y + sr_get_active_page() * PAGE_HEIGHT,
+		 MENU_SIZE_X, MENU_SIZE_Y,
 		 0);
 }
 
@@ -606,15 +606,15 @@ void sr_debug_draw_test_menu(void)
 // Attack
 
 	uint menu_y = MENU_Y + MENU_Y_SPACE;
-	sr_draw_text("E.Ilba", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text("E.Ilba", MENU_SIZE_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text("~Attack", MENU_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
+	sr_draw_text("~Attack", MENU_SIZE_X, menu_y, MENU_TEXT_SELECT_COLOR, 0);
 
 	menu_y += FONT_SIZE + MENU_Y_SPACE;
-	sr_draw_text(" Gadget", MENU_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
+	sr_draw_text(" Gadget", MENU_SIZE_X, menu_y, MENU_TEXT_DEFAULT_COLOR, 0);
 
 /**************************************************************************/
 // Talk
@@ -643,22 +643,22 @@ void sr_debug_draw_minimap(void)
 			if (player_pos_x == x && player_pos_y == y)
 			{
 				// Player.
-				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * SCREEN_HEIGHT, 11);
+				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * PAGE_HEIGHT, 11);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_STAIRS)
 			{
 				// Stairs.
-				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * SCREEN_HEIGHT, 9);
+				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * PAGE_HEIGHT, 9);
 			}
 			else if (level_map[x + y * LEVEL_SIZE] == TILE_WALL)
 			{
 				// Wall.
-				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * SCREEN_HEIGHT, 3);
+				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * PAGE_HEIGHT, 3);
 			}
 			else
 			{
 				// Floor.
-				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * SCREEN_HEIGHT, 7);
+				sr_draw_pixel(x + 20, y + 160 + sr_get_active_page() * PAGE_HEIGHT, 7);
 			}
 		}
 	}
@@ -854,7 +854,7 @@ void sr_finished_ingame_drawing(void)
 {
 	// Copy finished drawing of the first person view from back to front.
 
-	sr_page_copy_y_fast(LEVEL_SCREEN_DX, SCREEN_HEIGHT, LEVEL_SCREEN_Y, LEVEL_SCREEN_DY, 1);
+	sr_page_copy_y_fast(LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X, PAGE_HEIGHT, LEVEL_SCREEN_Y, LEVEL_SCREEN_SIZE_Y, 1);
 
 	// sr_page_copy_fast(0, 0,
 	// 	LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,

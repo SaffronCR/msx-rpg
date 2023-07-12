@@ -23,7 +23,7 @@ void sr_draw_startscr_intro_text(void)
 	Cls();
 
 	// Load the title screen.
-	sr_load_sf5_image("STRTSCR.SF5", SCREEN_HEIGHT * TITLE_PAGE);
+	sr_load_sf5_image("STRTSCR.SF5", PAGE_HEIGHT * TITLE_PAGE);
 
 	// Set active page.
 	sr_set_active_page(TITLE_PAGE);

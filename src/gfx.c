@@ -19,7 +19,7 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define BUFFER_SIZE 4608
+#define BUFFER_SIZE 2048
 
 //------------------------------------------------------------------
 // Variables.
@@ -134,12 +134,12 @@ bool sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 		if (read != 0)
 		{
 			// Why half? Screen 5 uses 4 bits per pixel, so 8 bits can store two pixels.
-			read_y_length = read / SCREEN_WIDTH_HALF;
+			read_y_length = read / PAGE_WIDTH_HALF;
 
 			SetColors(0, 0, 0);
 
 			// Move buffer to VRAM.
-			HMMC(load_buffer, 0, initial_y_pos, SCREEN_WIDTH, read_y_length);
+			HMMC(load_buffer, 0, initial_y_pos, PAGE_WIDTH, read_y_length);
 
 			initial_y_pos = initial_y_pos + read_y_length;
 		}
@@ -182,10 +182,10 @@ bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 		if (read != 0)
 		{
 			// Get Y length.
-			read_y_length = read / SCREEN_WIDTH;
+			read_y_length = read / PAGE_WIDTH;
 
 			// Move buffer to VRAM.
-			HMMC(load_buffer, 0, initial_y_pos, SCREEN_WIDTH, read_y_length);
+			HMMC(load_buffer, 0, initial_y_pos, PAGE_WIDTH, read_y_length);
 
 			// Update initial Y position.
 			initial_y_pos = initial_y_pos + read_y_length;
@@ -203,56 +203,40 @@ bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 }
 
 // Helper: Copy a page zone to another page using YMMM (high-speed transfer between VRAM in Y direction).
-void sr_page_copy_y_fast( int XS, int YS, int DY, int NY, char DiRX)
+void sr_page_copy_y_fast(uint src_x, uint src_y, uint dst_y, uint height, char dir)
 {
-	// High speed copy of a part of iage to another Y position (DY) Block to move start at XS,YS, is NY pixels hight, and end at x=255 or x=0 depending of parameter DirX 1 or 0
-	YMMM( XS, YS, DY, NY, DiRX);
+	YMMM(src_x, src_y, dst_y, height, dir);
 }
 
 // Helper: Copy a page zone to another page using HMMM (High Speed Move VRAM to VRAM).
-void sr_page_copy_fast(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+void sr_page_copy_fast(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg)
 {
-	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, opHMMM);
+	sr_page_copy_mode(src_x, src_y, width, height, dst_x, dst_y, src_pg, dst_pg, opHMMM);
 }
 
-void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+// Helper: Copy a page zone to another page.
+void sr_page_copy(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg)
 {
-	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, 0);
+	sr_page_copy_mode(src_x, src_y, width, height, dst_x, dst_y, src_pg, dst_pg, 0);
 }
 
 // Helper: Copy a page zone to another page using transparency (if SC>0 then IMP).
-void sr_page_copy_trans(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+void sr_page_copy_trans(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg)
 {
-	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, LOGICAL_TIMP);
+	sr_page_copy_mode(src_x, src_y, width, height, dst_x, dst_y, src_pg, dst_pg, LOGICAL_TIMP);
 }
 
-//  Copy a page zone to another page
-//  x1 & y1 =Top left coordonate  pixel of the zone to copy
-//  dx = Width Size in pixels, of the zone to copy
-//  dy = Height Size in pixels, of the zone to copy
-//  x2 & y2 = Destination coordonate where to copy the zone
-//  src_pg = Source Page number of the Zone
-//  dst_pg = Destination number of the zone
-//  mode = OP mode of the copy
-void sr_page_copy_mode(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
+// Copy a page zone to another page.
+void sr_page_copy_mode(uint src_x, uint src_y, uint width, uint height, uint dst_x, uint dst_y, uint src_pg, uint dst_pg, uchar mode)
 {
-	uint src_y = 0;
-	uint dst_y = 0;
+	t.X = src_x;
+	t.Y = src_y + src_pg * PAGE_HEIGHT;
 
-	// Add page offset.
-	src_y += src_pg * SCREEN_HEIGHT;
+	t.X2 = dst_x;
+	t.Y2 = dst_y + dst_pg * PAGE_HEIGHT;
 
-	// Add page offset.
-	dst_y += dst_pg * SCREEN_HEIGHT;
-
-	t.X = x1;
-	t.Y = src_y + y1;
-
-	t.X2 = x2;
-	t.Y2 = dst_y + y2;
-
-	t.DX = dx;
-	t.DY = dy;
+	t.DX = width;
+	t.DY = height;
 
 	t.s0 = 0;
 	t.DI = 0;
@@ -261,12 +245,12 @@ void sr_page_copy_mode(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uin
 	fLMMM(&t);
 }
 
-void sr_draw_rectangle(int x, int y, int width, int height, char color)
+void sr_draw_rectangle(uint x, uint y, uint width, uint height, char color)
 {
 	LMMV(x, y, width, height, color, 0);
 }
 
-void sr_draw_pixel(int x, int y, char color)
+void sr_draw_pixel(uint x, uint y, char color)
 {
 	Pset(x, y, color, 0);
 }
@@ -278,7 +262,7 @@ void sr_debug_draw_palette(void)
 
 	for (uint i = 0; i < 16; i++)
 	{
-		LMMV(x, y + sr_get_active_page() * SCREEN_WIDTH, 8, 8, i, 0);
+		LMMV(x, y + sr_get_active_page() * PAGE_WIDTH, 8, 8, i, 0);
 		y += 9;
 	}
 }
@@ -331,8 +315,8 @@ void sr_init_gfx(void)
 
 	// Load images.
 	sr_init_palette();
-	sr_load_sf5_image("BG.SF5", SCREEN_HEIGHT * SPRITES_PAGE);
-	sr_load_sf5_image("WALLS.SF5", SCREEN_HEIGHT * WALLS_PAGE);
+	sr_load_sf5_image("BG.SF5", PAGE_HEIGHT * SPRITES_PAGE);
+	sr_load_sf5_image("WALLS.SF5", PAGE_HEIGHT * WALLS_PAGE);
 
 	// Reset current screen.
 	Cls();
