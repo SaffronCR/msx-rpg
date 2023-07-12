@@ -50,7 +50,7 @@ void sr_set_game_state(uchar new_state)
 void sr_update_game_state(void)
 {
 	// Player input must wait until the next frame is ready.
-	if (sr_get_drawing_state() == Ready)
+	if (sr_get_drawing_state() == READY)
 	{
 		switch (game_state)
 		{
@@ -79,10 +79,10 @@ static uchar sr_interrupt(void)
 
 	// Checking game is not drawing and VDP is not busy.
 	// https://www.msx.org/wiki/VDP_Status_Registers
-	if (sr_get_drawing_state() == End && sr_is_vdp_ready())
+	if (sr_get_drawing_state() == END && sr_is_vdp_ready())
 	{
 		// Update video.
-		sr_set_drawing_state(Ready);
+		sr_set_drawing_state(READY);
 
 		switch (game_state)
 		{
@@ -132,7 +132,7 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(START_SCREEN);
+	sr_set_game_state(IN_GAME);
 
 	for (;;)
 	{

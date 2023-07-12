@@ -205,7 +205,7 @@
 
 void sr_draw_char_src_to_dst(uint src_x, uint src_y, uint dst_x, uint dst_y, uchar log_op)
 {
-	sr_page_copy(FONT_OFFSET_X + src_x, FONT_OFFSET_Y + src_y, FONT_SIZE, FONT_SIZE, dst_x, dst_y, FONT_PAGE, sr_get_active_page(), log_op);
+	sr_page_copy_mode(FONT_OFFSET_X + src_x, FONT_OFFSET_Y + src_y, FONT_SIZE, FONT_SIZE, dst_x, dst_y, FONT_PAGE, sr_get_active_page(), log_op);
 }
 
 void sr_draw_char(uchar character, uint x, uint y, uchar log_op)

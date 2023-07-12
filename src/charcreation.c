@@ -7,8 +7,6 @@
 #include <string.h>
 
 #include "fusion-c/header/msx_fusion.h"
-#include "fusion-c/header/vdp_sprites.h"
-#include "fusion-c/header/vdp_graph2.h"
 
 #include "main.h"
 #include "font.h"
@@ -85,18 +83,18 @@ void sr_draw_page_two(void)
 // #WIP this is a mockup.
 void sr_draw_charcreation_intro_text(void)
 {
-	sr_set_drawing_state(Begin);
+	sr_set_drawing_state(BEGIN);
 
 	Cls();
 	SetColors(0, 0, 14);
 
 	// Portrait.
-	// LMMV(8, 	8 + get_active_page() * SCREEN_WIDTH, 34, 34, 15, 0);
-	// LMMV(1+8, 1+8 + get_active_page() * SCREEN_WIDTH, 32, 32, 3, 0);
+	// LMMV(8, 	8 + get_active_page() * SCREEN_HEIGHT, 34, 34, 15, 0);
+	// LMMV(1+8, 1+8 + get_active_page() * SCREEN_HEIGHT, 32, 32, 3, 0);
 
 	sr_draw_page_one();
 
-	sr_set_drawing_state(End);
+	sr_set_drawing_state(END);
 }
 
 void sr_set_charcreation_state(void)

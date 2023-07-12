@@ -202,6 +202,30 @@ bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	return (true);
 }
 
+// Helper: Copy a page zone to another page using YMMM (high-speed transfer between VRAM in Y direction).
+void sr_page_copy_y_fast( int XS, int YS, int DY, int NY, char DiRX)
+{
+	// High speed copy of a part of iage to another Y position (DY) Block to move start at XS,YS, is NY pixels hight, and end at x=255 or x=0 depending of parameter DirX 1 or 0
+	YMMM( XS, YS, DY, NY, DiRX);
+}
+
+// Helper: Copy a page zone to another page using HMMM (High Speed Move VRAM to VRAM).
+void sr_page_copy_fast(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+{
+	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, opHMMM);
+}
+
+void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+{
+	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, 0);
+}
+
+// Helper: Copy a page zone to another page using transparency (if SC>0 then IMP).
+void sr_page_copy_trans(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg)
+{
+	sr_page_copy_mode(x1, y1, dx, dy, x2, y2, src_pg, dst_pg, LOGICAL_TIMP);
+}
+
 //  Copy a page zone to another page
 //  x1 & y1 =Top left coordonate  pixel of the zone to copy
 //  dx = Width Size in pixels, of the zone to copy
@@ -210,17 +234,16 @@ bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 //  src_pg = Source Page number of the Zone
 //  dst_pg = Destination number of the zone
 //  mode = OP mode of the copy
-void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
-	uint src_pg, uint dst_pg, uchar mode)
+void sr_page_copy_mode(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode)
 {
 	uint src_y = 0;
 	uint dst_y = 0;
 
 	// Add page offset.
-	src_y += src_pg * SCREEN_WIDTH;
+	src_y += src_pg * SCREEN_HEIGHT;
 
 	// Add page offset.
-	dst_y += dst_pg * SCREEN_WIDTH;
+	dst_y += dst_pg * SCREEN_HEIGHT;
 
 	t.X = x1;
 	t.Y = src_y + y1;
@@ -236,6 +259,16 @@ void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2,
 	t.LOP = mode;
 
 	fLMMM(&t);
+}
+
+void sr_draw_rectangle(int x, int y, int width, int height, char color)
+{
+	LMMV(x, y, width, height, color, 0);
+}
+
+void sr_draw_pixel(int x, int y, char color)
+{
+	Pset(x, y, color, 0);
 }
 
 void sr_debug_draw_palette(void)
@@ -298,23 +331,23 @@ void sr_init_gfx(void)
 
 	// Load images.
 	sr_init_palette();
-	sr_load_sf5_image("BG.SF5", SCREEN_WIDTH * SPRITES_PAGE);
-	sr_load_sf5_image("WALLS.SF5", SCREEN_WIDTH * WALLS_PAGE);
+	sr_load_sf5_image("BG.SF5", SCREEN_HEIGHT * SPRITES_PAGE);
+	sr_load_sf5_image("WALLS.SF5", SCREEN_HEIGHT * WALLS_PAGE);
 
 	// Reset current screen.
 	Cls();
 
 	// Initialize drawing state and pages.
-	sr_set_drawing_state(Ready);
-	SetDisplayPage(0);
-	SetActivePage(0);
+	sr_set_drawing_state(READY);
+	sr_set_active_page(0);
+	sr_set_display_page(0);
 }
 
 bool sr_update_gfx(void)
 {
 	// Checking game is not drawing and VDP is not busy and vsync.
 	// https://www.msx.org/wiki/VDP_Status_Registers
-	if (sr_get_drawing_state() != End || sr_is_vdp_ready() == false || IsVsync() == 0)
+	if (sr_get_drawing_state() != END || sr_is_vdp_ready() == false || IsVsync() == 0)
 	{
 		return (false);
 	}

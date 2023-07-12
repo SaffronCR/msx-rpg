@@ -11,6 +11,7 @@
 // Defines.
 //------------------------------------------------------------------
 
+#define SCREEN_HEIGHT 256
 #define SCREEN_WIDTH 256
 #define SCREEN_WIDTH_HALF 128
 
@@ -22,9 +23,9 @@
 
 enum DrawingState
 {
-	Ready,
-	Begin,
-	End
+	READY,
+	BEGIN,
+	END
 };
 
 enum ScreenHeight
@@ -44,7 +45,13 @@ uint sr_get_display_page(void);
 void sr_init_palette(void);
 bool sr_load_sf5_image(uchar *file_name, uint start_Y);
 bool sr_load_sc8_image(uchar *file_name, uint start_Y);
-void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
+void sr_page_copy_fast(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
+void sr_page_copy_y_fast( int XS, int YS, int DY, int NY, char DiRX);
+void sr_page_copy(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
+void sr_page_copy_trans(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg);
+void sr_page_copy_mode(uint x1, uint y1, uint dx, uint dy, uint x2, uint y2, uint src_pg, uint dst_pg, uchar mode);
+void sr_draw_rectangle(int x, int y, int width, int height, char color);
+void sr_draw_pixel(int x, int y, char color);
 void sr_wait(uint cicles);
 void sr_set_drawing_state(uchar new_state);
 uchar sr_get_drawing_state(void);

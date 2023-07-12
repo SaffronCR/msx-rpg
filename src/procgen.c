@@ -7,8 +7,6 @@
 #include <string.h>
 
 #include "fusion-c/header/msx_fusion.h"
-#include "fusion-c/header/vdp_sprites.h"
-#include "fusion-c/header/vdp_graph2.h"
 
 #include "main.h"
 #include "ingame.h"
