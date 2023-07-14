@@ -19,8 +19,8 @@
 
 void sr_draw_startscr_intro_text(void)
 {
-	// Reset current screen.
-	Cls();
+	// Set loading text.
+	sr_set_loading_text();
 
 	// Load the title screen.
 	sr_load_sf5_image("STRTSCR.SF5", PAGE_HEIGHT * TITLE_PAGE);
@@ -52,6 +52,12 @@ void sr_update_startscr_state(void)
 	// MENU
 	// Go to load game -> ingame.
 	// Go to new game -> intro.
+
+	if (TriggerRead(JOY1_BUTTONA) == PRESSED ||
+		TriggerRead(SPACEBAR) == PRESSED )
+	{
+		sr_set_game_state(IN_GAME);
+	}
 }
 
 void sr_finished_startscr_drawing(void)

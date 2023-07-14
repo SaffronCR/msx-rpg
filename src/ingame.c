@@ -10,6 +10,7 @@
 
 #include "procgen.h"
 #include "gfx.h"
+#include "snd.h"
 #include "encounter.h"
 #include "ingame.h"
 
@@ -744,9 +745,13 @@ void sr_move(uint new_pos_x, uint new_pos_y)
 
 void sr_rotate_left(void)
 {
-	if (--player_dir < NORTH)
+	if (player_dir == NORTH)
 	{
 		player_dir = WEST;
+	}
+	else
+	{
+		player_dir--;
 	}
 
 	player_turned = true;
@@ -754,9 +759,13 @@ void sr_rotate_left(void)
 
 void sr_rotate_right(void)
 {
-	if (++player_dir > WEST)
+	if (player_dir == WEST)
 	{
 		player_dir = NORTH;
+	}
+	else
+	{
+		player_dir++;
 	}
 
 	player_turned = true;
@@ -815,6 +824,13 @@ void sr_set_ingame_state(void)
 	// This may be set by the random generator in the future?
 	player_dir = NORTH;
 
+	// Set loading text.
+	sr_set_loading_text();
+
+	// Load images.
+	sr_load_sf5_image("P1.SF5", PAGE_HEIGHT * BACKBUFFER_PAGE);
+	sr_load_sf5_image("P3.SF5", PAGE_HEIGHT * WALLS_PAGE);
+
 	// Initialize drawing state and pages.
 	sr_set_drawing_state(READY);
 	sr_set_active_page(0);
@@ -834,6 +850,9 @@ void sr_set_ingame_state(void)
 	Cls();
 	sr_draw_level_screen();
 	sr_draw_portraits();
+
+	// Play music.
+	sr_play_dungeon_exploration_music();
 }
 
 void sr_update_ingame_state(void)

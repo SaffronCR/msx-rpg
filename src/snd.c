@@ -17,7 +17,7 @@
 // Variables.
 //------------------------------------------------------------------
 
-uchar is_playing_song;
+bool is_playing_music;
 
 //------------------------------------------------------------------
 // Functions.
@@ -25,17 +25,25 @@ uchar is_playing_song;
 
 void sr_init_snd(void)
 {
-	sr_init_dungeon_song();
-	is_playing_song = TRUE;
-
-	//is_playing_song = FALSE;
+	is_playing_music = false;
 }
 
 void sr_update_snd(void)
 {
 	// Update audio.
-	if (is_playing_song == TRUE)
+	if (is_playing_music == true)
 	{
 		sr_play_song();
 	}
+}
+
+void sr_stop_music()
+{
+	is_playing_music = false;
+}
+
+void sr_play_dungeon_exploration_music()
+{
+	sr_init_dungeon_song();
+	is_playing_music = true;
 }

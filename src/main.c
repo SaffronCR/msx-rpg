@@ -34,6 +34,16 @@ uchar update_frame_count;
 // Functions.
 //------------------------------------------------------------------
 
+void sr_set_loading_text(void)
+{
+	// Set loading text.
+	sr_set_active_page(0);
+	Cls();
+	sr_set_display_page(0);
+	SetColors(15, 0, 0);
+	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
+}
+
 void sr_set_game_state(uchar new_state)
 {
 	game_state = new_state;
@@ -74,7 +84,7 @@ static uchar sr_interrupt(void)
 	else
 	{
 		// Update audio.
-		sr_update_snd(); // [CRIS] Disabled for ease of development.
+		sr_update_snd();
 	}
 
 	// Checking game is not drawing and VDP is not busy.
@@ -87,6 +97,7 @@ static uchar sr_interrupt(void)
 		switch (game_state)
 		{
 			case START_SCREEN:	sr_finished_startscr_drawing();	break;
+			case INTRO:			sr_finished_intro_drawing();	break;
 			case IN_GAME:		sr_finished_ingame_drawing();	break;
 		}
 	}
@@ -132,7 +143,7 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(IN_GAME);
+	sr_set_game_state(START_SCREEN);
 
 	for (;;)
 	{

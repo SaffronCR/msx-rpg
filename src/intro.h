@@ -13,5 +13,6 @@
 
 void sr_set_intro_state(void);
 void sr_update_intro_state(void);
+void sr_finished_intro_drawing(void);
 
 #endif

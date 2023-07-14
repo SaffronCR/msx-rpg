@@ -14,6 +14,24 @@
 #include "intro.h"
 
 //------------------------------------------------------------------
+// Enums.
+//------------------------------------------------------------------
+
+enum Panel
+{
+	FIRST,
+	SECOND,
+	THIRD,
+	FOURTH,
+} current_panel;
+
+//------------------------------------------------------------------
+// Variables.
+//------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
@@ -47,4 +65,9 @@ void sr_set_intro_state(void)
 void sr_update_intro_state(void)
 {
 	// TODO: Needs to be updated to new drawing system and actually do something.
+}
+
+void sr_finished_intro_drawing(void)
+{
+
 }

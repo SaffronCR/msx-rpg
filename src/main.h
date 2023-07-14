@@ -25,6 +25,7 @@ enum GameState
 // Prototypes.
 //------------------------------------------------------------------
 
+void sr_set_loading_text(void);
 void sr_set_game_state(uchar new_state);
 
 #endif

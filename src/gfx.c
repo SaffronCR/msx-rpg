@@ -306,17 +306,14 @@ void sr_init_gfx(void)
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
 	VDP60Hz();
 
+	// Set game palette.
+	sr_init_palette();
+
 	// Set loading text.
-	sr_set_active_page(0);
-	sr_set_display_page(0);
-	SetColors(15, 0, 0);
-	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
+	sr_set_loading_text();
 
 	// Load images.
-	sr_init_palette();
-	sr_load_sf5_image("P1.SF5", PAGE_HEIGHT * BACKBUFFER_PAGE);
-	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * SPRITES_PAGE);
-	sr_load_sf5_image("P3.SF5", PAGE_HEIGHT * WALLS_PAGE);
+	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * SPRITES_PAGE); // TODO: Move all the load images to gfx and handle it with an enum and single load function that checks what's already loaded.
 
 	// Reset current screen.
 	Cls();
