@@ -24,10 +24,11 @@ uchar *level_map;
 
 uchar current_view[LEVEL_VIEW_SIZE_X * LEVEL_VIEW_SIZE_Y];
 
-uchar player_moves;
-uchar player_turns;
+uchar player_moved;
+uchar player_turned;
 
-uchar ceiling_tile;
+bool is_underground;
+uchar floor_tile;
 
 uint player_pos_x;
 uint player_pos_y;
@@ -35,6 +36,8 @@ uint player_pos_y;
 enum Direction player_dir;
 
 uchar joy;
+
+bool update_portraits;
 
 //------------------------------------------------------------------
 // Functions.
@@ -253,26 +256,54 @@ void sr_draw_fp_view(void)
 {
 	// Background.
 
-	if (ceiling_tile == 1)
-	{
-		// Draw Standard background minus the floor.
-		sr_page_copy_fast(0, 0,
-			LEVEL_SCREEN_SIZE_X, LEVEL_SCREEN_SIZE_Y - 22,
-			LEVEL_SCREEN_X, 0,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+	// sr_draw_rectangle(BG_FRONT_X, BACKBUFFER_PAGE*PAGE_HEIGHT,
+	// 	 LEVEL_SCREEN_SIZE_X, LEVEL_SCREEN_SIZE_Y,
+	// 	 BG_FRONT_COLOR);
 
-		// Draw alternate floor.
-		sr_page_copy_fast(0, 120,
-			LEVEL_SCREEN_SIZE_X, 22,
-			LEVEL_SCREEN_X, 98,
+	// Front is just a black rectangle.
+	sr_draw_rectangle(BG_FRONT_X, BG_FRONT_Y,
+		 BG_FRONT_SIZE_X, BG_FRONT_SIZE_Y,
+		 BG_FRONT_COLOR);
+
+	// Ceiling.
+	if (is_underground == true)
+	{
+		// Draw underground ceiling.
+		sr_page_copy_fast(BG_UNDERGROUND_CEILING_X, BG_UNDERGROUND_CEILING_Y,
+			BG_UNDERGROUND_CEILING_SIZE_X, BG_UNDERGROUND_CEILING_SIZE_Y,
+			LEVEL_SCREEN_X, 0,
 			SPRITES_PAGE, BACKBUFFER_PAGE);
 	}
 	else
 	{
-		// Draw standard background in full.
-		sr_page_copy_fast(0, 0,
-			LEVEL_SCREEN_SIZE_X, LEVEL_SCREEN_SIZE_Y,
+		// Draw surface ceiling.
+		sr_page_copy_fast(BG_SURFACE_CEILING_X, BG_SURFACE_CEILING_Y,
+			BG_SURFACE_CEILING_SIZE_X, BG_SURFACE_CEILING_SIZE_Y,
 			LEVEL_SCREEN_X, 0,
+			SPRITES_PAGE, BACKBUFFER_PAGE);
+	}
+
+	// Floor.
+	if (floor_tile == 0)
+	{
+		// Draw entire standard floor.
+		sr_page_copy_fast(BG_FLOOR_X, BG_FLOOR_Y,
+			BG_FLOOR_SIZE_X, BG_FLOOR_SIZE_Y,
+			BG_FLOOR_DST_X, BG_FLOOR_DST_Y,
+			SPRITES_PAGE, BACKBUFFER_PAGE);
+	}
+	else
+	{
+		// Draw partial standard floor.
+		sr_page_copy_fast(BG_FLOOR_X, BG_FLOOR_Y,
+			BG_FLOOR_SIZE_X, BG_ALT_FLOOR_SIZE_Y_1,
+			BG_FLOOR_DST_X, BG_ALT_FLOOR_DST_Y_1,
+			SPRITES_PAGE, BACKBUFFER_PAGE);
+
+		// Draw alternate floor.
+		sr_page_copy_fast(BG_ALT_FLOOR_X, BG_ALT_FLOOR_Y,
+			BG_FLOOR_SIZE_X, BG_ALT_FLOOR_SIZE_Y_2,
+			BG_FLOOR_DST_X, BG_ALT_FLOOR_DST_Y_2,
 			SPRITES_PAGE, BACKBUFFER_PAGE);
 	}
 
@@ -534,6 +565,8 @@ void sr_draw_tiles_screen_background(void)
 
 void sr_draw_portraits(void)
 {
+	sr_set_drawing_state(BEGIN);
+
 	// Names.
 	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
 	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
@@ -574,6 +607,8 @@ void sr_draw_portraits(void)
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 	// LMMV(HP_BAR_3_X, HP_BAR_3_Y + get_active_page() * SCREEN_HEIGHT,
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
+
+	sr_set_drawing_state(END);
 }
 
 void sr_debug_draw_test_menu(void)
@@ -669,21 +704,6 @@ void sr_draw_level_screen(void)
 {
 	sr_set_drawing_state(BEGIN);
 
-	// #WIP Screen background test.
-	//sr_draw_tiles_screen_background();
-
-	// #WIP Test menu.
-	//sr_debug_draw_test_menu();
-
-	// Debug: Minimap.
-	//sr_debug_draw_minimap();
-
-	// Debug: Palette.
-	//sr_debug_draw_palette();
-
-	// Party portraits.
-	sr_draw_portraits();
-
 	// Compass.
 	switch(player_dir)
 	{
@@ -694,34 +714,14 @@ void sr_draw_level_screen(void)
 	}
 
 	// #WIP Draw a different floor in odd tiles to create ilusion of movement.
-	if (player_moves == true)
+	if (player_moved == true)
 	{
-		ceiling_tile = !ceiling_tile;
+		floor_tile = !floor_tile;
 	}
 
 	// Dungeon first person view.
 	sr_update_fp_view();
 	sr_draw_fp_view();
-
-	// #WIP Enemies.
-	//sr_page_copy_trans(175,192, 50,60, 30,60, SPRITES_PAGE, get_active_page());
-
-	// sr_page_copy_trans(224,224, 32,32, 50,80, SPRITES_PAGE, get_active_page());
-	// sr_page_copy_trans(224,192, 32,32, 90,80, SPRITES_PAGE, get_active_page());
-
-	// // hit frame test.
-	// sr_page_copy_mode(224,224, 32,32, 50,80, SPRITES_PAGE, get_active_page(), LOGICAL_TNOT);
-	// sr_page_copy_mode(224,192, 32,32, 90,80, SPRITES_PAGE, get_active_page(), LOGICAL_TNOT);
-
-	// // #WIP Test encounter RNG.
-	// if(sr_check_encounter() == true)
-	// {
-	// 	sr_draw_text("ENCOUNTER!", 0, 0, 9, 0);
-	// }
-	// else
-	// {
-	// 	sr_draw_text("NOTHING   ", 0, 0, 5, 0);
-	// }
 
 	sr_set_drawing_state(END);
 }
@@ -736,7 +736,7 @@ void sr_move(uint new_pos_x, uint new_pos_y)
 		player_pos_x = new_pos_x;
 		player_pos_y = new_pos_y;
 
-		player_moves = true;
+		player_moved = true;
 
 		sr_encounter_step();
 	}
@@ -749,7 +749,7 @@ void sr_rotate_left(void)
 		player_dir = WEST;
 	}
 
-	player_turns = true;
+	player_turned = true;
 }
 
 void sr_rotate_right(void)
@@ -759,7 +759,7 @@ void sr_rotate_right(void)
 		player_dir = NORTH;
 	}
 
-	player_turns = true;
+	player_turned = true;
 }
 
 // Reads input from keyboard's arrow keys and joystick port 1.
@@ -806,9 +806,11 @@ void sr_update_input_level_mode(void)
 void sr_set_ingame_state(void)
 {
 	// Initialize variables.
-	player_moves = false;
-	player_turns = false;
-	ceiling_tile = 0;
+	player_moved = false;
+	player_turned = false;
+	floor_tile = 0;
+	is_underground = false;
+	update_portraits = false;
 
 	// This may be set by the random generator in the future?
 	player_dir = NORTH;
@@ -828,15 +830,21 @@ void sr_set_ingame_state(void)
 	// Initialize encounter logic.
 	sr_init_encounter();
 
-	// Initial draw call.
+	// Initial draw calls.
 	Cls();
 	sr_draw_level_screen();
+	sr_draw_portraits();
 }
 
 void sr_update_ingame_state(void)
 {
-	// Update input and level view in different cycles.
-	if (player_moves == false && player_turns == false)
+	if (update_portraits == true)
+	{
+		update_portraits = false;
+
+		sr_draw_portraits();
+	}
+	else if (player_moved == false && player_turned == false)
 	{
 		sr_update_input_level_mode();
 	}
@@ -845,8 +853,8 @@ void sr_update_ingame_state(void)
 		sr_draw_level_screen();
 
 		// Reset variables.
-		player_moves = false;
-		player_turns = false;
+		player_moved = false;
+		player_turned = false;
 	}
 }
 

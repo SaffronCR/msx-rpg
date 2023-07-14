@@ -21,7 +21,7 @@
 // Font graphics offset.
 
 #define FONT_OFFSET_X 0
-#define FONT_OFFSET_Y 0
+#define FONT_OFFSET_Y 44
 
 // Lowercase.
 
@@ -196,8 +196,8 @@
 
 // Cursor.
 
-#define CURSOR_X 0
-#define CURSOR_Y 212
+#define CURSOR_X 129
+#define CURSOR_Y 0
 
 //------------------------------------------------------------------
 // Functions.
