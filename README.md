@@ -106,3 +106,8 @@ http://www.nishi.org/
 *- Author: Konamiman (Néstor Soriano)*
 
 https://github.com/Konamiman/Nextor
+
+**1-Bit Pack**
+*- Author: Kenney*
+
+https://kenney.nl/assets/1-bit-pack
