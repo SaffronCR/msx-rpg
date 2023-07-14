@@ -306,25 +306,23 @@ void sr_init_gfx(void)
 	// Switches the MSX2 VDP to 60 Hz (it's best to develop/optimize for 60Hz than 50Hz).
 	VDP60Hz();
 
-	// Reset vram memory.
-	FillVram(0, 0, GetVramSize());
-
 	// Set loading text.
+	sr_set_active_page(0);
+	sr_set_display_page(0);
 	SetColors(15, 0, 0);
 	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 
 	// Load images.
 	sr_init_palette();
-	sr_load_sf5_image("BG.SF5", PAGE_HEIGHT * SPRITES_PAGE);
-	sr_load_sf5_image("WALLS.SF5", PAGE_HEIGHT * WALLS_PAGE);
+	sr_load_sf5_image("P1.SF5", PAGE_HEIGHT * BACKBUFFER_PAGE);
+	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * SPRITES_PAGE);
+	sr_load_sf5_image("P3.SF5", PAGE_HEIGHT * WALLS_PAGE);
 
 	// Reset current screen.
 	Cls();
 
 	// Initialize drawing state and pages.
 	sr_set_drawing_state(READY);
-	sr_set_active_page(0);
-	sr_set_display_page(0);
 }
 
 bool sr_update_gfx(void)
