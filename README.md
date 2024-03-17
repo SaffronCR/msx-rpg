@@ -9,16 +9,29 @@ My primary references are games like The Eye of the Beholder, Shining in the Dar
 It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16 colours per pixel). It allows 4 pages of VRAM.
 
 **How video memory is organized during dungeon gameplay:**
-* The first and second page are being used for the front/back buffer. The active page (the one being visible on screen) is constantly swapped between the two.
+* The first page is the active page (the one being visible on the screen). I stopped using double buffer since I noticed it takes too much time and means having two pages dedicated exclusively to it. The VDP is fast enough to draw directly on the visible page so I can keep the second page for storing additional graphics. The first screen is also the page storing the hardware sprites (currently I'm not sure if I will end up using them in the game).
+  
+  ![image](https://github.com/SaffronCR/msx-rpg/assets/11486276/792fd0d8-e344-4bc3-8779-1c75b947e412)
+  
+* The second page is mostly empty now. Currently I use it to prepare the dungeon view, since that requires drawing different pieces using the painter's algorithm and that would be visible to the player if done directly on the active page. I will probably store other graphics in this page eventually.
+  
+  ![image](https://github.com/SaffronCR/msx-rpg/assets/11486276/4e269d30-df6b-4506-8b80-f424637695e8)
+  
 * The third page contains the bitmap font, dungeon background and sprites (player avatar, enemies, etc).
+  
+  ![image](https://github.com/SaffronCR/msx-rpg/assets/11486276/eaea825a-8ed9-4b7e-9eca-62f16473ea79)
+  
 * The fourth page contains the dungeon walls.
+  
+  ![image](https://github.com/SaffronCR/msx-rpg/assets/11486276/fceecb6d-51a5-4e12-85c6-8b5e01a89d96)
 
 **Things done:**
 * Dungeon rendering/movement.
 * Dungeon generation.
 * Bitmap font rendering with color support.
 * Music support.
-* Intro screen.
+* Sound effects.
+* Intro screen (needs rework).
 * Start screen.
 * Minimap (Debug mode).
 * Show current palette (Debug mode).
@@ -31,7 +44,6 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Enemies/Combat.
 * Treasure generation.
 * Gadgets/Streams.
-* Sound effects.
 * Save/Load game.
 * Game Over screen.
 
