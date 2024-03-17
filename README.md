@@ -69,6 +69,10 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * The game should run.
 * Enjoy!
 
+## Coding Standards
+
+The game is being developed as if the year was 1986, the main reference available at this point is the first edition of The C Programming Language book (ANSI C was not even finished until 1989). I mostly try to keep to the style depicted in the book, with some changes since I already was a C programmer in the 90s and developed my style over ANSI C, so when something doesn't feel right to me, I will "house rule" it, since there was no actual rules back then. Kind of awesome when you think about it, right? :-)
+
 ## License
 
 Star Rangers is being created by Cristina Ramos.
