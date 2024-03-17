@@ -34,8 +34,8 @@ void sr_draw_startscr_intro_text(void)
 	// Intro text.
 	SetColors(0, 0, 14);
 
-	sr_draw_text("PRESS SPACE KEY",		FONT_SIZE * 8, FONT_SIZE * 15, 15, 14);
-	sr_draw_text("@ 2023 SAFFRON SOFT",	FONT_SIZE * 6, FONT_SIZE * 18, 15, 14);
+	sr_draw_text("PRESS SPACE KEY",		FONT_SIZE * 8, FONT_SIZE * 16, 15, 14);
+	sr_draw_text("@ 2023 SAFFRON SOFT",	FONT_SIZE * 6, FONT_SIZE * 22, 15, 14);
 
 	// Finish drawing.
 	sr_set_drawing_state(END);
