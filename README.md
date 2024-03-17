@@ -65,6 +65,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 >
 > sdar -d z80.lib getchar.rel
 * Download and install OpenMSX (https://openmsx.org/). Create a folder inside the project called "openmsx" and extract the emulator to it. You will also need to find and install the system roms in the "share/systemroms" folder.
+* Run *generate_sound.bat* to generate the sound files.
 * In Visual Studio Code you can select "Terminal/Run Build Task" to build and run the game.
 * The game should run.
 * Enjoy!
