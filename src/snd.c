@@ -37,12 +37,12 @@ void sr_update_snd(void)
 	}
 }
 
-void sr_stop_music()
+void sr_stop_music(void)
 {
 	is_playing_music = false;
 }
 
-void sr_play_dungeon_exploration_music()
+void sr_play_dungeon_exploration_music(void)
 {
 	sr_init_dungeon_song();
 	is_playing_music = true;
