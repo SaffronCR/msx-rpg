@@ -12,13 +12,13 @@
 
 #include "main.h"
 #include "gfx.h"
-#include "font.h"
+#include "fnt.h"
 
 //------------------------------------------------------------------
 // Defines.
 //------------------------------------------------------------------
 
-// Font graphics offset.
+// Font images offset.
 
 #define FONT_OFFSET_X 0
 #define FONT_OFFSET_Y 44
@@ -178,6 +178,8 @@
 #define MINUS_Y		172
 #define SLASH_X		120
 #define SLASH_Y		172
+#define COLON_X		88
+#define COLON_Y		188
 
 // Textbox.
 
@@ -287,6 +289,7 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 		case '+': sr_draw_char_src_to_dst(PLUS_X,		PLUS_Y, 	x, y, log_op); break;
 		case '-': sr_draw_char_src_to_dst(MINUS_X,		MINUS_Y, 	x, y, log_op); break;
 		case '/': sr_draw_char_src_to_dst(SLASH_X,		SLASH_Y, 	x, y, log_op); break;
+		case ':': sr_draw_char_src_to_dst(COLON_X, 		COLON_Y, 	x, y, log_op); break;
 
 		case '<': sr_draw_char_src_to_dst(TXTBOX_UP_L_X,	TXTBOX_UP_L_Y, 	x, y, log_op); break;
 		case '[': sr_draw_char_src_to_dst(TXTBOX_DWN_L_X,	TXTBOX_DWN_L_Y,	x, y, log_op); break;
@@ -308,13 +311,13 @@ void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_co
 		if (border_color != 0)
 		{
 			// Color border.
-			LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
+			LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
 			sr_draw_char(*text, x, y, LOGICAL_TIMP);
 
 			// Only for color text.
 			if (text_color != 0)
 			{
-				LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
+				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, 15 - text_color, LOGICAL_IMP);
 				sr_draw_char(*text, x, y, LOGICAL_XOR);
 				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}
@@ -327,7 +330,7 @@ void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_co
 			// Only for color text.
 			if (text_color != 0)
 			{
-				LMMV(x, y + sr_get_active_page() * 256, FONT_SIZE, FONT_SIZE, 15-text_color, LOGICAL_IMP);
+				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, 15 - text_color, LOGICAL_IMP);
 				sr_draw_char(*text, x, y, LOGICAL_XOR);
 				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}

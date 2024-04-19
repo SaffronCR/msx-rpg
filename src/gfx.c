@@ -126,7 +126,7 @@ bool sr_load_sf5_image(uchar *file_name, uint initial_y_pos)
 	while (read != 0)
 	{
 		// Set border color based on a 'random' position from the load buffer.
-		SetColors(15, 0, load_buffer[69]);
+		SetColors(0, 0, load_buffer[69]);
 
 		// Read file and write to load buffer.
 		read = fcb_read(&file, load_buffer, BUFFER_SIZE);
@@ -174,7 +174,7 @@ bool sr_load_sc8_image(uchar *file_name, uint initial_y_pos)
 	while (read != 0)
 	{
 		// Set border color based on a 'random' position from the load buffer.
-		SetColors(15, 0, load_buffer[69]);
+		SetColors(0, 0, load_buffer[69]);
 
 		// Read file and write to load buffer.
 		read = fcb_read(&file, load_buffer, BUFFER_SIZE);
@@ -245,12 +245,12 @@ void sr_page_copy_mode(uint src_x, uint src_y, uint width, uint height, uint dst
 	fLMMM(&t);
 }
 
-void sr_draw_rectangle(uint x, uint y, uint width, uint height, char color)
+void sr_draw_rectangle(uint x, uint y, uint width, uint height, uchar color)
 {
 	LMMV(x, y, width, height, color, 0);
 }
 
-void sr_draw_pixel(uint x, uint y, char color)
+void sr_draw_pixel(uint x, uint y, uchar color)
 {
 	Pset(x, y, color, 0);
 }
@@ -260,7 +260,7 @@ void sr_debug_draw_palette(void)
 	uint x = 0;
 	uint y = 0;
 
-	for (uint i = 0; i < 16; i++)
+	for (uint i = 0; i < PALETTE_SIZE; i++)
 	{
 		LMMV(x, y + sr_get_active_page() * PAGE_WIDTH, 8, 8, i, 0);
 		y += 9;
@@ -309,11 +309,11 @@ void sr_init_gfx(void)
 	// Set game palette.
 	sr_init_palette();
 
-	// Set loading text.
-	sr_set_loading_text();
+	// Set loading.
+	sr_set_display_loading();
 
-	// Load images.
-	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * SPRITES_PAGE); // TODO: Move all the load images to gfx and handle it with an enum and single load function that checks what's already loaded.
+	// Load images (need to load this here for the font images).
+	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * IMAGES_PAGE);
 
 	// Reset current screen.
 	Cls();

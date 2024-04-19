@@ -15,6 +15,7 @@
 //------------------------------------------------------------------
 
 #define ENCOUNTER_ARRAY_SIZE 256
+#define DEFAULT_ENCOUNTER_THRESHOLD 10
 
 //------------------------------------------------------------------
 // Variables.
@@ -50,7 +51,7 @@ uchar current_threshold;
 void sr_init_encounter(void)
 {
 	current_step = 0;
-	current_threshold = 10;
+	current_threshold = DEFAULT_ENCOUNTER_THRESHOLD;
 }
 
 void sr_encounter_step(void)

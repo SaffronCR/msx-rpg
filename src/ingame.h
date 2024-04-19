@@ -6,7 +6,7 @@
 #define INGAME_H
 
 #include "main.h"
-#include "font.h"
+#include "fnt.h"
 
 //------------------------------------------------------------------
 // Defines.
@@ -15,7 +15,7 @@
 #define LEVEL_SIZE 24
 
 #define BACKBUFFER_PAGE 1
-#define SPRITES_PAGE 2
+#define IMAGES_PAGE 2
 #define WALLS_PAGE 3
 
 #define LEVEL_SCREEN_X 8
@@ -61,6 +61,7 @@
 
 #define LEVEL_VIEW_DIST 2
 
+#define COMPASS_COLOR 9
 #define COMPASS_X LEVEL_SCREEN_X + (LEVEL_SCREEN_SIZE_X - LEVEL_SCREEN_X) / 2
 #define COMPASS_Y 0
 
@@ -76,6 +77,7 @@
 #define PORTRAIT_SRC_Y 0
 #define PORTRAIT_SIZE 32
 
+#define PORTRAIT_NAME_COLOR 15
 #define PORTRAIT_1_NAME_X 176
 #define PORTRAIT_1_NAME_Y FONT_SIZE - 4
 #define PORTRAIT_2_NAME_X 176

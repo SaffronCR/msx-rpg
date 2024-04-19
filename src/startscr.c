@@ -9,7 +9,7 @@
 #include "fusion-c/header/msx_fusion.h"
 
 #include "main.h"
-#include "font.h"
+#include "fnt.h"
 #include "gfx.h"
 #include "startscr.h"
 
@@ -19,8 +19,8 @@
 
 void sr_draw_startscr_intro_text(void)
 {
-	// Set loading text.
-	sr_set_loading_text();
+	// Set loading.
+	sr_set_display_loading();
 
 	// Load the title screen.
 	sr_load_sf5_image("STRTSCR.SF5", PAGE_HEIGHT * TITLE_PAGE);
@@ -35,7 +35,7 @@ void sr_draw_startscr_intro_text(void)
 	SetColors(0, 0, 14);
 
 	sr_draw_text("PRESS SPACE KEY",		FONT_SIZE * 8, FONT_SIZE * 16, 15, 14);
-	sr_draw_text("@ 2023 SAFFRON SOFT",	FONT_SIZE * 6, FONT_SIZE * 22, 15, 14);
+	sr_draw_text("@ 1986 SAFFRON SOFT",	FONT_SIZE * 6, FONT_SIZE * 22, 15, 14);
 
 	// Finish drawing.
 	sr_set_drawing_state(END);
@@ -48,13 +48,12 @@ void sr_set_startscr_state(void)
 
 void sr_update_startscr_state(void)
 {
-	// TODO:
+	// #TODO
 	// MENU
 	// Go to load game -> ingame.
 	// Go to new game -> intro.
 
-	if (TriggerRead(JOY1_BUTTONA) == PRESSED ||
-		TriggerRead(SPACEBAR) == PRESSED )
+	if (TriggerRead(JOY1_BUTTONA) == PRESSED || TriggerRead(SPACEBAR) == PRESSED )
 	{
 		sr_set_game_state(IN_GAME);
 	}

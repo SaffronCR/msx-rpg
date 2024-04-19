@@ -9,10 +9,10 @@
 #include "fusion-c/header/msx_fusion.h"
 
 #include "main.h"
-#include "font.h"
+#include "fnt.h"
 #include "gfx.h"
 #include "ingame.h" // #WIP needed for draw portraits defines
-#include "charcreation.h"
+#include "createpcscr.h"
 
 //------------------------------------------------------------------
 // Functions.

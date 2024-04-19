@@ -2,7 +2,7 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#include "random.h"
+#include "rnd.h"
 
 //------------------------------------------------------------------
 // Variables.

@@ -273,7 +273,7 @@ void sr_draw_fp_view(void)
 		sr_page_copy_fast(BG_UNDERGROUND_CEILING_X, BG_UNDERGROUND_CEILING_Y,
 			BG_UNDERGROUND_CEILING_SIZE_X, BG_UNDERGROUND_CEILING_SIZE_Y,
 			LEVEL_SCREEN_X, 0,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+			IMAGES_PAGE, BACKBUFFER_PAGE);
 	}
 	else
 	{
@@ -281,7 +281,7 @@ void sr_draw_fp_view(void)
 		sr_page_copy_fast(BG_SURFACE_CEILING_X, BG_SURFACE_CEILING_Y,
 			BG_SURFACE_CEILING_SIZE_X, BG_SURFACE_CEILING_SIZE_Y,
 			LEVEL_SCREEN_X, 0,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+			IMAGES_PAGE, BACKBUFFER_PAGE);
 	}
 
 	// Floor.
@@ -291,7 +291,7 @@ void sr_draw_fp_view(void)
 		sr_page_copy_fast(BG_FLOOR_X, BG_FLOOR_Y,
 			BG_FLOOR_SIZE_X, BG_FLOOR_SIZE_Y,
 			BG_FLOOR_DST_X, BG_FLOOR_DST_Y,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+			IMAGES_PAGE, BACKBUFFER_PAGE);
 	}
 	else
 	{
@@ -299,13 +299,13 @@ void sr_draw_fp_view(void)
 		sr_page_copy_fast(BG_FLOOR_X, BG_FLOOR_Y,
 			BG_FLOOR_SIZE_X, BG_ALT_FLOOR_SIZE_Y_1,
 			BG_FLOOR_DST_X, BG_ALT_FLOOR_DST_Y_1,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+			IMAGES_PAGE, BACKBUFFER_PAGE);
 
 		// Draw alternate floor.
 		sr_page_copy_fast(BG_ALT_FLOOR_X, BG_ALT_FLOOR_Y,
 			BG_FLOOR_SIZE_X, BG_ALT_FLOOR_SIZE_Y_2,
 			BG_FLOOR_DST_X, BG_ALT_FLOOR_DST_Y_2,
-			SPRITES_PAGE, BACKBUFFER_PAGE);
+			IMAGES_PAGE, BACKBUFFER_PAGE);
 	}
 
 	// Front walls.
@@ -554,7 +554,7 @@ void sr_draw_tiles_screen_background(void)
 			sr_page_copy_fast(232, 188,
 						   24, 24,
 						   x * 24, y * 24,
-						   SPRITES_PAGE, sr_get_active_page());
+						   IMAGES_PAGE, sr_get_active_page());
 		}
 	}
 
@@ -569,37 +569,37 @@ void sr_draw_portraits(void)
 	sr_set_drawing_state(BEGIN);
 
 	// Names.
-	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, 15, 0);
-	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, 15, 0);
-	sr_draw_text("Krevar",	PORTRAIT_3_NAME_X, PORTRAIT_3_NAME_Y, 15, 0);
-	sr_draw_text("Echo",	PORTRAIT_4_NAME_X, PORTRAIT_4_NAME_Y, 15, 0);
+	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("Lisbeth",	PORTRAIT_2_NAME_X, PORTRAIT_2_NAME_Y, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("Krevar",	PORTRAIT_3_NAME_X, PORTRAIT_3_NAME_Y, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("Echo",	PORTRAIT_4_NAME_X, PORTRAIT_4_NAME_Y, PORTRAIT_NAME_COLOR, 0);
 
 	// Portraits.
 	sr_page_copy_fast(PORTRAIT_SRC_X, PORTRAIT_SRC_Y,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_1_X, PORTRAIT_1_Y,
-				   SPRITES_PAGE, sr_get_active_page());
+				   IMAGES_PAGE, sr_get_active_page());
 
 	sr_page_copy_fast(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE,
 				   PORTRAIT_SIZE, PORTRAIT_SIZE,
 				   PORTRAIT_2_X, PORTRAIT_2_Y,
-				   SPRITES_PAGE, sr_get_active_page());
+				   IMAGES_PAGE, sr_get_active_page());
 
 	sr_page_copy_fast(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_3_X, PORTRAIT_3_Y,
-	 			   SPRITES_PAGE, sr_get_active_page());
+	 			   IMAGES_PAGE, sr_get_active_page());
 
 	sr_page_copy_fast(PORTRAIT_SRC_X, PORTRAIT_SRC_Y + PORTRAIT_SIZE + PORTRAIT_SIZE + PORTRAIT_SIZE,
 	 			   PORTRAIT_SIZE, PORTRAIT_SIZE,
 	 			   PORTRAIT_4_X, PORTRAIT_4_Y,
-	 			   SPRITES_PAGE, sr_get_active_page());
+	 			   IMAGES_PAGE, sr_get_active_page());
 
 	// HP text.
-	sr_draw_text("10/12", 	PORTRAIT_1_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_1_NAME_Y + 8, 15, 0);
-	sr_draw_text("8/8", 	PORTRAIT_2_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_2_NAME_Y + 8, 15, 0);
-	sr_draw_text("7/7", 	PORTRAIT_3_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_3_NAME_Y + 8, 15, 0);
-	sr_draw_text("9/9",		PORTRAIT_4_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_4_NAME_Y + 8, 15, 0);
+	sr_draw_text("10/12", 	PORTRAIT_1_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_1_NAME_Y + 8, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("8/8", 	PORTRAIT_2_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_2_NAME_Y + 8, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("7/7", 	PORTRAIT_3_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_3_NAME_Y + 8, PORTRAIT_NAME_COLOR, 0);
+	sr_draw_text("9/9",		PORTRAIT_4_NAME_X + PORTRAIT_SIZE + 1, PORTRAIT_4_NAME_Y + 8, PORTRAIT_NAME_COLOR, 0);
 
 	// // HP bars.
 	// LMMV(HP_BAR_1_X, HP_BAR_1_Y + get_active_page() * SCREEN_HEIGHT,
@@ -708,10 +708,10 @@ void sr_draw_level_screen(void)
 	// Compass.
 	switch(player_dir)
 	{
-		case NORTH:	sr_draw_text("N", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case EAST:	sr_draw_text("E", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case SOUTH:	sr_draw_text("S", COMPASS_X, COMPASS_Y, 9, 0);	break;
-		case WEST:	sr_draw_text("W", COMPASS_X, COMPASS_Y, 9, 0);	break;
+		case NORTH:	sr_draw_text("N", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+		case EAST:	sr_draw_text("E", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+		case SOUTH:	sr_draw_text("S", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+		case WEST:	sr_draw_text("W", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
 	}
 
 	// #WIP Draw a different floor in odd tiles to create ilusion of movement.
@@ -720,7 +720,7 @@ void sr_draw_level_screen(void)
 		floor_tile = !floor_tile;
 	}
 
-	// Dungeon first person view.
+	// Level first person view.
 	sr_update_fp_view();
 	sr_draw_fp_view();
 
@@ -801,15 +801,14 @@ void sr_update_input_level_mode(void)
 		}
 	}
 
-	// Actions.
-	if (TriggerRead(JOY1_BUTTONB) == PRESSED ||
-		TriggerRead(SPACEBAR) == PRESSED )
-	{
-		if (sr_is_generating_dungeon_level() == false)
-		{
-			sr_generate_dungeon_level();
-		}
-	}
+	// // Actions.
+	// if (TriggerRead(JOY1_BUTTONB) == PRESSED || TriggerRead(SPACEBAR) == PRESSED )
+	// {
+	// 	if (sr_is_generating_dungeon_level() == false)
+	// 	{
+	// 		sr_generate_dungeon_level();
+	// 	}
+	// }
 }
 
 void sr_set_ingame_state(void)
@@ -824,8 +823,8 @@ void sr_set_ingame_state(void)
 	// This may be set by the random generator in the future?
 	player_dir = NORTH;
 
-	// Set loading text.
-	sr_set_loading_text();
+	// Set loading.
+	sr_set_display_loading();
 
 	// Load images.
 	sr_load_sf5_image("P1.SF5", PAGE_HEIGHT * BACKBUFFER_PAGE);
@@ -880,11 +879,5 @@ void sr_update_ingame_state(void)
 void sr_finished_ingame_drawing(void)
 {
 	// Copy finished drawing of the first person view from back to front.
-
 	sr_page_copy_y_fast(LEVEL_SCREEN_X + LEVEL_SCREEN_SIZE_X, PAGE_HEIGHT, LEVEL_SCREEN_Y, LEVEL_SCREEN_SIZE_Y, 1);
-
-	// sr_page_copy_fast(0, 0,
-	// 	LEVEL_SCREEN_DX, LEVEL_SCREEN_DY,
-	// 	LEVEL_SCREEN_X, LEVEL_SCREEN_Y,
-	// 	BACKBUFFER_PAGE, sr_get_active_page());
 }

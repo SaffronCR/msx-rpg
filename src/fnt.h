@@ -2,8 +2,8 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef FONT_H
-#define FONT_H
+#ifndef FNT_H
+#define FNT_H
 
 #include "main.h"
 

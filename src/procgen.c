@@ -10,8 +10,8 @@
 
 #include "main.h"
 #include "ingame.h"
+#include "rnd.h"
 #include "procgen.h"
-#include "random.h"
 
 //------------------------------------------------------------------
 // Variables.

@@ -8,18 +8,18 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "charcreation.h"
-#include "ingame.h"
+#include "createpcscr.h"
 #include "encounter.h"
-#include "font.h"
+#include "fnt.h"
 #include "gfx.h"
+#include "ingame.h"
 #include "intro.h"
 #include "menu.h"
 #include "procgen.h"
+#include "rnd.h"
 #include "snd.h"
 #include "startscr.h"
 #include "system.h"
-#include "random.h"
 #include "main.h"
 
 //------------------------------------------------------------------
@@ -34,14 +34,12 @@ uchar update_frame_count;
 // Functions.
 //------------------------------------------------------------------
 
-void sr_set_loading_text(void)
+void sr_set_display_loading(void)
 {
-	// Set loading text.
 	sr_set_active_page(0);
+	SetColors(0, 14, 0);
 	Cls();
 	sr_set_display_page(0);
-	SetColors(15, 0, 0);
-	PutText(5, 5, "LOADING...", LOGICAL_TIMP);
 }
 
 void sr_set_game_state(uchar new_state)

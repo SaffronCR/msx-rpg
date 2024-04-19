@@ -2,8 +2,8 @@
 // Star Rangers - A Dungeon Crawler for MSX2 using Fusion-C
 //------------------------------------------------------------------
 
-#ifndef CHARCREATION_H
-#define CHARCREATION_H
+#ifndef CREATEPCSCR_H
+#define CREATEPCSCR_H
 
 #include "main.h"
 
