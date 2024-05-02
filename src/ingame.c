@@ -35,8 +35,7 @@ uint player_pos_x;
 uint player_pos_y;
 
 enum Direction player_dir;
-
-uchar joy;
+enum Direction compass_dir;
 
 bool update_portraits;
 
@@ -166,7 +165,7 @@ void sr_update_fp_view(void)
 		for (uint ix = 0; ix < LEVEL_VIEW_SIZE_X; ix++)
 		{
 			// Get the player's facing position.
-			if (player_dir == NORTH || player_dir == SOUTH)
+			if (player_dir == DIR_NORTH || player_dir == DIR_SOUTH)
 			{
 				x = player_pos_x + (dist_x * dir_translate_y[player_dir]);
 				y = player_pos_y + (dist_y * dir_translate_y[player_dir]);
@@ -566,7 +565,7 @@ void sr_draw_tiles_screen_background(void)
 
 void sr_draw_portraits(void)
 {
-	sr_set_drawing_state(BEGIN);
+	sr_set_drawing_state(DS_BEGIN);
 
 	// Names.
 	sr_draw_text("E.Ilba",	PORTRAIT_1_NAME_X, PORTRAIT_1_NAME_Y, PORTRAIT_NAME_COLOR, 0);
@@ -609,7 +608,7 @@ void sr_draw_portraits(void)
 	// LMMV(HP_BAR_3_X, HP_BAR_3_Y + get_active_page() * SCREEN_HEIGHT,
 	// 	HP_BAR_SIZE_X, HP_BAR_SIZE_Y, 11, 0);
 
-	sr_set_drawing_state(END);
+	sr_set_drawing_state(DS_END);
 }
 
 void sr_debug_draw_test_menu(void)
@@ -703,15 +702,20 @@ void sr_debug_draw_minimap(void)
 // Draw the current level room.
 void sr_draw_level_screen(void)
 {
-	sr_set_drawing_state(BEGIN);
+	sr_set_drawing_state(DS_BEGIN);
 
-	// Compass.
-	switch(player_dir)
+	// Update compass.
+	if (compass_dir != player_dir)
 	{
-		case NORTH:	sr_draw_text("N", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
-		case EAST:	sr_draw_text("E", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
-		case SOUTH:	sr_draw_text("S", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
-		case WEST:	sr_draw_text("W", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+		compass_dir = player_dir;
+
+		switch(compass_dir)
+		{
+			case DIR_NORTH:	sr_draw_text("N", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+			case DIR_EAST:	sr_draw_text("E", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+			case DIR_SOUTH:	sr_draw_text("S", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+			case DIR_WEST:	sr_draw_text("W", COMPASS_X, COMPASS_Y, COMPASS_COLOR, 0);	break;
+		}
 	}
 
 	// #WIP Draw a different floor in odd tiles to create ilusion of movement.
@@ -724,7 +728,7 @@ void sr_draw_level_screen(void)
 	sr_update_fp_view();
 	sr_draw_fp_view();
 
-	sr_set_drawing_state(END);
+	sr_set_drawing_state(DS_END);
 }
 
 void sr_move(uint new_pos_x, uint new_pos_y)
@@ -745,9 +749,9 @@ void sr_move(uint new_pos_x, uint new_pos_y)
 
 void sr_rotate_left(void)
 {
-	if (player_dir == NORTH)
+	if (player_dir == DIR_NORTH)
 	{
-		player_dir = WEST;
+		player_dir = DIR_WEST;
 	}
 	else
 	{
@@ -759,9 +763,9 @@ void sr_rotate_left(void)
 
 void sr_rotate_right(void)
 {
-	if (player_dir == WEST)
+	if (player_dir == DIR_WEST)
 	{
-		player_dir = NORTH;
+		player_dir = DIR_NORTH;
 	}
 	else
 	{
@@ -777,9 +781,7 @@ void sr_update_input_level_mode(void)
 	// Movement.
 	for (uchar i = 0; i < 2; i++)
 	{
-		joy = JoystickRead(i);
-
-		switch (joy)
+		switch (JoystickRead(i))
 		{
 			case UP:
 				sr_move(player_pos_x + dir_translate_x[player_dir],
@@ -821,7 +823,8 @@ void sr_set_ingame_state(void)
 	update_portraits = false;
 
 	// This may be set by the random generator in the future?
-	player_dir = NORTH;
+	player_dir = DIR_NORTH;
+	compass_dir = DIR_NONE;
 
 	// Set loading.
 	sr_set_display_loading();
@@ -831,7 +834,7 @@ void sr_set_ingame_state(void)
 	sr_load_sf5_image("P3.SF5", PAGE_HEIGHT * WALLS_PAGE);
 
 	// Initialize drawing state and pages.
-	sr_set_drawing_state(READY);
+	sr_set_drawing_state(DS_READY);
 	sr_set_active_page(0);
 	sr_set_display_page(0);
 

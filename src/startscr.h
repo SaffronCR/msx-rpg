@@ -17,6 +17,8 @@
 // Prototypes.
 //------------------------------------------------------------------
 
+void sr_load_game(void);
+void sr_new_game(void);
 void sr_set_startscr_state(void);
 void sr_update_startscr_state(void);
 void sr_finished_startscr_drawing(void);

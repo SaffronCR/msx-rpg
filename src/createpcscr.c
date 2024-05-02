@@ -83,7 +83,7 @@ void sr_draw_page_two(void)
 // #WIP this is a mockup.
 void sr_draw_charcreation_intro_text(void)
 {
-	sr_set_drawing_state(BEGIN);
+	sr_set_drawing_state(DS_BEGIN);
 
 	Cls();
 	SetColors(0, 0, 14);
@@ -94,7 +94,7 @@ void sr_draw_charcreation_intro_text(void)
 
 	sr_draw_page_one();
 
-	sr_set_drawing_state(END);
+	sr_set_drawing_state(DS_END);
 }
 
 void sr_set_charcreation_state(void)

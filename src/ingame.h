@@ -19,7 +19,7 @@
 #define WALLS_PAGE 3
 
 #define LEVEL_SCREEN_X 8
-#define LEVEL_SCREEN_Y 8
+#define LEVEL_SCREEN_Y 12
 #define LEVEL_SCREEN_SIZE_X 160
 #define LEVEL_SCREEN_SIZE_Y 120
 
@@ -166,10 +166,11 @@
 
 enum Direction
 {
-	NORTH,
-	EAST,
-	SOUTH,
-	WEST
+	DIR_NONE,
+	DIR_NORTH,
+	DIR_EAST,
+	DIR_SOUTH,
+	DIR_WEST
 };
 
 //------------------------------------------------------------------

@@ -319,14 +319,14 @@ void sr_init_gfx(void)
 	Cls();
 
 	// Initialize drawing state and pages.
-	sr_set_drawing_state(READY);
+	sr_set_drawing_state(DS_READY);
 }
 
 bool sr_update_gfx(void)
 {
 	// Checking game is not drawing and VDP is not busy and vsync.
 	// https://www.msx.org/wiki/VDP_Status_Registers
-	if (sr_get_drawing_state() != END || sr_is_vdp_ready() == false || IsVsync() == 0)
+	if (sr_get_drawing_state() != DS_END || sr_is_vdp_ready() == false || IsVsync() == 0)
 	{
 		return (false);
 	}

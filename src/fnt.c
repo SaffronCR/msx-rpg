@@ -12,11 +12,14 @@
 
 #include "main.h"
 #include "gfx.h"
+#include "system.h"
 #include "fnt.h"
 
 //------------------------------------------------------------------
 // Defines.
 //------------------------------------------------------------------
+
+#define WHITE_COLOR 15
 
 // Font images offset.
 
@@ -172,6 +175,8 @@
 #define ASTERISK_Y	172
 #define EXCLA_X  	24
 #define EXCLA_Y  	172
+#define INTER_X  	16
+#define INTER_Y  	172
 #define PLUS_X		104
 #define PLUS_Y		172
 #define MINUS_X		112
@@ -286,6 +291,7 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 		case '@': sr_draw_char_src_to_dst(COPY_X,		COPY_Y, 	x, y, log_op); break;
 		case '*': sr_draw_char_src_to_dst(ASTERISK_X,	ASTERISK_Y,	x, y, log_op); break;
 		case '!': sr_draw_char_src_to_dst(EXCLA_X,		EXCLA_Y,	x, y, log_op); break;
+		case '?': sr_draw_char_src_to_dst(INTER_X,		INTER_Y,	x, y, log_op); break;
 		case '+': sr_draw_char_src_to_dst(PLUS_X,		PLUS_Y, 	x, y, log_op); break;
 		case '-': sr_draw_char_src_to_dst(MINUS_X,		MINUS_Y, 	x, y, log_op); break;
 		case '/': sr_draw_char_src_to_dst(SLASH_X,		SLASH_Y, 	x, y, log_op); break;
@@ -302,37 +308,38 @@ void sr_draw_char(uchar character, uint x, uint y, uchar log_op)
 	}
 }
 
-void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar border_color)
+void sr_draw_text(uchar *text, uint x, uint y, uchar text_color, uchar bg_color)
 {
 	uchar log_op = LOGICAL_IMP;
 
 	while (*text)
 	{
-		if (border_color != 0)
+		// Transparent background color.
+		if (bg_color == 0)
 		{
-			// Color border.
-			LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, border_color, LOGICAL_IMP);
-			sr_draw_char(*text, x, y, LOGICAL_TIMP);
-
-			// Only for color text.
-			if (text_color != 0)
+			// White is the default font color.
+			if (text_color == WHITE_COLOR)
 			{
-				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, 15 - text_color, LOGICAL_IMP);
-				sr_draw_char(*text, x, y, LOGICAL_XOR);
+				sr_draw_char(*text, x, y, LOGICAL_IMP);
+			}
+			else
+			{
+				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, text_color, LOGICAL_IMP);
 				sr_draw_char(*text, x, y, LOGICAL_AND);
 			}
 		}
 		else
 		{
-			// Transparent border.
-			sr_draw_char(*text, x, y, LOGICAL_IMP);
-
-			// Only for color text.
-			if (text_color != 0)
+			// White is the default font color.
+			if (text_color == WHITE_COLOR)
 			{
-				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, 15 - text_color, LOGICAL_IMP);
-				sr_draw_char(*text, x, y, LOGICAL_XOR);
-				sr_draw_char(*text, x, y, LOGICAL_AND);
+				LMMV(x, y + sr_get_active_page() * PAGE_HEIGHT, FONT_SIZE, FONT_SIZE, bg_color, LOGICAL_IMP);
+				sr_draw_char(*text, x, y, LOGICAL_TIMP);
+			}
+			else
+			{
+				// Not supported.
+				sr_error_handler(4, "Can't draw non white font color with background color");
 			}
 		}
 

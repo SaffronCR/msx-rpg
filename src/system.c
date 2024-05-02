@@ -11,6 +11,13 @@
 #include "system.h"
 
 //------------------------------------------------------------------
+// Defines.
+//------------------------------------------------------------------
+
+#define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+
+//------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
@@ -23,20 +30,24 @@ void sr_error_handler(uchar n, uchar *name)
 
 	switch (n)
 	{
-	case 1:
-		printf("\n\rFAILED: fcb_open(): %s ", name);
-		break;
+		case 1:
+			printf("\n\rFAILED: fcb_open(): %s ", name);
+			break;
 
-	case 2:
-		printf("\n\rFAILED: fcb_close(): %s", name);
-		break;
+		case 2:
+			printf("\n\rFAILED: fcb_close(): %s", name);
+			break;
 
-	case 3:
-		printf("\n\rSORRY: this game does not work on %s", name);
-		break;
+		case 3:
+			printf("\n\rSORRY: This game does not work on %s", name);
+			break;
+
+		case 4:
+			printf("\n\rNOT SUPPORTED: %s", name);
+			break;
 	}
 
-	Exit(0);
+	Exit(EXIT_FAILURE);
 }
 
 // Set the name of a file to load (MSX DOS).

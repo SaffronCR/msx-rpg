@@ -26,9 +26,9 @@
 
 enum DrawingState
 {
-	READY,
-	BEGIN,
-	END
+	DS_READY,
+	DS_BEGIN,
+	DS_END
 };
 
 enum ScreenHeight

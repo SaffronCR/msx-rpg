@@ -13,12 +13,12 @@
 
 enum GameState
 {
-	NONE,
-	START_SCREEN,
-	CHARACTER_CREATION,
-	INTRO,
-	IN_GAME,
-	ENCOUNTER
+	GS_NONE,
+	GS_START_SCREEN,
+	GS_CHARACTER_CREATION,
+	GS_INTRO,
+	GS_IN_GAME,
+	GS_ENCOUNTER
 };
 
 //------------------------------------------------------------------
