@@ -26,19 +26,23 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
   ![image](https://github.com/SaffronCR/msx-rpg/assets/11486276/fceecb6d-51a5-4e12-85c6-8b5e01a89d96)
 
 **Things done:**
-* Dungeon rendering/movement.
-* Dungeon generation.
+* Dungeon rendering and movement.
+* Dungeon random generation.
 * Bitmap font rendering with color support.
 * Music support.
 * Sound effects.
-* Intro screen (needs rework).
 * Start screen.
+* Menu navegation system.
 * Minimap (Debug mode).
 * Show current palette (Debug mode).
+* Character sheet.
+* Weapon and Armor sheet.
+* Pseudorandom number generator using a xoroshiro32++ algorithm.
+* Input wrapper.
 
 **To-Do List:**
-* Menu navegation.
 * Character creation.
+* Character status screen.
 * Hub City.
 * Dungeon progression.
 * Enemies/Combat.
@@ -46,6 +50,7 @@ It's being created in GRAPHIC 4, SCREEN 5 mode (resolution: 256 x 212 pixels, 16
 * Gadgets/Streams.
 * Save/Load game.
 * Game Over screen.
+* Intro.
 
 ## How To Compile
 
