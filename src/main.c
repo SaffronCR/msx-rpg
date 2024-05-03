@@ -141,8 +141,8 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	//sr_set_game_state(GS_START_SCREEN);
-	sr_set_game_state(GS_IN_GAME);
+	sr_set_game_state(GS_START_SCREEN);
+	//sr_set_game_state(GS_IN_GAME);
 
 	for (;;)
 	{

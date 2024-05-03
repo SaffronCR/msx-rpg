@@ -12,13 +12,14 @@
 #include "fnt.h"
 #include "gfx.h"
 #include "menu.h"
+#include "input.h"
 #include "startscr.h"
 
 //------------------------------------------------------------------
 // Menu config.
 //------------------------------------------------------------------
 
-const struct OptionMenu menu[] = 
+const struct OptionMenu menu[] =
 {
 	{"Load Game", sr_load_game},
 	{"New Game", sr_new_game}
@@ -72,7 +73,7 @@ void sr_open_main_menu(void)
 {
 	is_menu_opened = true;
 	Cls();
-	sr_set_current_menu(menu, 0, 
+	sr_set_current_menu(menu, 0,
 		sizeof(menu) / sizeof(menu[0]),
 		10, 12);
 }
@@ -91,11 +92,11 @@ void sr_update_startscr_state(void)
 	}
 	else
 	{
-		if (TriggerRead(JOY1_BUTTONA) == PRESSED || TriggerRead(SPACEBAR) == PRESSED)
+		if (sr_input_read_accept() == true)
 		{
 			sr_open_main_menu();
 		}
-	}		
+	}
 }
 
 void sr_finished_startscr_drawing(void)

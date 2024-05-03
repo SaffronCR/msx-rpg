@@ -11,6 +11,7 @@
 #include "main.h"
 #include "gfx.h"
 #include "fnt.h"
+#include "input.h"
 #include "menu.h"
 
 //------------------------------------------------------------------
@@ -68,33 +69,30 @@ bool sr_update_current_menu(void)
 {
 	bool menu_option_changed = false;
 
-	for (uchar i = 0; i < 2; i++)
+	switch (sr_input_read_dpad())
 	{
-		switch (JoystickRead(i))
-		{
-			case UP: 
-				if (current_menu_option > 0)
-				{
-					current_menu_option--;
-					menu_option_changed = true;
-				}
-				break;
+		case DPAD_UP:
+			if (current_menu_option > 0)
+			{
+				current_menu_option--;
+				menu_option_changed = true;
+			}
+			break;
 
-			case DOWN:
-				if (current_menu_option < current_num_options - 1)
-				{
-					current_menu_option++;
-					menu_option_changed = true;	
-				}
-				break;
-		}
+		case DPAD_DOWN:
+			if (current_menu_option < current_num_options - 1)
+			{
+				current_menu_option++;
+				menu_option_changed = true;
+			}
+			break;
 	}
-	
-	if (TriggerRead(JOY1_BUTTONA) == PRESSED || TriggerRead(SPACEBAR) == PRESSED)
+
+	if (sr_input_read_accept() == true)
 	{
-		current_menu[current_menu_option].function();		
+		current_menu[current_menu_option].function();
 	}
-	else if (TriggerRead(JOY1_BUTTONB) == PRESSED  ||  GetKeyMatrix(6) == 0b11111011) // GRAPH key.
+	else if (sr_input_read_cancel() == true)
 	{
 		return true;
 	}

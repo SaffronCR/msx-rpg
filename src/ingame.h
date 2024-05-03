@@ -166,11 +166,11 @@
 
 enum Direction
 {
-	DIR_NONE,
 	DIR_NORTH,
 	DIR_EAST,
 	DIR_SOUTH,
-	DIR_WEST
+	DIR_WEST,
+	DIR_NONE,
 };
 
 //------------------------------------------------------------------

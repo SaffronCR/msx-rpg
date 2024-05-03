@@ -12,6 +12,7 @@
 #include "gfx.h"
 #include "snd.h"
 #include "encounter.h"
+#include "input.h"
 #include "ingame.h"
 
 //------------------------------------------------------------------
@@ -779,38 +780,35 @@ void sr_rotate_right(void)
 void sr_update_input_level_mode(void)
 {
 	// Movement.
-	for (uchar i = 0; i < 2; i++)
+	switch (sr_input_read_dpad())
 	{
-		switch (JoystickRead(i))
-		{
-			case UP:
-				sr_move(player_pos_x + dir_translate_x[player_dir],
-						player_pos_y + dir_translate_y[player_dir]);
-				break;
+		case DPAD_UP:
+			sr_move(player_pos_x + dir_translate_x[player_dir],
+					player_pos_y + dir_translate_y[player_dir]);
+			break;
 
-			case DOWN:
-				sr_move(player_pos_x - dir_translate_x[player_dir],
-						player_pos_y - dir_translate_y[player_dir]);
-				break;
+		case DPAD_DOWN:
+			sr_move(player_pos_x - dir_translate_x[player_dir],
+					player_pos_y - dir_translate_y[player_dir]);
+			break;
 
-			case LEFT:
-				sr_rotate_left();
-				break;
+		case DPAD_LEFT:
+			sr_rotate_left();
+			break;
 
-			case RIGHT:
-				sr_rotate_right();
-				break;
-		}
+		case DPAD_RIGHT:
+			sr_rotate_right();
+			break;
 	}
 
-	// // Actions.
-	// if (TriggerRead(JOY1_BUTTONB) == PRESSED || TriggerRead(SPACEBAR) == PRESSED )
-	// {
-	// 	if (sr_is_generating_dungeon_level() == false)
-	// 	{
-	// 		sr_generate_dungeon_level();
-	// 	}
-	// }
+	// Actions.
+	if (sr_debug_input_read_regen_dungeon() == true)
+	{
+		if (sr_is_generating_dungeon_level() == false)
+		{
+			sr_generate_dungeon_level();
+		}
+	}
 }
 
 void sr_set_ingame_state(void)
