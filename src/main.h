@@ -26,6 +26,6 @@ enum GameState
 //------------------------------------------------------------------
 
 void sr_set_display_loading(void);
-void sr_set_game_state(uchar new_state);
+void sr_set_game_state(enum GameState new_state);
 
 #endif

@@ -42,7 +42,7 @@ void sr_set_display_loading(void)
 	sr_set_display_page(0);
 }
 
-void sr_set_game_state(uchar new_state)
+void sr_set_game_state(enum GameState new_state)
 {
 	game_state = new_state;
 
@@ -106,6 +106,7 @@ static uchar sr_interrupt(void)
 void main(void)
 {
 	// Init variables.
+	game_state = GS_NONE;
 	update_frame_count = 0;
 
 	// If MSX is Turbo-R Switch CPU to Z80 Mode.
