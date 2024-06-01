@@ -12,26 +12,25 @@
 // Defines.
 //------------------------------------------------------------------
 
-#define MAX_PARTY_SIZE 4
+#define MAX_STREAMS 5
 
 //------------------------------------------------------------------
-// Structs.
+// Typedefs.
 //------------------------------------------------------------------
 
-struct GameState
+typedef struct
 {
-    CharacterSheet party[MAX_PARTY_SIZE];
-
-	long int credits;
-
-	// #TODO: Keep track of the position in the game world.
-};
+	uchar *name;
+	void (*effect)(CharacterSheet *streamer, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+	uchar cooldown;
+	uchar current_cooldown;
+} Stream;
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
-
-// bool sr_save_game_state(uchar *file_name, const struct GameState *state);
-// bool sr_load_game_state(uchar *file_name, struct GameState *state);
+void sr_boost_signal(CharacterSheet *streamer, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+void sr_distract_signal(CharacterSheet *streamer, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+void sr_init_streams();
 
 #endif

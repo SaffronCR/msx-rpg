@@ -46,12 +46,20 @@ void sr_set_game_state(enum GameState new_state)
 {
 	game_state = new_state;
 
-	switch(game_state)
+	switch (game_state)
 	{
-		case GS_START_SCREEN:			sr_set_startscr_state();		break;
-		case GS_CHARACTER_CREATION:		sr_set_charcreation_state();	break;
-		case GS_INTRO:					sr_set_intro_state();			break;
-		case GS_IN_GAME:				sr_set_ingame_state();			break;
+	case GS_START_SCREEN:
+		sr_set_startscr_state();
+		break;
+	case GS_CHARACTER_CREATION:
+		sr_set_charcreation_state();
+		break;
+	case GS_INTRO:
+		sr_set_intro_state();
+		break;
+	case GS_IN_GAME:
+		sr_set_ingame_state();
+		break;
 	}
 }
 
@@ -62,10 +70,18 @@ void sr_update_game_state(void)
 	{
 		switch (game_state)
 		{
-			case GS_START_SCREEN:			sr_update_startscr_state();		break;
-			case GS_CHARACTER_CREATION:		sr_update_charcreation_state();	break;
-			case GS_INTRO:					sr_update_intro_state();		break;
-			case GS_IN_GAME:				sr_update_ingame_state();		break;
+		case GS_START_SCREEN:
+			sr_update_startscr_state();
+			break;
+		case GS_CHARACTER_CREATION:
+			sr_update_charcreation_state();
+			break;
+		case GS_INTRO:
+			sr_update_intro_state();
+			break;
+		case GS_IN_GAME:
+			sr_update_ingame_state();
+			break;
 		}
 	}
 }
@@ -94,9 +110,15 @@ static uchar sr_interrupt(void)
 
 		switch (game_state)
 		{
-			case GS_START_SCREEN:	sr_finished_startscr_drawing();	break;
-			case GS_INTRO:			sr_finished_intro_drawing();	break;
-			case GS_IN_GAME:		sr_finished_ingame_drawing();	break;
+		case GS_START_SCREEN:
+			sr_finished_startscr_drawing();
+			break;
+		case GS_INTRO:
+			sr_finished_intro_drawing();
+			break;
+		case GS_IN_GAME:
+			sr_finished_ingame_drawing();
+			break;
 		}
 	}
 
@@ -143,7 +165,7 @@ void main(void)
 
 	// Set initial game state.
 	sr_set_game_state(GS_START_SCREEN);
-	//sr_set_game_state(GS_IN_GAME);
+	// sr_set_game_state(GS_IN_GAME);
 
 	for (;;)
 	{

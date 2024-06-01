@@ -8,20 +8,20 @@
 #include "main.h"
 
 //------------------------------------------------------------------
-// Structs.
+// Typedefs.
 //------------------------------------------------------------------
 
-struct OptionMenu
+typedef struct
 {
 	uchar text[20];
 	void (*function)();
-};
+}  OptionMenu;
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
 
-void sr_set_current_menu(struct OptionMenu *menu, uchar menu_option, uchar num_options, uchar x, uchar y);
+void sr_set_current_menu(OptionMenu *menu, uchar menu_option, uchar num_options, uchar x, uchar y);
 bool sr_update_current_menu(void);
 
 #endif

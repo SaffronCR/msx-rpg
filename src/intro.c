@@ -8,7 +8,6 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "main.h"
 #include "fnt.h"
 #include "gfx.h"
 #include "intro.h"

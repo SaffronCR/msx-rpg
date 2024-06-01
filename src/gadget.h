@@ -5,33 +5,31 @@
 #ifndef SAVESTATE_H
 #define SAVESTATE_H
 
-#include "character.h"
 #include "main.h"
+#include "character.h"
 
 //------------------------------------------------------------------
 // Defines.
 //------------------------------------------------------------------
 
-#define MAX_PARTY_SIZE 4
+#define MAX_GADGETS 5
 
 //------------------------------------------------------------------
-// Structs.
+// Typedefs.
 //------------------------------------------------------------------
 
-struct GameState
+typedef struct
 {
-    CharacterSheet party[MAX_PARTY_SIZE];
-
-	long int credits;
-
-	// #TODO: Keep track of the position in the game world.
-};
+	uchar *name;
+	void (*effect)(CharacterSheet *user, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+	uchar uses;
+} Gadget;
 
 //------------------------------------------------------------------
 // Prototypes.
 //------------------------------------------------------------------
-
-// bool sr_save_game_state(uchar *file_name, const struct GameState *state);
-// bool sr_load_game_state(uchar *file_name, struct GameState *state);
+void sr_heal_gadget(CharacterSheet *user, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+void sr_damage_gadget(CharacterSheet *user, CharacterSheet party[], uchar party_size, CreatureSheet enemies[], uchar enemy_count);
+void sr_init_gadgets();
 
 #endif

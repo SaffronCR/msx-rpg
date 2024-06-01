@@ -8,7 +8,6 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "main.h"
 #include "system.h"
 #include "savestate.h"
 

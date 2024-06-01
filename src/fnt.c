@@ -10,7 +10,6 @@
 #include "fusion-c/header/vdp_sprites.h"
 #include "fusion-c/header/vdp_graph2.h"
 
-#include "main.h"
 #include "gfx.h"
 #include "system.h"
 #include "fnt.h"

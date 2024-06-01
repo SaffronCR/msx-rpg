@@ -8,7 +8,6 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "main.h"
 #include "fnt.h"
 #include "gfx.h"
 #include "ingame.h" // #WIP needed for draw portraits defines

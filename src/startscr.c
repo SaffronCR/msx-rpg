@@ -8,7 +8,6 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "main.h"
 #include "fnt.h"
 #include "gfx.h"
 #include "menu.h"
@@ -19,7 +18,7 @@
 // Menu config.
 //------------------------------------------------------------------
 
-const struct OptionMenu menu[] =
+const OptionMenu menu[] =
 {
 	{"Load Game", sr_load_game},
 	{"New Game", sr_new_game}

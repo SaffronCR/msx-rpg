@@ -8,7 +8,6 @@
 
 #include "fusion-c/header/msx_fusion.h"
 
-#include "main.h"
 #include "gfx.h"
 #include "fnt.h"
 #include "input.h"
@@ -27,7 +26,7 @@
 //------------------------------------------------------------------
 
 uchar current_menu_option;
-struct OptionMenu *current_menu;
+OptionMenu *current_menu;
 
 uchar current_num_options;
 
@@ -54,7 +53,7 @@ void sr_draw_current_menu(void)
 	}
 }
 
-void sr_set_current_menu(struct OptionMenu *menu, uchar menu_option, uchar num_options, uchar x, uchar y)
+void sr_set_current_menu(OptionMenu *menu, uchar menu_option, uchar num_options, uchar x, uchar y)
 {
 	current_menu = menu;
 	current_menu_option = menu_option;

@@ -49,18 +49,18 @@ enum DamageRoll
 
 enum DamageType
 {
-    DT_KINETIC = 1 << 0,
-    DT_ENERGY  = 1 << 1
+	DT_KINETIC = 1 << 0,
+	DT_ENERGY = 1 << 1
 };
 
 enum DamageResistance
 {
-	DR_NONE,		// Takes regular damage.
-	DR_WEAK,		// Takes max damage.
-	DR_STRONG,		// Takes minimum damage, at least 1.
-	DR_IMMUNE,		// Zero damage.
-	DR_REFLECT,		// Reflects the damage to the attacker.
-	DR_DRAIN		// Healed by the attack.
+	DR_NONE,	// Takes regular damage.
+	DR_WEAK,	// Takes max damage.
+	DR_STRONG,	// Takes minimum damage, at least 1.
+	DR_IMMUNE,	// Zero damage.
+	DR_REFLECT, // Reflects the damage to the attacker.
+	DR_DRAIN	// Healed by the attack.
 };
 
 enum MeleeWeaponId
@@ -110,10 +110,10 @@ enum ArmorId
 };
 
 //------------------------------------------------------------------
-// Structs.
+// Typedefs.
 //------------------------------------------------------------------
 
-struct BaseSheet
+typedef struct
 {
 	uchar name[10];
 	uchar level;
@@ -125,11 +125,11 @@ struct BaseSheet
 
 	uint max_hp;
 	uint current_hp;
-};
+} BaseSheet;
 
-struct CharacterSheet
+typedef struct
 {
-	struct BaseSheet base_stats;
+	BaseSheet base_stats;
 
 	enum Race race;
 	enum Job job;
@@ -139,11 +139,11 @@ struct CharacterSheet
 	enum MeleeWeaponId equipped_melee_weapon;
 	enum RangedWeaponId equipped_ranged_weapon;
 	enum ArmorId equipped_armor;
-};
+} CharacterSheet;
 
-struct CreatureSheet
+typedef struct
 {
-	struct BaseSheet base_stats;
+	BaseSheet base_stats;
 
 	enum DamageResistance kinetic_resistance;
 	enum DamageResistance energy_resistance;
@@ -152,9 +152,9 @@ struct CreatureSheet
 	enum DamageType damage_type;
 
 	uchar defense;
-};
+} CreatureSheet;
 
-struct Weapon
+typedef struct
 {
 	uchar name[10];
 	uint price;
@@ -165,9 +165,9 @@ struct Weapon
 
 	enum DamageRoll damage_roll;
 	enum DamageType damage_type;
-};
+} Weapon;
 
-struct Armor
+typedef struct
 {
 	uchar name[10];
 	uint price;
@@ -180,7 +180,7 @@ struct Armor
 
 	uchar dexterity_penalty;
 	uchar defense_bonus;
-};
+} Armor;
 
 //------------------------------------------------------------------
 // Prototypes.
@@ -189,7 +189,7 @@ struct Armor
 void sr_add_damage_type(uchar *mask, enum DamageType type);
 int sr_has_damage_type(uchar mask, enum DamageType type);
 
-void sr_debug_create_default_character(struct CharacterSheet *character);
-void sr_debug_create_default_creature(struct CreatureSheet *creature);
+void sr_debug_create_default_character(CharacterSheet *character);
+void sr_debug_create_default_creature(CreatureSheet *creature);
 
 #endif

@@ -10,7 +10,6 @@
 #include "fusion-c/header/ayfx_player.h"
 #include "fusion-c/header/pt3replayer.h"
 
-#include "main.h"
 #include "snd.h"
 
 //------------------------------------------------------------------
