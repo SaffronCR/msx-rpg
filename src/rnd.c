@@ -13,20 +13,28 @@ uint b = 5;
 uint c = 10;
 uint d = 9;
 
-uint s0 = 1;
-uint s1 = 0;
+uint s0 = 1; // Must use 16-bit variable.
+uint s1 = 0; // Must use 16-bit variable.
 
 //------------------------------------------------------------------
 // Functions.
 //------------------------------------------------------------------
 
-uint sr_rol(uint x, uint k)
+// Initializes the seed.
+void sr_init_seed(uint seed)
 {
-	return (x << k) | (x >> ((sizeof(x) * 8) - k));
+	s0 = seed;
+	s1 = ~seed;
 }
 
-// Pseudorandom number generator using a xoroshiro32++ algorithm.
-uint sr_xoroshiro32(void)
+// Rotate left by 'k' bits within 16 bits.
+uint sr_rol(uint x, uint k)
+{
+	return (x << k) | (x >> (16 - k));
+}
+
+// Pseudorandom number generator using a xoroshiro16++ algorithm.
+uint sr_xoroshiro16(void)
 {
 	uint result = sr_rol(s0 + s1, d) + s0;
 
@@ -40,11 +48,11 @@ uint sr_xoroshiro32(void)
 // Returns a pseudorandom number within min and max (inclusive).
 uint sr_random_range(uint min, uint max)
 {
-	return (sr_xoroshiro32() % (max + 1 - min) + min);
+	return (sr_xoroshiro16() % (max + 1 - min) + min);
 }
 
-// Returns the result of rolling a [sides] die.
+// Returns the result of rolling a [sides] die (1 to [sides]).
 uint sr_random_die(uint sides)
 {
-	return (sr_xoroshiro32() % (sides + 1));
+	return (sr_xoroshiro16() % sides) + 1;
 }
