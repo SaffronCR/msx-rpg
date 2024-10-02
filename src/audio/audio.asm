@@ -10,17 +10,6 @@ _sr_init_dungeon_song::
 	ret
 
 ;;
-;; sr_init_battle_song function
-;; input: nothing
-;; output: nothing
-;;
-_sr_init_battle_song::
-	ld hl,#BATTLE_START
-    xor a
-    call PLY_AKG_INIT
-	ret
-
-;;
 ;; sr_play_song function
 ;; input: nothing
 ;; output: nothing

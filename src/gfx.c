@@ -309,7 +309,7 @@ void sr_init_gfx(void)
 	sr_init_palette();
 
 	// Set loading.
-	sr_set_display_loading();
+	sr_reset_display();
 
 	// Load images (need to load this here for the font images).
 	sr_load_sf5_image("P2.SF5", PAGE_HEIGHT * IMAGES_PAGE);

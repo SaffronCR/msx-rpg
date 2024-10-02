@@ -36,11 +36,11 @@ bool is_menu_opened;
 
 void sr_draw_startscr_intro_text(void)
 {
-	// Set loading.
-	sr_set_display_loading();
+	// Reset display.
+	sr_reset_display();
 
 	// Load the title screen.
-	sr_load_sf5_image("STRTSCR.SF5", PAGE_HEIGHT * TITLE_PAGE);
+	sr_load_sf5_image("P0.SF5", PAGE_HEIGHT * TITLE_PAGE);
 
 	// Set active page.
 	sr_set_active_page(TITLE_PAGE);
@@ -56,6 +56,9 @@ void sr_draw_startscr_intro_text(void)
 
 	// Finish drawing.
 	sr_set_drawing_state(DS_END);
+
+	// Set display page.
+	sr_set_display_page(TITLE_PAGE);
 }
 
 void sr_load_game(void)

@@ -825,7 +825,7 @@ void sr_set_ingame_state(void)
 	compass_dir = DIR_NONE;
 
 	// Set loading.
-	sr_set_display_loading();
+	sr_reset_display();
 
 	// Load images.
 	sr_load_sf5_image("P1.SF5", PAGE_HEIGHT * BACKBUFFER_PAGE);
