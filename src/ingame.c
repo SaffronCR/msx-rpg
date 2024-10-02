@@ -13,6 +13,7 @@
 #include "snd.h"
 #include "encounter.h"
 #include "input.h"
+#include "system.h"
 #include "ingame.h"
 
 //------------------------------------------------------------------
@@ -812,6 +813,8 @@ void sr_update_input_level_mode(void)
 
 void sr_set_ingame_state(void)
 {
+	sr_set_loading(true);
+
 	// Initialize variables.
 	player_moved = false;
 	player_turned = false;
@@ -850,8 +853,10 @@ void sr_set_ingame_state(void)
 	sr_draw_level_screen();
 	sr_draw_portraits();
 
+	sr_set_loading(false);
+
 	// Play music.
-	sr_play_dungeon_exploration_music();
+	sr_play_exploration_music();
 }
 
 void sr_update_ingame_state(void)

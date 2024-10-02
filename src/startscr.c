@@ -12,6 +12,8 @@
 #include "gfx.h"
 #include "menu.h"
 #include "input.h"
+#include "snd.h"
+#include "system.h"
 #include "startscr.h"
 
 //------------------------------------------------------------------
@@ -34,8 +36,10 @@ bool is_menu_opened;
 // Functions.
 //------------------------------------------------------------------
 
-void sr_draw_startscr_intro_text(void)
+void sr_draw_start_screen(void)
 {
+	sr_set_loading(true);
+
 	// Reset display.
 	sr_reset_display();
 
@@ -56,6 +60,8 @@ void sr_draw_startscr_intro_text(void)
 
 	// Finish drawing.
 	sr_set_drawing_state(DS_END);
+
+	sr_set_loading(false);
 }
 
 void sr_load_game(void)
@@ -80,8 +86,14 @@ void sr_open_main_menu(void)
 
 void sr_set_startscr_state(void)
 {
+	// Reset main menu state.
 	is_menu_opened = false;
-	sr_draw_startscr_intro_text();
+
+	// Draw start screen.
+	sr_draw_start_screen();
+
+	// Play music.
+	sr_play_exploration_music();
 }
 
 void sr_update_startscr_state(void)
@@ -94,6 +106,8 @@ void sr_update_startscr_state(void)
 	{
 		if (sr_input_read_accept() == true)
 		{
+			sr_stop_music();
+
 			sr_open_main_menu();
 		}
 	}

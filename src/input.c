@@ -27,7 +27,7 @@ void sr_init_input(void)
 
 enum Dpad sr_input_read_dpad_continuous(void)
 {
-	for (uchar i = 0; i < 2; i++)
+	for (uchar i = 0; i < 1; i++)
 	{
 		switch (JoystickRead(i))
 		{
@@ -47,7 +47,7 @@ enum Dpad sr_input_read_dpad_first_press(void)
 	static enum Dpad last_dpad = DPAD_NONE;
 	enum Dpad current_dpad = DPAD_NONE;
 
-	for (uchar i = 0; i < 2; i++)
+	for (uchar i = 0; i < 1; i++)
 	{
 		switch (JoystickRead(i))
 		{

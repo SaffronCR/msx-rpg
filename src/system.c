@@ -101,3 +101,15 @@ void sr_wait(uint cicles)
 		__asm halt __endasm;
 	}
 }
+
+bool loading;
+
+void sr_set_loading(bool state)
+{
+	loading = state;
+}
+
+bool sr_is_loading(void)
+{
+	return loading;
+}

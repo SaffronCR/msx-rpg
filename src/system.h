@@ -14,5 +14,7 @@
 void sr_error_handler(uchar n, uchar *name);
 void sr_set_name(FCB *p_fcb, const uchar *p_name);
 void sr_wait(uint cicles);
+void sr_set_loading(bool state);
+bool sr_is_loading(void);
 
 #endif
