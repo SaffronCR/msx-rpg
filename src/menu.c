@@ -68,7 +68,7 @@ bool sr_update_current_menu(void)
 {
 	bool menu_option_changed = false;
 
-	switch (sr_input_read_dpad())
+	switch (sr_input_read_dpad_first_press())
 	{
 		case DPAD_UP:
 			if (current_menu_option > 0)

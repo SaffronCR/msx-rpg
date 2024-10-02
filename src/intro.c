@@ -71,13 +71,12 @@ void sr_draw_intro_text(void)
 
 void sr_set_intro_state(void)
 {
-	// #TODO: Needs to be updated to new drawing system and actually do something.
 	//sr_draw_intro_text();
 }
 
 void sr_update_intro_state(void)
 {
-	// #TODO: Needs to be updated to new drawing system and actually do something.
+	// #TODO: Needs to actually do something.
 }
 
 void sr_finished_intro_drawing(void)

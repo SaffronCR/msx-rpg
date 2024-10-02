@@ -776,11 +776,10 @@ void sr_rotate_right(void)
 	player_turned = true;
 }
 
-// Reads input from keyboard's arrow keys and joystick port 1.
 void sr_update_input_level_mode(void)
 {
 	// Movement.
-	switch (sr_input_read_dpad())
+	switch (sr_input_read_dpad_continuous())
 	{
 		case DPAD_UP:
 			sr_move(player_pos_x + dir_translate_x[player_dir],

@@ -39,11 +39,11 @@ void sr_draw_startscr_intro_text(void)
 	// Reset display.
 	sr_reset_display();
 
-	// Load the title screen.
-	sr_load_sf5_image("P0.SF5", PAGE_HEIGHT * TITLE_PAGE);
-
 	// Set active page.
 	sr_set_active_page(TITLE_PAGE);
+
+	// Load the title screen.
+	sr_load_sf5_image("P0.SF5", PAGE_HEIGHT * TITLE_PAGE);
 
 	// Begin drawing.
 	sr_set_drawing_state(DS_BEGIN);
@@ -56,19 +56,17 @@ void sr_draw_startscr_intro_text(void)
 
 	// Finish drawing.
 	sr_set_drawing_state(DS_END);
-
-	// Set display page.
-	sr_set_display_page(TITLE_PAGE);
 }
 
 void sr_load_game(void)
 {
-
+	//#TODO: This should actually load a game, for now use it to go directly to ingame.
+	sr_set_game_state(GS_IN_GAME);
 }
 
 void sr_new_game(void)
 {
-	sr_set_game_state(GS_IN_GAME);
+	sr_set_game_state(GS_INTRO);
 }
 
 void sr_open_main_menu(void)

@@ -24,7 +24,9 @@ enum Dpad
 // Prototypes.
 //------------------------------------------------------------------
 
-enum Dpad sr_input_read_dpad(void);
+void sr_init_input(void);
+enum Dpad sr_input_read_dpad_continuous(void);
+enum Dpad sr_input_read_dpad_first_press(void);
 bool sr_input_read_accept(void);
 bool sr_input_read_cancel(void);
 

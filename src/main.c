@@ -12,6 +12,7 @@
 #include "encounter.h"
 #include "fnt.h"
 #include "gfx.h"
+#include "input.h"
 #include "ingame.h"
 #include "intro.h"
 #include "menu.h"
@@ -158,6 +159,9 @@ void main(void)
 
 	// Set gfx configuration.
 	sr_init_gfx();
+
+	// init input.
+	sr_init_input();
 
 	// Set interrupt.
 	InitInterruptHandler();
