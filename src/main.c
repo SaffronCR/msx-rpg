@@ -40,6 +40,7 @@ void sr_reset_display(void)
 	sr_set_active_page(0);
 	SetColors(0, 14, 0);
 	Cls();
+	sr_draw_text("Loading...", 8, 8, 15, 0);
 	sr_set_display_page(0);
 }
 
@@ -69,6 +70,8 @@ void sr_update_game_state(void)
 	// Player input must wait until the next frame is ready.
 	if (sr_get_drawing_state() == DS_READY)
 	{
+		sr_update_input();
+
 		switch (game_state)
 		{
 		case GS_START_SCREEN:

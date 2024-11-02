@@ -851,7 +851,7 @@ void sr_set_ingame_state(void)
 	sr_draw_portraits();
 
 	// Play music.
-	sr_play_dungeon_exploration_music();
+	//sr_play_dungeon_exploration_music();
 }
 
 void sr_update_ingame_state(void)

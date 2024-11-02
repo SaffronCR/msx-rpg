@@ -41,6 +41,9 @@ enum ScreenHeight
 // Prototypes.
 //------------------------------------------------------------------
 
+void sr_init_gfx(void);
+bool sr_update_gfx(void);
+
 void sr_set_active_page(uchar page);
 uint sr_get_active_page(void);
 void sr_set_display_page(uchar page);
@@ -60,8 +63,6 @@ void sr_set_drawing_state(uchar new_state);
 uchar sr_get_drawing_state(void);
 void sr_set_screen_height(uchar height);
 bool sr_is_vdp_ready(void);
-void sr_init_gfx(void);
-bool sr_update_gfx(void);
 
 // Debug.
 
