@@ -11,7 +11,7 @@
 // Prototypes.
 //------------------------------------------------------------------
 
-uint sr_xoroshiro32(void);
+void sr_init_seed(uint seed);
 uint sr_random_range(uint min, uint max);
 uint sr_random_die(uint sides);
 
