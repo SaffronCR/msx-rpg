@@ -40,7 +40,6 @@ void sr_reset_display(void)
 	sr_set_active_page(0);
 	SetColors(0, 14, 0);
 	Cls();
-	sr_draw_text("Loading...", 8, 8, 15, 0);
 	sr_set_display_page(0);
 }
 
@@ -171,8 +170,8 @@ void main(void)
 	SetInterruptHandler(sr_interrupt);
 
 	// Set initial game state.
-	sr_set_game_state(GS_START_SCREEN);
-	//sr_set_game_state(GS_IN_GAME);
+	//sr_set_game_state(GS_START_SCREEN);
+	sr_set_game_state(GS_IN_GAME);
 
 	for (;;)
 	{

@@ -43,7 +43,7 @@ void sr_update_input(void)
 	a_button_state = TriggerRead(JOY1_BUTTONA);
 	b_button_state = TriggerRead(JOY1_BUTTONB);
 	space_key_state = TriggerRead(SPACEBAR);
-	key_matrix_state = GetKeyMatrix(4);
+	//key_matrix_state = GetKeyMatrix(4); // this call is to slow, check for alternatives.
 }
 
 enum Dpad sr_get_dpad_state(void)
