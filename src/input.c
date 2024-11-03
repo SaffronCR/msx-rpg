@@ -72,7 +72,7 @@ uchar sr_get_key_matrix_state(void)
 }
 
 enum Dpad sr_input_read_dpad_continuous(void)
-{¡
+{
 	switch (sr_get_dpad_state())
 	{
 		case UP:	return DPAD_UP;		break;
