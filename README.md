@@ -87,6 +87,8 @@ The game code is licensed under a BSD-3-Clause License.
 
 The game art (graphics, fonts, music and sound) is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
+No permission is granted to submit, link, upload, disclose, provide, or otherwise make the game code or art available to any artificial-intelligence, machine-learning, large-language-model, or any similar system for training, analysis, adaptation, modification, generation, debugging, explanation, or any other purpose, regardless of whether that system retains, learns from, or is trained on the code or art.
+
 ## Third party resources:
 **Fusion-C Library 1.2**
 *- Author: Eric Boez & Fernando Garcia*
